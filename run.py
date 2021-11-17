@@ -13,6 +13,6 @@ if __name__ != '__main__':
     sys_error = stderr
     stderr = __logger
 
-    #Run run.py From Terminal With Subprocess
-    tracker = Popen(["python","run.py",str(process_id)])
+    #Run main.py From Terminal With Subprocess
+    tracker = Popen(["python","main.py",str(process_id)])
 

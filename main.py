@@ -1,25 +1,30 @@
 import sys
 from psutil import Process,NoSuchProcess
+import argparse
 
+parser = argparse.ArgumentParser (prog='deBuggy',description='Used For Error Parsing')
 
-
+parser.add_argument()
+parser.add_argument('--pid', help='Process id of Current Running Python Process')
+parser.add_argument('--foo', help='foo of the %(prog)s program')
 class Debuggy():
   def __init__(self):
-    self.process_id = int(sys.argv[1])
-    self.process = None
+    self.ProccessId = int(sys.argv[1])
+    self.ProcessState = None
+    self.ErrorMessage = None
 
 
-  def monitor_process(self):
+  def MonitorProcess(self):
     try:
-      self.process = 'alive'
-      while self.process is 'alive':
-          track_process = Process(self.process_id)
+      self.ProcessState = 'alive'
+      while self.ProcessState is 'alive':
+          TrackProcess = True if Process(self.ProccessId) else False
     
-    except NoSuchProcess:
-          self.process = 'dead'
+    except NoSuchProcess as e:
+          self.ProcessState = 'dead'
           with open('log','r') as log:
-              error = log.read()
-              print(error) 
+              self.ErrorMessage= log.read()
+              print(self.ErrorMessage) 
 
 # syntax_error= """\nForgetting to put a : at the end of an if, elif, else, for, while, class, or def statement. (Causes “SyntaxError: invalid syntax”)
 # \nThis error happens with code like this:
@@ -39,3 +44,4 @@ class Debuggy():
 # k  = sys.path
 # p = sys.platform
 # error = None
+
