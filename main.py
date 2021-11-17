@@ -1,28 +1,41 @@
 import sys
-import subprocess
-import psutil
-import os
-import logging
-#os.getppid()
-
-#os.getcwd()
-
-class Debuggy:
-
-    def __init__(self):
-        self.running = None
-        self.pid = os.getpid()
-        self.process = psutil.Process(self.pid)
-
-    def check_runtime(self):
-        self.runtime_status = self.process.status()
-
-
-    def __main__(self):
-        self.check_runtime()
-        if self.runtime_status == 'stopped':
-            logging.info('Service Stopped')
+from psutil import Process,NoSuchProcess
 
 
 
+class Debuggy():
+  def __init__(self):
+    self.process_id = int(sys.argv[1])
+    self.process = None
 
+
+  def monitor_process(self):
+    try:
+      self.process = 'alive'
+      while self.process is 'alive':
+          track_process = Process(self.process_id)
+    
+    except NoSuchProcess:
+          self.process = 'dead'
+          with open('log','r') as log:
+              error = log.read()
+              print(error) 
+
+# syntax_error= """\nForgetting to put a : at the end of an if, elif, else, for, while, class, or def statement. (Causes “SyntaxError: invalid syntax”)
+# \nThis error happens with code like this:
+# \nif spam == 42 
+#                ^      
+#     print('Hello!')"""
+
+#import os
+#import time
+#       #filename.close()
+#   finally:
+#       sys.stdout = sys_out
+#sys.exit() 
+#filename = open('dump.txt','w')
+#sys_out = sys.stdout
+#sys.stdout = filename
+# k  = sys.path
+# p = sys.platform
+# error = None
