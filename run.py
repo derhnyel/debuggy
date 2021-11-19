@@ -1,4 +1,4 @@
-from ctypes import DEFAULT_MODE
+from ctypes import CDLL
 import sys
 from subprocess import Popen
 import os
@@ -44,18 +44,17 @@ def _get_caller_path():
 
 #run on seperate thread
 def comment(_comment:str,method=None):
-    default_methods = ('class','func','val',None)
-    
-    if method in default_methods:
-        _cache = open(os.path.join(__module_path__,'cache'),'wb')
-        lineno = _get_caller_stack()[2]
-        _cache_dict[lineno] = (method,_comment)
-        pickle.dump(_cache_dict,_cache)
-        _cache.flush()
-    
-    else:
-        
-        raise ValueError("method argument only accepts",default_methods)
+    def _comment_thread():
+        _default_methods = ('class','func','val',None)
+        if method in _default_methods:
+            _cache = open(os.path.join(__module_path__,'cache'),'wb')
+            lineno = _get_caller_stack()[2]
+            _cache_dict[lineno] = (method,_comment)
+            pickle.dump(_cache_dict,_cache)
+            _cache.flush() 
+        else:
+            raise ValueError("comment.method argument only accepts",_default_methods)
+    threading._start_new_thread(_comment_thread,())        
 
 
 
