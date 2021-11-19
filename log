@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File ".\start.py", line 4, in <module>
-    z
-NameError: name 'z' is not defined
