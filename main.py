@@ -10,21 +10,20 @@ import time
 class Buggy:
   def __init__(self):
     self.ProccessId = int(sys.argv[1])
-    self.ProcessState = 'alive'
+    self.ProcessState = True
     self.ErrorMessage = None
 
     
 
   def MonitorProcess(self):
     try:      
-      while self.ProcessState is 'alive':
+      while self.ProcessState is True:
           RunningProcess = Process(self.ProccessId)
-          TrackProcess = True if RunningProcess else False
           print(RunningProcess.status())
           time.sleep(2)
 
     except NoSuchProcess as e:
-          self.ProcessState = 'dead'
+          self.ProcessState = False
 
     finally:      
           with open('log','r') as log:

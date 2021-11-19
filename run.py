@@ -12,7 +12,7 @@ import threading
 
 
 """Function to get the filename and path to Python script calling Debuggy Module
-    linecache is used to get lines from python source file while attempting to optimize internally.
+    get lines from python source file while attempting to optimize internally.
 """
 def _get_caller_stack():
         # Get the full stack
@@ -41,19 +41,33 @@ def _get_caller_path():
         
 """Function to accept line comments"""
 
-#run on seperate thread
+
 def comment(_comment:str,method=None):
-    def _comment_thread():
-        _default_methods = ('class','func','val',None)
-        if method in _default_methods:
-            _cache = open(os.path.join(__module_path__,'cache'),'wb')
-            _lineno = _get_caller_stack()[2]
-            _cache_dict[_lineno] = (method,_comment)
-            pickle.dump(_cache_dict,_cache)
-            _cache.flush() 
-        else:
-            raise ValueError("comment.method argument only accepts",_default_methods)
-    threading._start_new_thread(_comment_thread,())
+    #assigning default values for method argument
+
+    
+    
+    if method in _default_comment_methods:
+        
+        def _comment_thread():
+                #create pickle __cache object
+                _cache = open(os.path.join(__module_path__,'cache'),'wb')
+
+                #getline number of comment from callerstack
+                _lineno = _get_caller_stack()[2]
+                
+                #dump _cache_dict
+                _cache_dict[_lineno] = (method,_comment)
+
+                pickle.dump(_cache_dict,_cache)
+
+                _cache.flush()
+
+        #optimized by threading new comment         
+        threading._start_new_thread(_comment_thread,())
+    
+    else:
+        raise ValueError("comment.method argument only accepts",_default_comment_methods)    
 
 
 
@@ -66,10 +80,9 @@ def _main():
     process_id = os.getpid()
 
     #Monitor Terminal Output and Capture Standard Error to Logger
-
     sys.stderr = __logger
 
-    #Run main.py From Terminal With Subprocess
+    #Run main.py From Open Terminal
     __main = Popen(["python","main.py",str(process_id)])
 
 
@@ -78,15 +91,17 @@ def _main():
 if __name__ != '__main__':
     __name__ = 'Debuggy'
     __module_path__ = os.path.dirname(__file__)
-    _caller = _get_caller_path()
+    _caller_path = _get_caller_path()
     
     
     #log_file = os.path.join(_caller,'log')
     ##win32api.SetFileAttributes(log_file,win32con.FILE_ATTRIBUTE_HIDDEN)
     #os.system( "attrib %s +h "%(log_file,))
     
-    #Open Logger in write mode
-    __logger = open( os.path.join(_caller,'log'),'w')
+    #Open Logger
+    __logger = open( os.path.join(_caller_path,'log'),'w')
+    #assign global default comment methods
+    _default_comment_methods = {'class','func','val',None}
     
     _cache_dict={}
     _main()
