@@ -54,7 +54,8 @@ def comment(_comment:str,method=None):
             _cache.flush() 
         else:
             raise ValueError("comment.method argument only accepts",_default_methods)
-    threading._start_new_thread(_comment_thread,())        
+    threading._start_new_thread(_comment_thread,())
+
 
 
 

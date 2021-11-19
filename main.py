@@ -1,13 +1,11 @@
-from linecache import cache
 import sys
-from types import MethodType
 from psutil import Process,NoSuchProcess
 #import argparse
 import asyncio
 import pickle
-import signal
 
-class Buggy():
+
+class Buggy:
   def __init__(self):
     self.ProccessId = int(sys.argv[1])
     self.ProcessState = None
@@ -28,10 +26,8 @@ class Buggy():
     finally:      
           with open('log','r') as log:
               self.ErrorMessage=log.readlines()
-              print(self.ErrorMessage)
           pickle_off=  open('cache','rb')    
-          emp=pickle.load(pickle_off)
-          print(emp)    
+          emp=pickle.load(pickle_off)   
   #async def Parser(self):
    #   res = await self.MonitorProcess() 
     #stackoverflow
@@ -61,7 +57,7 @@ bugZy = ErrorParser.MonitorProcess()
 
 
 
-# syntax_error= """\nForgetting to put a : at the end of an if, elif, else, for, while, class, or def statement. (Causes “SyntaxError: invalid syntax”)
+syntax_error= """\nForgetting to put a : at the end of an if, elif, else, for, while, class, or def statement. (Causes “SyntaxError: invalid syntax”)
 # \nThis error happens with code like this:
 # \nif spam == 42 
 #                ^      
