@@ -3,29 +3,33 @@ from psutil import Process,NoSuchProcess
 #import argparse
 import asyncio
 import pickle
+import time
+
 
 
 class Buggy:
   def __init__(self):
     self.ProccessId = int(sys.argv[1])
-    self.ProcessState = None
+    self.ProcessState = 'alive'
     self.ErrorMessage = None
 
     
 
   def MonitorProcess(self):
-    try:
-      self.ProcessState = 'alive'
-      
+    try:      
       while self.ProcessState is 'alive':
-          TrackProcess = True if Process(self.ProccessId) else False
+          RunningProcess = Process(self.ProccessId)
+          TrackProcess = True if RunningProcess else False
+          print(RunningProcess.status())
+          time.sleep(2)
 
     except NoSuchProcess as e:
           self.ProcessState = 'dead'
 
     finally:      
           with open('log','r') as log:
-              self.ErrorMessage=log.readlines()
+              self.ErrorMessage=log.read()
+              print(self.ErrorMessage)
           pickle_off=  open('cache','rb')    
           emp=pickle.load(pickle_off)   
   #async def Parser(self):

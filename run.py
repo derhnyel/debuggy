@@ -1,4 +1,3 @@
-from ctypes import CDLL
 import sys
 from subprocess import Popen
 import os
@@ -6,12 +5,12 @@ import pickle
 import inspect
 import linecache
 import threading
-
+#import win32com
+#import win32api
 
 #__all__=['comment']
 
 
-    
 """Function to get the filename and path to Python script calling Debuggy Module
     linecache is used to get lines from python source file while attempting to optimize internally.
 """
@@ -48,8 +47,8 @@ def comment(_comment:str,method=None):
         _default_methods = ('class','func','val',None)
         if method in _default_methods:
             _cache = open(os.path.join(__module_path__,'cache'),'wb')
-            lineno = _get_caller_stack()[2]
-            _cache_dict[lineno] = (method,_comment)
+            _lineno = _get_caller_stack()[2]
+            _cache_dict[_lineno] = (method,_comment)
             pickle.dump(_cache_dict,_cache)
             _cache.flush() 
         else:
@@ -59,12 +58,11 @@ def comment(_comment:str,method=None):
 
 
 
-
-
     #check and accept only class,func or val as object.
         
 def _main():
 
+    #Get process id of running script
     process_id = os.getpid()
 
     #Monitor Terminal Output and Capture Standard Error to Logger
@@ -81,8 +79,15 @@ if __name__ != '__main__':
     __name__ = 'Debuggy'
     __module_path__ = os.path.dirname(__file__)
     _caller = _get_caller_path()
+    
+    
+    #log_file = os.path.join(_caller,'log')
+    ##win32api.SetFileAttributes(log_file,win32con.FILE_ATTRIBUTE_HIDDEN)
+    #os.system( "attrib %s +h "%(log_file,))
+    
     #Open Logger in write mode
-    __logger = open(os.path.join(_caller,'log'),'w')
+    __logger = open( os.path.join(_caller,'log'),'w')
+    
     _cache_dict={}
     _main()
     

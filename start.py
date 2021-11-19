@@ -1,8 +1,8 @@
-
 import os
 import psutil
 import requests
 import run
+import time
 #print(psutil.Process(os.getpid()).name())
 #print(__file__)
 
@@ -10,10 +10,17 @@ import run
 #s = input()
 #os.path(;sd'ddssd'))
 #requests.get('seekrrj')
-#raise ValueError
+#
 #s = Debuggy()
 
-run.comment('A function to whole blunt')
+run.comment('A function to roll blunt')
+
+
+for j in range (10):
+    time.sleep(2)
+    print (j)
+
+raise ValueError   
 
 
 
