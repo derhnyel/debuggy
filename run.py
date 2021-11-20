@@ -83,7 +83,8 @@ def _main():
     sys.stderr = __logger
 
     #Run main.py From Open Terminal
-    os.system('start cmd /c python main.py %s'%(process_id))
+
+    os.system('start cmd /K python main.py %s'%(process_id))
     #__main = Popen(["python","main.py",str(process_id)],shell=True,stdin=sys.stdin,stdout=sys.stdout,start_new_session=True)#,executable=USERS_DEFAULT_SHELL)
 
 #print(os.getenv('SHELL'))

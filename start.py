@@ -1,6 +1,6 @@
 import os
 #import psutil
-#import requests
+import requests
 import run
 import time
 #print(psutil.Process(os.getpid()).name())
@@ -9,11 +9,11 @@ import time
 #**One draw back for invalid syntax....executin at run time and before runtime
 #s = input()
 #os.path('ddssd')
-#requests.get('seekrrj')
+requests.get('seekrrj')
 #
 #s = Debuggy()
 
-run.comment('A function to roll blunt')
+#run.comment('A function to roll blunt')
 
 
 for j in range (10):

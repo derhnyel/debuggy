@@ -133,7 +133,11 @@ def MonitorProcess(ProcessId):
     DisplayResult = UserConfirm('DeBuggy Wants to Display Search Results?: ')
     if DisplayResult:
         ErrorMessage = ErrorMessage.split('\n')
-        print(ErrorMessage)
+        [print(i) for i in ErrorMessage]
+        #RootNode code from traceback =2
+       #Root Module imported and method =3
+       #base for raise Exceptions =-2
+       #base for error and cause = -1
         return ErrorMessage 
     else:
       sys.exit()    
