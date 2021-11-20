@@ -1,8 +1,8 @@
-import os
-import psutil
-import requests
+#import os
+#import psutil
+#import requests
 import run
-import time
+#import time
 #print(psutil.Process(os.getpid()).name())
 #print(__file__)
 
@@ -17,7 +17,6 @@ run.comment('A function to roll blunt')
 
 
 for j in range (10):
-    time.sleep(2)
     print (j)
 
 raise ValueError   

@@ -10,7 +10,7 @@ import threading
 
 #__all__=['comment']
 
-
+#Using memcached for faster implementation of distributed memory
 """Function to get the filename and path to Python script calling Debuggy Module
     get lines from python source file while attempting to optimize internally.
 """
@@ -83,9 +83,10 @@ def _main():
     sys.stderr = __logger
 
     #Run main.py From Open Terminal
-    __main = Popen(["python","main.py",str(process_id)])
+    os.system('start cmd /c python main.py %s'%(process_id))
+    #__main = Popen(["python","main.py",str(process_id)],shell=True,stdin=sys.stdin,stdout=sys.stdout,start_new_session=True)#,executable=USERS_DEFAULT_SHELL)
 
-
+#print(os.getenv('SHELL'))
 
 #Execute,if Python File is Imported
 if __name__ != '__main__':
