@@ -1,3 +1,4 @@
+from re import A, L
 import sys
 from psutil import Process,NoSuchProcess
 import os
@@ -6,11 +7,11 @@ import os
 #import pickle
 #import time
 #import threading
-#from search_engine_parser.core.engines.google import Search as GoogleSearch
-from collections import deque
-#import pyfiglet
+from search_engine_parser.core.engines.google import Search as GoogleSearch
+#from collections import deque
+import pyfiglet
 #from termcolor import colored, cprint
-
+import time
 
 bold='\033[01m'
 underline='\033[04m'
@@ -33,11 +34,63 @@ lightcyan='\033[96m'
 #end = '\033[0m'
 end =''
 
+
+# def LoadAnimation(LoadString):
+  
+#     # String to be displayed when the application is loading
+    
+#     StringLength = len(LoadString)
+  
+  
+#     # String for creating the rotating line
+#     animation = "|/-\\"
+#     AniCount = 0
+      
+#     # used to keep the track of
+#     # the duration of animation
+#     CountTime = 0        
+      
+#     # pointer for travelling the loading string
+#     pointer = 0                     
+  
+#     while (CountTime != 100):  
+#         # used to change the animation speed
+#         # smaller the value, faster will be the animation
+#         time.sleep(0.01)                          
+#         # converting the string to list
+#         # as string is immutable
+#         ListString = list(LoadString) 
+#         # ascii->obtaining the ASCII code
+#         ascii = ord(ListString[pointer])
+#         # cache->for storing altered ASCII code
+#         cache = 0                             
+#         # if the character is "." or " ", keep it unaltered
+#         # switch uppercase to lowercase and vice-versa 
+#         if ascii != 32 and ascii != 46:             
+#             if ascii>90:
+#                 cache = ascii-32
+#             else:
+#                 cache = ascii + 32
+#             ListString[pointer]= chr(cache)
+#         # for storing the resulting string
+#         ResultString =''             
+#         for index in range(StringLength):
+#             ResultString = ResultString + ListString[index]      
+#         # displaying the resulting string
+#         sys.stdout.write("\r"+ResultString + animation[AniCount])
+#         sys.stdout.flush()
+#         # Assigning loading string
+#         # to the resulting string
+#         LoadString= ResultString
+#         AniCount = (AniCount + 1)% 4
+#         pointer =(pointer + 1)% StringLength
+#         CountTime = CountTime + 1
+#    os.system('cls' if OsName=='nt' else 'clear')
 def UserConfirm(question):
       ValidInputs = {"yes": True, "y": True, "ye": True, "no": False, "n": False}
       prompt = "[Y/n] "
       while True:
-        print(reverse+underline+cyan+bold+question+prompt+end,file=sys.stdout)
+        print(reverse+cyan+bold+question+prompt+end,file=sys.stdout)
         UserChoice= input()
         #for inputs in sys.stdin:
         #  UserChoice = input
@@ -70,14 +123,13 @@ def execute():
 def MonitorProcess(ProcessId):
   global ProcessState
   ProcessState = execute()
-  #clear terminal
-  os.system('cls' if os.name=='nt' else 'clear')  
+  #clear terminal  
   with open('log','r') as log:
     ErrorMessage = log.read()
-    ValidError=print(ErrorMessage,file=sys.stdout) if CheckErrorMessage(ErrorMessage) is False else True
+    ValidError=print(red+bold+ErrorMessage,file=sys.stdout) if CheckErrorMessage(ErrorMessage) is False else True
     #print to terminal and capture input while results are being fetched and cached
   if ValidError:
-    print(ErrorMessage,file=sys.stdout)
+    print(red+bold+ErrorMessage,file=sys.stdout)
     DisplayResult = UserConfirm('DeBuggy Wants to Display Search Results?: ')
     if DisplayResult:
         ErrorMessage = ErrorMessage.split('\n')
@@ -87,7 +139,6 @@ def MonitorProcess(ProcessId):
       sys.exit()    
   else:
     sys.exit()
-    
           
 
           #pickle_off=  open('cache','rb')    
@@ -108,7 +159,13 @@ def MonitorProcess(ProcessId):
     #def CleanError():  
    
 if __name__=='__main__':
-  queue = deque()
+  #queue = deque()
+  OsName=os.name
+  #LoadAnimation("starting your console application...")
+  os.system('cls' if OsName=='nt' else 'clear')
+  DebuggyAnimation = pyfiglet.figlet_format("Debuggy",font="letters")
+  print(cyan+DebuggyAnimation)
+  print(green+bold+"Checking Running Script for Errors...",file=sys.stdout)
   ProcessId = int(sys.argv[1])
   ProcessState  = True
   ErrorMessage = MonitorProcess(ProcessId)
