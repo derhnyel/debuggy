@@ -42,12 +42,12 @@ def _get_caller_path():
 """Function to accept line comments"""
 
 
-def comment(_comment:str,method=None):
-    #assigning default values for method argument
+def comment(_comment:str,types=None):
+    #assigning default values for types argument
 
     
     
-    if method in _default_comment_methods:
+    if types in _default_comment_types:
         
         def _comment_thread():
                 #create pickle __cache object
@@ -57,7 +57,7 @@ def comment(_comment:str,method=None):
                 _lineno = _get_caller_stack()[2]
                 
                 #dump _cache_dict
-                _cache_dict[_lineno] = (method,_comment)
+                _cache_dict[_lineno] = (types,_comment)
 
                 pickle.dump(_cache_dict,_cache)
 
@@ -67,7 +67,7 @@ def comment(_comment:str,method=None):
         threading._start_new_thread(_comment_thread,())
     
     else:
-        raise ValueError("comment.method argument only accepts",_default_comment_methods)    
+        raise ValueError("comment.types argument only accepts",_default_comment_types)    
 
 
 
@@ -84,7 +84,7 @@ def _main():
 
     #Run main.py From Open Terminal
 
-    os.system('start cmd /K python main.py %s'%(process_id))
+    os.system('start cmd /K %s %s\main.py %s'%(__python_path__,__module_path__,process_id))
     #__main = Popen(["python","main.py",str(process_id)],shell=True,stdin=sys.stdin,stdout=sys.stdout,start_new_session=True)#,executable=USERS_DEFAULT_SHELL)
 
 #print(os.getenv('SHELL'))
@@ -95,15 +95,15 @@ if __name__ != '__main__':
     __module_path__ = os.path.dirname(__file__)
     _caller_path = _get_caller_path()
     
-    
+    __python_path__ = sys.executable
     #log_file = os.path.join(_caller,'log')
     ##win32api.SetFileAttributes(log_file,win32con.FILE_ATTRIBUTE_HIDDEN)
     #os.system( "attrib %s +h "%(log_file,))
     
     #Open Logger
-    __logger = open( os.path.join(_caller_path,'log'),'w')
+    __logger = open( os.path.join(_caller_path,'log.err'),'w')
     #assign global default comment methods
-    _default_comment_methods = {'class','func','val',None}
+    _default_comment_types = {'class','func','val',None}
     
     _cache_dict={}
     _main()
