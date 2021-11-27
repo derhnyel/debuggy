@@ -9,8 +9,9 @@ import urwid
 import webbrowser
 from urwid.widget import (BOX, FLOW, FIXED)
 from bs4 import BeautifulSoup as bs4 
-import re
+#import re
 from fake_useragent import UserAgent
+from search_engine_parser.core.engines.google import Search as GoogleSearch
 #import argparse
 #import asyncio
 #import pickle
@@ -20,6 +21,18 @@ from fake_useragent import UserAgent
 
 #from termcolor import colored, cprint
 #import time
+# Scroll actions
+SCROLL_LINE_UP = "line up"
+SCROLL_LINE_DOWN = "line down"
+SCROLL_PAGE_UP = "page up"
+SCROLL_PAGE_DOWN = "page down"
+SCROLL_TO_TOP = "to top"
+SCROLL_TO_END = "to end"
+
+# Scrollbar positions
+SCROLLBAR_LEFT = "left"
+SCROLLBAR_RIGHT = "right"
+
 
 bold='\033[01m'
 underline='\033[04m'
@@ -127,27 +140,26 @@ def StylizeCode(Text):
     return urwid.Text(StylizedText)
 
 def GSearch(Error):
-    search_results=[]
-    from search_engine_parser.core.engines.google import Search as GoogleSearch
+    #search_results=[]
     gs = GoogleSearch()
     SearchArgs=(Error,1)
     #try:
     SearchDict=gs.search(*SearchArgs)
-    for result in SearchDict:
-    #   #if 'stackoverflow' in result["link"]:
-    #     print(
-    #     result["link"])/URL
-    #     print(result["title"])/Title
-    #     print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    #     print(result["description"])/Awnsers
-    #     print('#####################################################################################')  
-    #     print('------------------------------------------------------------------------------------')
-             search_results.append({
-            "Title": result["title"],
-            #"Body": result.find_all("div", class_="excerpt")[0].text,
-            #"Votes": int(result.find_all("span", class_="vote-count-post ")[0].find_all("strong")[0].text),
-            "Answers": result["description"],
-            "URL": result["link"]})
+    # for result in SearchDict:
+    # #   #if 'stackoverflow' in result["link"]:
+    # #     print(
+    # #     result["link"])/URL
+    # #     print(result["title"])/Title
+    # #     print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    # #     print(result["description"])/Awnsers
+    # #     print('#####################################################################################')  
+    # #     print('------------------------------------------------------------------------------------')
+    #         search_results.append({
+    #         "Title": result["title"],
+    #         #"Body": result.find_all("div", class_="excerpt")[0].text,
+    #         #"Votes": int(result.find_all("span", class_="vote-count-post ")[0].find_all("strong")[0].text),
+    #         "Answers": result["description"],
+    #         "URL": result["link"]})
     return list(SearchDict)
 
 def SoF (url):
@@ -162,6 +174,9 @@ def SoF (url):
       answers.append(urwid.Text(("no answers", u"\nNo answers for this question.")))
 
   return QTitle,QDescription,QStatus, answers
+
+
+
 
 def ParseUrl(url):
     """Turns a given URL into a BeautifulSoup object."""
@@ -231,21 +246,21 @@ def execute():
         return False
   
 def MonitorProcess():
-  global ProcessState
+  global ProcessState,ErrorMessage
   ProcessState = execute()
   #clear terminal  
-  with open('log','r') as log:
-    ErrorMessage = log.read()
-    ValidError=print(red+bold+ErrorMessage,file=sys.stdout) if CheckErrorMessage(ErrorMessage) is False else True
+  with open('log.err','r') as log:
+    ErrMessage = log.read()
+    ValidError=print(red+bold+ErrMessage,file=sys.stdout) if CheckErrorMessage(ErrMessage) is False else True
     #print to terminal and capture input while results are being fetched and cached
   if ValidError:
-    print(red+bold+ErrorMessage,file=sys.stdout)
+    print(red+bold+ErrMessage,file=sys.stdout)
     DisplayResult = UserConfirm('DeBuggy Wants to Display Search Results?: ')
     if DisplayResult:
-        ErrorMessage = ErrorMessage.split('\n')
+        ErrorMessage = ErrMessage.split('\n')
         #[print(i) for i in ErrorMessage]
         
-        return ErrorMessage 
+        #return ErrorMessage 
     else:
       sys.exit(1)    
   else:
@@ -267,15 +282,15 @@ def MonitorProcess():
     #gitcommunity
 
     #check if error message has been geerated
-def CleanError(RawErrorMessage):
+def CleanError():
       #RootNode code from traceback =2
        #Root Module imported and method =3
        #base for raise Exceptions =-2 error type
        #base for error and cause = -1
   #ErrorType = RawErrorMessage[-2].split(" ").remove('raise')
   #ErrorType=' '.join(ErrorType)
-  error = RawErrorMessage[-2]#.split(':')
-  ErrorLineno = int(RawErrorMessage[1].split(',')[1].strip(' line'))
+  error = ErrorMessage[-2]#.split(':')
+  ErrorLineno = int(ErrorMessage[1].split(',')[1].strip(' line'))
 
   return (ErrorLineno,error)
   #get module name
@@ -690,7 +705,7 @@ class App(object):
 
             if url != None:
                 self.viewing_answers = True
-                question_title, question_desc, question_stats, answers = get_question_and_answers(url)
+                question_title, question_desc, question_stats, answers = SoF(url)
 
                 pile = urwid.Pile(self._stylize_question(question_title, question_desc, question_stats) + [urwid.Divider('*')] +
                 interleave(answers, [urwid.Divider('-')] * (len(answers) - 1)))
@@ -732,14 +747,18 @@ class App(object):
 
         for result in self.search_results:
             if title == self._stylize_title(result): # Found selected title's search_result dict
-                return result["URL"]
+                if 'stackoverflow.com' in result["link"]:
+                    return result["link"]
+                else:
+                  print("OPENING BROWSER")
+                  #TODO: #redirect to browser
 
 
     def _stylize_title(self, search_result):
-        if search_result["Answers"] == 1:
-            return "%s (1 Answer)" % search_result["Title"]
+        if search_result["description"] == 1:
+            return "%s (1 Description)" % search_result["title"]
         else:
-            return "%s (%s Answers)" % (search_result["Title"], search_result["Answers"])
+            return "%s (%s Description)" % (search_result["title"], search_result["description"])
 
 
     def _stylize_question(self, title, desc, stats):
@@ -747,6 +766,15 @@ class App(object):
         new_stats = urwid.Text(("stats", u"%s\n" % stats))
 
         return [new_title, desc, new_stats]
+
+
+def Main():
+  #while True:
+    #if not ProcessState and ErrorMessage is not None:
+      ErrorLineNumber ,ErrMessage= CleanError()
+      SResult = GSearch(ErrMessage)
+      #print(SResult)
+      App(SResult)
 
 
 
@@ -761,9 +789,16 @@ if __name__=='__main__':
   print(green+bold+"Checking Running Script for Errors...",file=sys.stdout)
   ProcessId = int(sys.argv[1])
   ProcessState  = True
-  ErrorMessage = MonitorProcess()
-  ErrorLineNumber ,ErrorMessage= CleanError(ErrorMessage)
-  GSearch(ErrorMessage)
+  ErrorMessage =None
+  #MainThread = threading.Thread(target=Main,args=())
+  #MainThread.daemon = True
+  #MainThread.start()
+  MonitorProcess()
+  Main()
+  
+  
+
+
 
 
 
