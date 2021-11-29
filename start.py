@@ -17,7 +17,7 @@ except Exception as e:
 #s = Debuggy()
 os.path.abspath(';ejw')
 #run.comment('A function to roll blunt',method='fun')
-os.path('''''''''''')
+#os.path('''''''''''')
 
 for j in range (10):
     print (j)
