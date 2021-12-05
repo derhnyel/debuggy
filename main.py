@@ -528,17 +528,28 @@ def print_menu(stdscr,rw_idx,menu):
             new_text= men2[idx][:max_x-3]+'...'
         else:
             new_text = False    
-        x1 = 3 #divide by the lenght of each text that will be the start
-        y1 = 1 +idf
+        x1 = 3 
+        y1 = 2 +idf
         if idx == rw_idx:
             if new_text:
-                stdscr.attron(curses.color_pair(2))
+                stdscr.attron(curses.color_pair(2)|curses.A_BOLD)
                 stdscr.addstr(y1,x1,new_text.upper())
-                stdscr.attroff(curses.color_pair(2))
+                oc= w-4
+                val=oc-len(new_text)
+                pos=len(new_text)+3
+                #val= w-1-len(new_text)
+                dic=' '*(val-1)
+                stdscr.addstr(y1,pos,dic)
+                stdscr.attroff(curses.color_pair(2)|curses.A_BOLD)
             else:
-                stdscr.attron(curses.color_pair(2))
+                stdscr.attron(curses.color_pair(2)|curses.A_BOLD)
                 stdscr.addstr(y1,x1,row.upper())
-                stdscr.attroff(curses.color_pair(2))    
+                oc= w-4
+                val=oc-len(row)
+                pos=len(row)+3
+                dic=' '*(val-1)
+                stdscr.addstr(y1,pos,dic)
+                stdscr.attroff(curses.color_pair(2)|curses.A_BOLD)    
         else:
              if new_text:
                 stdscr.addstr(y1,x1,new_text.upper())
