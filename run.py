@@ -84,7 +84,7 @@ def _main():
 
     #Run main.py From Open Terminal
 
-    os.system('start cmd /K %s %s\main.py %s'%(__python_path__,__module_path__,process_id))
+    os.system('start cmd /K %s %s\main.py %s %s'%(__python_path__,__module_path__,process_id,os.path.join(_caller_path,'log.err')))
     #__main = Popen(["python","main.py",str(process_id)],shell=True,stdin=sys.stdin,stdout=sys.stdout,start_new_session=True)#,executable=USERS_DEFAULT_SHELL)
 
 #print(os.getenv('SHELL'))
