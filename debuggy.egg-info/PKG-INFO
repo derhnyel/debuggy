@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: debuggy
+Version: 0.0.0
+Summary: StalkOverflow.
+Home-page: https://github.com/derhnyel/deBuggy
+Author: Eje Daniel
+Author-email: ejedenials@gmail.com
+License: MIT
+Keywords: debuggy python package stalkoverflow
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+A project for Automatically searching Google and displaying results in your terminal when a compiler error is gotten.
+ Made by @Derhnyel
+
