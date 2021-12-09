@@ -27,7 +27,12 @@ You can also use debuggy comments to add comments to your code and make debuggin
     
 <hr>
 
-#### More advanced usage example 
+#### Command line
+Debuggy comes with a CLI tool . You can use it as such:
+
+```bash
+debuggy --query "how to use loops"
+```
 
 
 
