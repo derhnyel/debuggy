@@ -1,15 +1,9 @@
 [![Build Status](https://travis-ci.org/--?branch=master)](https://travis-ci.org/--) [![Downloads](https://pepy.tech/badge/--/month)](https://pepy.tech/project/--)
 
+[![Version](https://pypi.python.org/pypi/debuggy)](https://img.shields.io/pypi/v/debuggy.svg?style=flat-square)
+[![Downloads Status](https://pypi.python.org/pypi/debuggy)](https://img.shields.io/pypi/dm/debuggy.svg?style=flat-square)
+[![Python Versions](https://pypi.python.org/pypi/debuggy)](https://img.shields.io/pypi/pyversions/sh.svg?style=flat-square)
 
-.. image:: https://img.shields.io/pypi/v/sh.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/debuggy
-    :alt: Version
-.. image:: https://img.shields.io/pypi/dm/sh.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/debuggy
-    :alt: Downloads Status
-.. image:: https://img.shields.io/pypi/pyversions/sh.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/debuggy
-    :alt: Python Versions
 
 
 > "Stalk Overflow with `debuggy`"
@@ -99,5 +93,4 @@ __Pending Features:__
 * Add Support for more languages
 
 ## Support
-=======
 * `Eje Daniel <https://github.com/derhnyel>`_ - author/maintainer
