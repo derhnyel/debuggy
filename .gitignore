@@ -1,6 +1,6 @@
 .pytest_cache/
 **/__pycache__
-bin/
+/bin/
 *.exe
 *.exe~
 /dist/
