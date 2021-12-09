@@ -1,4 +1,5 @@
-[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=shield)](https://circleci.com/gh/derhnyel/deBuggy/tree/main)[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=svg)](https://circleci.com/gh/derhnyel/deBuggy/tree/main)
+[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=shield)](https://circleci.com/gh/derhnyel/deBuggy/tree/main)[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=svg)](https://circleci.com/gh/derhnyel/deBuggy/tree/main)[![PyPI version](https://badge.fury.io/py/debuggy.svg)](https://badge.fury.io/py/debuggy)
+[![Downloads](https://pypip.in/v/debuggy/badge.png)](https://crate.io/packages/debuggy/)
 
 
 
