@@ -7,6 +7,7 @@ Everything is done in 100% pure Python so it's extremely easy to install and use
 <hr>
 
 Simple Example:
+By importing debuggy as the first (1st) line of your python script, it keeps track of the scripts run time and parses any error message encountered
 
 ```python
     >>> import debuggy
@@ -46,7 +47,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  -v, --version         show program's version number and exit
+  -v, --version         show programs version number and exit
   -s SCRIPT, --script SCRIPT
                         Run Script from Terminal
   -q QUERY, --query QUERY

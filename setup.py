@@ -1,14 +1,5 @@
 from setuptools import setup, find_packages
 
-# setup(
-#     name='debuggy',
-#     version='0.1.0',
-#     description='   ####',
-#     long_description=readme,
-#     author='Eje Daniel',
-#     author_email='ejedenials@gmail.com',
-#     url='https://github.com/derhnyel/deBuggy',
-#     license=license,)
 with open('README.md') as f:
      readme = f.read()
 
@@ -29,7 +20,7 @@ setup(
         long_description_content_type ="text/markdown",
         license =license,
         py_modules=['debuggy','stalkoverflow'],
-        packages=find_packages(exclude=('tests', 'docs')),
+        packages=find_packages(exclude=('tests', 'docs','bin','assets')),
         entry_points ={
             'console_scripts': [
                 'debuggy = stalkoverflow.__main__:main'
