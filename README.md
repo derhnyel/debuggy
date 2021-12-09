@@ -61,3 +61,14 @@ optional arguments:
   -q QUERY, --query QUERY
                         Query stackoverflow with Error message
 ```
+
+## Manually building from source
+
+- Install Python tools 3+ - (<https://www.python.org/downloads/>)
+- Clone this repo `git clone git@github.com:derhnyel/deBuggy.git`
+- Run unit tests with `make test`
+- Build and install: `make install`
+
+# Contributing
+
+Want to contribute to Debuggy? Awesome! Check out the [contributing guidelines](CONTRIBUTE.md) to get involved.
