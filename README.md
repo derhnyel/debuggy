@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=shield)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=svg)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![PyPI version](https://badge.fury.io/py/debuggy.svg)](https://badge.fury.io/py/debuggy) [![Downloads](https://pypip.in/v/debuggy/badge.png)](https://crate.io/packages/debuggy/) [![Coverage Status](https://coveralls.io/repos/github/derhnyel/deBuggy/badge.svg)](https://coveralls.io/github/derhnyel/deBuggy)
+[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=shield)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=svg)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![PyPI version](https://badge.fury.io/py/debuggy.svg)](https://badge.fury.io/py/debuggy) [![Coverage Status](https://coveralls.io/repos/github/derhnyel/deBuggy/badge.svg)](https://coveralls.io/github/derhnyel/deBuggy)
 
 
 > "Stalk Overflow with `debuggy`"
