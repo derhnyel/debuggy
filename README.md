@@ -1,5 +1,17 @@
 [![Build Status](https://travis-ci.org/--?branch=master)](https://travis-ci.org/--) [![Downloads](https://pepy.tech/badge/--/month)](https://pepy.tech/project/--)
 
+|
+.. image:: https://img.shields.io/pypi/v/sh.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/debuggy
+    :alt: Version
+.. image:: https://img.shields.io/pypi/dm/sh.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/debuggy
+    :alt: Downloads Status
+.. image:: https://img.shields.io/pypi/pyversions/sh.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/debuggy
+    :alt: Python Versions
+|
+
 > "Stalk Overflow with `debuggy`"
 #### Pure Python Stackoverflow Parser
 Everything is done in 100% pure Python so it's extremely easy to install and use. Supports Python 2 & 3.
@@ -77,7 +89,7 @@ optional arguments:
 - Run unit tests with `make test`
 - Build and install: `make install`
 
-# Contributing
+## Contributing
 
 Want to contribute to Debuggy? Awesome! Check out the [contributing guidelines](CONTRIBUTE.md) to get involved.
 
@@ -85,3 +97,7 @@ __Pending Features:__
 * Add Commenting feature
 * Search result Optimization
 * Add Support for more languages
+
+## Support
+=======
+* `Eje Daniel <https://github.com/derhnyel>`_ - author/maintainer
