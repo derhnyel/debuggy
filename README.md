@@ -33,7 +33,7 @@ Debuggy comes with a CLI tool . You can use it as such:
 ```bash
 debuggy --query "how to use loops"
 ```
-![Demo](https://github.com/derhnyel/deBuggy/assets/debuggy_query.gif)
+![Demo](https://github.com/derhnyel/deBuggy/tree/main/assets/debuggy_query.gif)
 
 ```bash
 usage: DeBuggy [-h] [-v] [-s SCRIPT] [-q QUERY] {call} ...
