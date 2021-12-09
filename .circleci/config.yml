@@ -23,7 +23,6 @@ jobs:
             python setup.py sdist bdist_wheel
             sudo pip install pipenv
             pipenv install twine
-            pipenv install -U twine wheel setuptools
             pipenv run twine upload dist/*
 workflows:
   build_test_publish:

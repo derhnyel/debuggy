@@ -16,8 +16,6 @@ setup(
         author_email ='ejedenials@gmail.com',
         url ='https://github.com/derhnyel/deBuggy',
         description ='Stalk StackOverflow.',
-        long_description_content_type ="text/markdown",
-        long_description = readme,
         license =license,
         py_modules=['debuggy','stalkoverflow'],
         packages=find_packages(exclude=('tests', 'docs','bin','assets')),
