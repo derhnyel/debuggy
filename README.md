@@ -93,4 +93,4 @@ __Pending Features:__
 * Add Support for more languages
 
 ## Support
-* [![Eje Daniel](https://github.com/derhnyel)] - author/maintainer
+* [Eje Daniel](https://github.com/derhnyel) - author/maintainer
