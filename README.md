@@ -43,6 +43,11 @@ debuggy --query "how to use loops"
 ```
 ![Demo](https://github.com/derhnyel/deBuggy/blob/main/assets/debuggy_query.gif)
 
+Java,GO,Python,JavaScripts files can be parsed into debuggy to track Errors by using the --script command.  
+```bash
+debuggy --script test.py
+```
+
 ```bash
 usage: DeBuggy [-h] [-v] [-s SCRIPT] [-q QUERY] {call} ...
 
