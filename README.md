@@ -11,6 +11,7 @@
 Everything is done in 100% pure Python so it's extremely easy to install and use. Supports Python 2 & 3.
 <hr>
 
+## Usage
 Simple Example:
 By importing debuggy as the first (1st) line of your python script, it keeps track of the scripts run time and parses any error message encountered.
 
