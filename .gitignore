@@ -3,6 +3,7 @@
 /bin/
 *.exe
 *.exe~
+*.travis.yml
 /dist/
 /build/
 **/debuggy.egg-info
