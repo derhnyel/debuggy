@@ -4,6 +4,7 @@ from stalkoverflow import parsers
 from stalkoverflow import handler
 from stalkoverflow import ui
 from stalkoverflow.color import *
+import sys
 
 def main():
     parser = argparse.ArgumentParser (prog='DeBuggy',description='Command-line tool that automatically searches Google and displays results in your terminal when you get a compiler error.\n Made by @Derhnyel')
@@ -33,6 +34,9 @@ def main():
 
     elif args.script is not None:
         ProcessScript(args.script)
+
+    else:
+        parser.print_help(sys.stderr)  
 
 if __name__ == '__main__':
     main()

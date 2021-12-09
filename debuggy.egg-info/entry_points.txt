@@ -1,3 +1,0 @@
-[console_scripts]
-debuggy = stalkoverflow.__main__:main
-
