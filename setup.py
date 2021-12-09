@@ -9,7 +9,8 @@ with open('LICENSE') as f:
 with open('requirements.txt') as f:
     requirements = f.readlines()  
 #        long_description_content_type ="text/markdown",
-#        long_description = readme,   
+#        long_description = readme,
+#        style=shield/svg   
 setup(
         name ='debuggy',
         version ='1.0.0',
