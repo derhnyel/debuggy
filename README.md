@@ -80,3 +80,8 @@ optional arguments:
 # Contributing
 
 Want to contribute to Debuggy? Awesome! Check out the [contributing guidelines](CONTRIBUTE.md) to get involved.
+
+__Pending Features:__
+* Add Commenting feature
+* Search result Optimization
+* Add Support for more languages
