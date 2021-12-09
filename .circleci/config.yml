@@ -11,9 +11,7 @@ jobs:
             sudo pip install pipenv
             pipenv install dist/debuggy-0.1.0-py3-none-any.whl
             pipenv install pytest
-      - run:
-          command: |  # Run test suite
-            pipenv run pytest
+
 
   pypi_publish:
     docker:
