@@ -65,12 +65,17 @@ def GSearch(Error):
 
 def StackOverflow (url):
   HtmlText= ParseUrl(url)
-  QTitle = HtmlText.find_all('a', class_="question-hyperlink")[0].get_text()
-  QStatus = HtmlText.find("div", attrs={"itemprop": "upvoteCount"}).get_text() # Vote count
-  QStatus += " Votes | Asked " + HtmlText.find("time", attrs={"itemprop": "dateCreated"}).get_text() # Date created
-  QDescription = StylizeCode(HtmlText.find_all("div", class_="s-prose js-post-body")[0]) # TODO: Handle duplicates
+  try:
+      QTitle = HtmlText.find_all('a', class_="question-hyperlink")[0].get_text()
+      QStatus = HtmlText.find("div", attrs={"itemprop": "upvoteCount"}).get_text() # Vote count
+      QStatus += " Votes | Asked " + HtmlText.find("time", attrs={"itemprop": "dateCreated"}).get_text() # Date created
+      QDescription = StylizeCode(HtmlText.find_all("div", class_="s-prose js-post-body")[0]) # TODO: Handle duplicates
 
-  answers = [StylizeCode(answer) for answer in HtmlText.find_all("div", class_="s-prose js-post-body")][1:]
+      answers = [StylizeCode(answer) for answer in HtmlText.find_all("div", class_="s-prose js-post-body")][1:]
+  except:
+      QTitle
+      QStatus
+      QDescription    
   if len(answers) == 0:
       answers.append(("no answers", u"\nNo answers for this question."))
 
@@ -82,7 +87,7 @@ def ParseUrl(url):
     #global Connection
     """Turns a given URL into a BeautifulSoup object."""
     try:
-        Response = requests.get(url, headers={"User-Agent": UAgent.random},timeout=10)
+        Response = requests.get(url, headers={"User-Agent": UAgent.random})
         if Response.status_code is not 200:
           sys.stdout.write("\n%s%s%s%s%s" % (red,underline,bold,"DeBuggy was unable to fetch results. "
                                             +Response.reason+"\n Try again Later.", end))
