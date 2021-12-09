@@ -1,8 +1,7 @@
 [![Build Status](https://travis-ci.org/--?branch=master)](https://travis-ci.org/--) [![Downloads](https://pepy.tech/badge/--/month)](https://pepy.tech/project/--)
 
-
-#### Pure Python Stackoverflow Parser
 > "Stalk Overflow with `debuggy`"
+#### Pure Python Stackoverflow Parser
 Everything is done in 100% pure Python so it's extremely easy to install and use. Supports Python 2 & 3.
 <hr>
 
