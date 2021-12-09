@@ -7,7 +7,7 @@ Everything is done in 100% pure Python so it's extremely easy to install and use
 <hr>
 
 Simple Example:
-By importing debuggy as the first (1st) line of your python script, it keeps track of the scripts run time and parses any error message encountered
+By importing debuggy as the first (1st) line of your python script, it keeps track of the scripts run time and parses any error message encountered.
 
 ```python
     >>> import debuggy
@@ -18,6 +18,14 @@ You can also use debuggy comments to add comments to your code and make debuggin
 ```python
     >>> from debuggy import comment 
     >>> comment('function to add two numbers')
+    >>> def Add (x,y):
+            return x + y    
+
+```
+The type of preceeding code block can also be specified ,whether it is a function,class or variable using the 'type' argument with either 'func','class','var' as the type parameter.
+```python
+    >>> from debuggy import comment 
+    >>> comment(comment = 'function to add two numbers' type='func')
     >>> def Add (x,y):
             return x + y    
 
