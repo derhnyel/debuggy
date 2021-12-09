@@ -31,7 +31,11 @@ The type of preceeding code block can also be specified ,whether it is a functio
 ```
  #### Installation 
 
-    pip install debuggy
+    $ pip install debuggy
+
+    or apt-get if you're using Linux:
+
+    $ sudo apt-get install debuggy
     
 <hr>
 
@@ -39,17 +43,17 @@ The type of preceeding code block can also be specified ,whether it is a functio
 Debuggy comes with a CLI tool . You can use it as such:
 
 ```bash
-debuggy --query "how to use loops"
+$ debuggy --query "how to use loops"
 ```
 ![Demo](https://github.com/derhnyel/deBuggy/blob/main/assets/debuggy_query.gif)
 
-Java,GO,Python,JavaScripts files can be parsed into debuggy to track Errors by using the --script command.  
+__Supported file types:__ Python, Node.js, Ruby, Golang, and Java. These can be parsed into debuggy to track Errors by using the --script command.  
 ```bash
-debuggy --script test.py
+$ debuggy --script test.py
 ```
 
 ```bash
-usage: DeBuggy [-h] [-v] [-s SCRIPT] [-q QUERY] {call} ...
+USAGE: DeBuggy [-h] [-v] [-s SCRIPT] [-q QUERY] {call} ...
 
 Command-line tool that automatically searches Google and displays results in
 your terminal when you get a compiler error. Made by @Derhnyel
