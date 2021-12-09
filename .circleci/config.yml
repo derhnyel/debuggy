@@ -8,11 +8,12 @@ jobs:
       - run:
           command: |  # create whl and use pipenv to install dependencies
             python setup.py sdist bdist_wheel
-            pip install dist/debuggy-0.1.0-py3-none-any.whl
-            pip install pytest
+            sudo pip install pipenv
+            pipenv install dist/debuggy-0.1.0-py3-none-any.whl
+            pipenv install pytest
       - run:
           command: |  # Run test suite
-            pytest
+            pipenv run pytest
 
   pypi_publish:
     docker:
@@ -23,8 +24,8 @@ jobs:
           command: |  # create whl, install twine and publish to PyPI
             python setup.py sdist bdist_wheel
             sudo pip install pipenv
-            pip install twine
-            twine upload dist/*
+            pipenv install twine
+            pipenv run twine upload dist/*
 workflows:
   build_test_publish:
     jobs:
