@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/PiotrDabkowski/Js2Py.svg?branch=master)](https://travis-ci.org/PiotrDabkowski/Js2Py) [![Downloads](https://pepy.tech/badge/js2py/month)](https://pepy.tech/project/js2py)
+[![Build Status](https://travis-ci.org/--?branch=master)](https://travis-ci.org/--) [![Downloads](https://pepy.tech/badge/--/month)](https://pepy.tech/project/--)
 
 
 #### Pure Python Stackoverflow Parser
@@ -33,6 +33,20 @@ Debuggy comes with a CLI tool . You can use it as such:
 ```bash
 debuggy --query "how to use loops"
 ```
+```bash
+usage: DeBuggy [-h] [-v] [-s SCRIPT] [-q QUERY] {call} ...
 
+Command-line tool that automatically searches Google and displays results in
+your terminal when you get a compiler error. Made by @Derhnyel
 
+positional arguments:
+  {call}
 
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --version         show program's version number and exit
+  -s SCRIPT, --script SCRIPT
+                        Run Script from Terminal
+  -q QUERY, --query QUERY
+                        Query stackoverflow with Error message
+```
