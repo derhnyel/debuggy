@@ -7,8 +7,8 @@
 
 
 > "Stalk Overflow with `debuggy`"
-#### Pure Python Stackoverflow Parser
-Everything is done in 100% pure Python so it's extremely easy to install and use. Supports Python 2 & 3.
+#### Stackoverflow Parser
+Everything is done in Python so it's extremely easy to install and use. Supports Python 3.
 <hr>
 
 ## Usage
