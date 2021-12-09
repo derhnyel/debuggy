@@ -1,8 +1,4 @@
-[![Build Status](https://travis-ci.org/--?branch=master)](https://travis-ci.org/--) 
-[![Downloads](https://pepy.tech/badge/--/month)](https://pepy.tech/project/--)
-[![Version](https://pypi.python.org/pypi/debuggy)](https://img.shields.io/pypi/v/debuggy.svg?style=flat-square)
-[![Downloads Status](https://pypi.python.org/pypi/debuggy)](https://img.shields.io/pypi/dm/debuggy.svg?style=flat-square)
-[![Python Versions](https://pypi.python.org/pypi/debuggy)](https://img.shields.io/pypi/pyversions/sh.svg?style=flat-square)
+[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=shield)](https://circleci.com/gh/derhnyel/deBuggy/tree/main)
 
 
 
