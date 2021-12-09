@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/--?branch=master)](https://travis-ci.org/--) [![Downloads](https://pepy.tech/badge/--/month)](https://pepy.tech/project/--)
 
-|
+
 .. image:: https://img.shields.io/pypi/v/sh.svg?style=flat-square
     :target: https://pypi.python.org/pypi/debuggy
     :alt: Version
@@ -10,7 +10,7 @@
 .. image:: https://img.shields.io/pypi/pyversions/sh.svg?style=flat-square
     :target: https://pypi.python.org/pypi/debuggy
     :alt: Python Versions
-|
+
 
 > "Stalk Overflow with `debuggy`"
 #### Pure Python Stackoverflow Parser
