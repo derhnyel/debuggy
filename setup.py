@@ -8,7 +8,8 @@ with open('LICENSE') as f:
 
 with open('requirements.txt') as f:
     requirements = f.readlines()  
-   
+#        long_description_content_type ="text/markdown",
+#        long_description = readme,   
 setup(
         name ='debuggy',
         version ='1.0.0',
@@ -16,11 +17,10 @@ setup(
         author_email ='ejedenials@gmail.com',
         url ='https://github.com/derhnyel/deBuggy',
         description ='Stalk StackOverflow.',
-        long_description_content_type ="text/markdown",
-        long_description = readme,
         license =license,
         py_modules=['debuggy','stalkoverflow'],
         packages=find_packages(exclude=('tests', 'docs','bin','assets')),
+        long_description='Stalk StackOverflow',
         entry_points ={
             'console_scripts': [
                 'debuggy = stalkoverflow.__main__:main'
