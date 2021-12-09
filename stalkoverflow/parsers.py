@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup as bs4 
 from fake_useragent import UserAgent
 from search_engine_parser.core.engines.google import Search as GoogleSearch
-from  stalkoverflow.color import red,underline,bold,end
+from  stalkoverflow.color import bcolors
 
 
 
@@ -46,8 +46,8 @@ def GSearch(Error):
       gs.clear_cache()
       SearchDict=gs.search(*SearchArgs)
     except Exception as e:
-       sys.stdout.write("\n%s%s%s%s%s" % (red,underline,bold, "DeBuggy was unable to fetch results. "
-                                            +str(e)+"\n Try again Later.", end))
+       sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold, "DeBuggy was unable to fetch results. "
+                                            +str(e)+"\n Try again Later.",bcolors.end))
        #Connection = False
        #return Connection
        input('\nPress Enter to Continue. ')
@@ -84,15 +84,15 @@ def ParseUrl(url):
     try:
         Response = requests.get(url, headers={"User-Agent": UAgent.random},timeout=10)
         if Response.status_code is not 200:
-          sys.stdout.write("\n%s%s%s%s%s" % (red,underline,bold,"DeBuggy was unable to fetch results. "
-                                            +Response.reason+"\n Try again Later.", end))
+          sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
+                                            +Response.reason+"\n Try again Later.", bcolors.end))
           #Connection=False
           input('\nPress Enter to Continue. ')                                  
           sys.exit(1) 
     except requests.exceptions.RequestException:
         #Connection=False
-        sys.stdout.write("\n%s%s%s%s%s" % (red,underline,bold,"DeBuggy was unable to fetch results. "
-                                            "Please make sure you are connected to the internet.\n", end))
+        sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
+                                            "Please make sure you are connected to the internet.\n", bcolors.end))
         input('\nPress Enter to Continue. ')                                    
         sys.exit(1)
     if "\.com/nocaptcha" in Response.url: # URL is a captcha page

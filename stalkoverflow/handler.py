@@ -1,6 +1,6 @@
 from psutil import Process,NoSuchProcess
 import sys
-from stalkoverflow.color import *
+from stalkoverflow.color import bcolors
 from stalkoverflow import parsers
 from stalkoverflow import ui
 
@@ -17,7 +17,7 @@ def CheckErrorMessage(ErrorMessage):
             return True  
 def MonitorProcess(ProcessId):
   try:
-      print(green+bold+"Checking Running Script for Errors...",file=sys.stdout)      
+      print(bcolors.green+bcolors.bold+"Checking Running Script for Errors...",file=sys.stdout)      
       while True:
           RunningProcess = Process(ProcessId)
   except NoSuchProcess as e:
@@ -34,11 +34,11 @@ def UserConfirm(question):
       ValidInputs = {"yes": True, "y": True, "ye": True, "no": False, "n": False}
       prompt = "[Y/n] "
       while True:
-        print(reverse+cyan+bold+question+prompt,end,file=sys.stdout)
+        print(bcolors.reverse+bcolors.cyan+bcolors.bold+question+prompt,bcolors.end,file=sys.stdout)
         UserChoice= input().lower()
         if UserChoice in ValidInputs:
           return ValidInputs[UserChoice]
-        print(reverse+blue+"Please respond with 'yes' or 'no' (or 'y' or 'n').\n",end,file=sys.stdout)
+        print(bcolors.reverse+bcolors.blue+"Please respond with 'yes' or 'no' (or 'y' or 'n').\n",bcolors.end,file=sys.stdout)
 
 def execute(LogPath,ProcessId):
   #global ProcessState,ErrorMessage,ValidError
@@ -46,11 +46,11 @@ def execute(LogPath,ProcessId):
   #clear terminal  
   with open(LogPath,'r') as log:
     ErrMessage = log.read()
-    ValidError=print(red+bold+ErrMessage,file=sys.stdout) if CheckErrorMessage(ErrMessage) is False else True
+    ValidError=print(bcolors.red+bcolors.bold+ErrMessage,file=sys.stdout) if CheckErrorMessage(ErrMessage) is False else True
     #print to terminal and capture input while results are being fetched and cached
     ErrorMessage = ErrMessage.split('\n')
   if ValidError:
-    print(red+bold+ErrMessage,end,file=sys.stdout)
+    print(bcolors.red+bcolors.bold+ErrMessage,bcolors.end,file=sys.stdout)
     DisplayResult = UserConfirm('DeBuggy Wants to Search And Display Results?: ')
     if DisplayResult:
         ErrorMessage = ErrMessage.split('\n')

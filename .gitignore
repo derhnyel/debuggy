@@ -4,3 +4,5 @@
 *.exe
 *.exe~
 /dist/
+/build/
+**/debuggy.egg-info

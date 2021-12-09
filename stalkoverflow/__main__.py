@@ -3,7 +3,7 @@ import os
 from stalkoverflow import parsers
 from stalkoverflow import handler
 from stalkoverflow import ui
-from stalkoverflow.color import *
+from stalkoverflow.color import bcolors
 import sys
 
 def main():
@@ -30,7 +30,7 @@ def main():
         if titles != []:
             ui.start_app(links,titles) # Opens interface        
         else:
-            print("\n%s%s%s" % (red, "No Google results found.\n", end))
+            print("\n%s%s%s" % (bcolors.red, "No Google results found.\n", bcolors.end))
 
     elif args.script is not None:
         ProcessScript(args.script)
