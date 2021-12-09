@@ -1,14 +1,5 @@
 from setuptools import setup, find_packages
 
-
-# with open('README.rst') as f:
-#     readme = f.read()
-
-# with open('LICENSE') as f:
-#     license = f.read()
-
-  
-
 # setup(
 #     name='debuggy',
 #     version='0.1.0',
@@ -17,27 +8,28 @@ from setuptools import setup, find_packages
 #     author='Eje Daniel',
 #     author_email='ejedenials@gmail.com',
 #     url='https://github.com/derhnyel/deBuggy',
-#     license=license,
-#     packages=find_packages(exclude=('tests', 'docs'))
-# )
+#     license=license,)
+with open('README.md') as f:
+     readme = f.read()
+
+with open('LICENSE') as f:
+     license = f.read()
 
 with open('requirements.txt') as f:
     requirements = f.readlines()  
-  
-long_description = 'A project for Automatically searching Google and displaying results in your terminal when a compiler error is gotten.\n Made by @Derhnyel'
-  
+   
 setup(
         name ='debuggy',
-        version ='0.0.0',
+        version ='0.1.0',
         author ='Eje Daniel',
         author_email ='ejedenials@gmail.com',
         url ='https://github.com/derhnyel/deBuggy',
-        description ='StalkOverflow.',
-        long_description = long_description,
+        description ='Stalk StackOverflow.',
+        long_description = readme,
         long_description_content_type ="text/markdown",
-        license ='MIT',
+        license =license,
         py_modules=['debuggy','stalkoverflow'],
-        packages = find_packages(),
+        packages=find_packages(exclude=('tests', 'docs')),
         entry_points ={
             'console_scripts': [
                 'debuggy = stalkoverflow.__main__:main'
