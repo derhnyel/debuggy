@@ -8,7 +8,7 @@ import sys
 
 def main():
     parser = argparse.ArgumentParser (prog='DeBuggy',description='Command-line tool that automatically searches Google and displays results in your terminal when you get a compiler error.\n Made by @Derhnyel')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.0.2')
     parser.add_argument("-s","--script",help="Run Script from Terminal")
     parser.add_argument('-q','--query',help='Query stackoverflow with Error message ')
     subparser = parser.add_subparsers(dest='command')
