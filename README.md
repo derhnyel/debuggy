@@ -3,7 +3,7 @@
 
 > "Stalk Overflow with `debuggy`"
 #### Stackoverflow Parser
-Everything is done in Python so it's extremely easy to install and use. Supports Python 3.
+Everything is done in Python so it's extremely easy to install and use. Supports Python 3. Debuggy is used to execute scripts, it creates a wrap around the script with the help of sub processes, and listens for errors, capturing and parsing them through popular discussion forums. This is then styled and displayed on the terminal with the help of python curses.
 <hr>
 
 ## Usage
