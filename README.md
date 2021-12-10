@@ -88,5 +88,6 @@ __Pending Features:__
 * Search result Optimization
 * Add Support for more languages
 
+
 ## Support
 * [Eje Daniel](https://github.com/derhnyel) - author/maintainer

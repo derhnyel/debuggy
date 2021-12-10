@@ -13,7 +13,7 @@ with open('requirements.txt') as f:
 #        style=shield/svg   
 setup(
         name ='debuggy',
-        version ='1.0.1',
+        version ='1.0.0',
         author ='Eje Daniel',
         author_email ='ejedenials@gmail.com',
         url ='https://github.com/derhnyel/deBuggy',

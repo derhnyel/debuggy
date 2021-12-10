@@ -7,11 +7,14 @@ import inspect
 """Function to get the filename and path to Python script calling Debuggy Module
     get lines from python source file while attempting to optimize internally.
 """
-def _get_caller_stack():
+def _get_caller_stack(active=False):
         # Get the full stack
         frame_stack = inspect.stack()
         # Get one level up from current
-        caller_frame_record = frame_stack[-1]
+        if active:
+            caller_frame_record = frame_stack[-4]
+        else:
+            caller_frame_record = frame_stack[-1]
         return caller_frame_record
         #caller_file_name = CallerFrame.filename  # Filename where caller lives
 
@@ -24,6 +27,7 @@ def _get_caller_path():
 
 #print(os.getenv('SHELL'))
 __module_path__ = os.path.dirname(__file__)
+#__python_path__ = sys.executable
 _caller_path = _get_caller_path()    
     #Open Logger
 __logger = open( os.path.join(_caller_path,'log.err'),'w')
