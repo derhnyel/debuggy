@@ -47,13 +47,13 @@ Debuggy comes with a CLI tool . You can use it as such:
 ```bash
 $ debuggy --query "how to use loops"
 ```
-![Demo](https://github.com/derhnyel/deBuggy/blob/main/assets/debuggy_query.gif)
+![Demo Query](https://github.com/derhnyel/deBuggy/blob/main/assets/debuggy_query.gif)
 
 __Supported file types:__ Python, Node.js, Ruby, Golang, and Java. These can be parsed into debuggy to track Errors by using the --script command.  
 ```bash
 $ debuggy --script test.py
 ```
-
+![Demo Script](https://github.com/derhnyel/deBuggy/blob/main/assets/debuggy_script.gif)
 ```bash
 USAGE: DeBuggy [-h] [-v] [-s SCRIPT] [-q QUERY] {call} ...
 
