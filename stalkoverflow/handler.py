@@ -73,12 +73,12 @@ def listen4errors(command):
         command,
         cwd=None,
         shell=False,
-        close_fds=True if (sys.version_info[0]==3 and sys.version_info[1]>=7) or (sys.platform != 'win32') else False,
+        close_fds =(sys.platform != 'win32')
         stdout=PIPE,
         stderr=PIPE,
         bufsize=1
     )
-
+#close_fds=True if (sys.version_info[0]==3 and sys.version_info[1]>=7) or (sys.platform != 'win32') else False,
     output, errors = [], []
     pipe_queue = Queue() # Wowee, thanks CS 225
 
