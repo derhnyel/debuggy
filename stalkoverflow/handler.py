@@ -69,12 +69,11 @@ def write(get):
 def listen4errors(command):
     """Executes a given command and clones stdout/err to both variables and the
     terminal (in real-time)."""
-    print(bcolors.red)
     process = Popen(
         command,
         cwd=None,
         shell=False,
-        close_fds=True,
+        close_fds=True if (sys.version_info[0]==3 and sys.version_info[1]>=7) or (sys.platform != 'win32') else False,
         stdout=PIPE,
         stderr=PIPE,
         bufsize=1
@@ -158,7 +157,7 @@ def ProcessScript(script):
           script = [f.replace('.class', '') for f in script]
   #  if language=='javac':
   #    language = 'java' 
-   output, error = listen4errors(language +' '+ script)
+   output, error = listen4errors("%s %s"%(language,script))
    if (output, error) == (None, None): # Invalid file
             print(bcolors.red+bcolors.bold+'Invalid File'+bcolors.end)
             sys.exit(1)      
