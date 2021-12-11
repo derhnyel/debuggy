@@ -25,13 +25,15 @@ def main():
         else:
             raise Exception("-e takes path to Error logfile Only")    
     elif args.query is not None:
-        query = args.query+' site:stackoverflow.com'
-        titles,_,links,_=parsers.GSearch(query)
-        if titles != []:
-            ui.start_app(links,titles) # Opens interface        
+        if os.path.isfile(args.query)==False:
+            query = args.query+' site:stackoverflow.com'
+            titles,_,links,_=parsers.GSearch(query)
+            if titles != []:
+                ui.start_app(links,titles) # Opens interface        
+            else:
+                print("\n%s%s%s" % (bcolors.red, "No Google results found.\n", bcolors.end))
         else:
-            print("\n%s%s%s" % (bcolors.red, "No Google results found.\n", bcolors.end))
-
+             raise Exception("-q takes str and not paths")
     elif args.script is not None:
         handler.ProcessScript(args.script)
 
