@@ -90,7 +90,7 @@ __Pending Features:__
 
 
 ## Meta
-Inspired by `Shobrook' <https://github.com/shobrook>`_ repository `"Rebound" <https://github.com/shobrook/Rebound>`.
+Inspired by [Shobrook](https://github.com/shobrook) Repository [Rebound](https://github.com/shobrook/Rebound).
 
-Distributed under the MIT license. See `LICENSE <https://github.com/derhnyel/deBuggy/blob/master/LICENSE>`_ for more information.
+Distributed under the MIT license. See [LICENSE](https://github.com/derhnyel/deBuggy/blob/master/LICENSE) for more information.
 * [Eje Daniel](https://github.com/derhnyel) - author/maintainer
