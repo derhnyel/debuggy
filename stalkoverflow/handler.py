@@ -73,7 +73,7 @@ def listen4errors(command):
         command,
         cwd=None,
         shell=False,
-        close_fds =(sys.platform != 'win32')
+        close_fds =(sys.platform != 'win32'),
         stdout=PIPE,
         stderr=PIPE,
         bufsize=1
