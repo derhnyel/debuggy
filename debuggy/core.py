@@ -28,8 +28,7 @@ def _get_caller_path():
        #module name from this path
        caller_path = os.path.dirname(calling_script.__file__)
     except:
-        print("Debuggy doesn't support the use of interative Shells like idle,ipython,jupyternotebook etc.")
-        sys.exit(1)
+        raise Exception("Debuggy doesn't support the use of interative Shells like idle,ipython,jupyternotebook etc.")
     return (caller_path)                
 
 #print(os.getenv('SHELL'))
@@ -39,8 +38,9 @@ _caller_path = _get_caller_path()
     #Open Logger
 try:
     __logger = open( os.path.join(_caller_path,'log.err'),'w')
-except PermissionError :
-    print('PermissionError, Run script in an administrative terminal')
+except PermissionError:
+    raise PermissionError('Run script in an administrative terminal')
+
 else:
     #Get process id of running script
     process_id = os.getpid()
@@ -48,8 +48,4 @@ else:
     sys.stderr = __logger
     #Run main.py From Open Terminal(path to modules log_file)
     os.system('start cmd /c debuggy call -e %s -id %s'%(os.path.join(_caller_path,'log.err'),process_id))
-    #__main = Popen(["python","main.py",str(process_id)],shell=True,stdin=sys.stdin,stdout=sys.stdout,start_new_session=True)#,executable=USERS_DEFAULT_SHELL)    
-    
-    
-
-
+    #__main = Popen(["python","main.py",str(process_id)],shell=True,stdin=sys.stdin,stdout=sys.stdout,start_new_session=True)#,executable=USERS_DEFAULT_SHELL)   
