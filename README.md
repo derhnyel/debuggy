@@ -89,5 +89,8 @@ __Pending Features:__
 * Add Support for more languages
 
 
-## Support
+## Meta
+Inspired by `Shobrook' <https://github.com/shobrook>`_ repository `"Rebound" <https://github.com/shobrook/Rebound>`.
+
+Distributed under the MIT license. See `LICENSE <https://github.com/derhnyel/deBuggy/blob/master/LICENSE>`_ for more information.
 * [Eje Daniel](https://github.com/derhnyel) - author/maintainer
