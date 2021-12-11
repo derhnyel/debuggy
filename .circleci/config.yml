@@ -2,20 +2,20 @@ version: 2.1
 jobs:
   build_test:
     docker:
-      - image: circleci/python:3.6.4
+      - image: circleci/python:3.7
     steps:
       - checkout  # checkout source code to working directory
       - run:
           command: |  # create whl and use pipenv to install dependencies
             sudo python setup.py sdist bdist_wheel
             sudo pip install pipenv
-            pipenv install dist/debuggy-0.2.0-py3-none-any.whl
+            pipenv install dist/debuggy-1.0-py3-none-any.whl
             pipenv install pytest
 
 
   pypi_publish:
     docker:
-      - image: circleci/python:3.6.4
+      - image: circleci/python:3.7
     steps:
       - checkout  # checkout source code to working directory
       - run:
