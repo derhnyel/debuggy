@@ -25,7 +25,7 @@ def main():
         else:
             raise Exception("-e takes path to Error logfile Only")    
     elif args.query is not None:
-        if os.path.isfile(args.query)==False:
+        if not os.path.isfile(args.query):
             query = args.query+' site:stackoverflow.com'
             titles,_,links,_=parsers.GSearch(query)
             if titles != []:

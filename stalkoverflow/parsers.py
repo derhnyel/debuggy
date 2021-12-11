@@ -9,7 +9,6 @@ from  stalkoverflow.color import bcolors
 
 def StylizeCode(Text):
     """Identifies and stylizes code in a question or answer."""
-    # TODO: Handle blockquotes and markdown
     StylizedText = []
     CodeBlocks = [block.get_text() for block in Text.find_all("code")]
     BlockQuotes = [block.get_text() for block in Text.find_all("blockquote")]
@@ -41,6 +40,7 @@ def StylizeCode(Text):
 def GSearch(Error):
     #global Connection
     try:
+      print(bcolors.green+"Fetching Results...Please wait..."+bcolors.end)
       gs = GoogleSearch()
       SearchArgs=(Error,1)
       gs.clear_cache()
@@ -48,8 +48,7 @@ def GSearch(Error):
     except Exception as e:
        sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold, "DeBuggy was unable to fetch results. "
                                             +str(e)+"\n Try again Later.",bcolors.end))
-       #Connection = False
-       #return Connection
+
        input('\nPress Enter to Continue. ')
        sys.exit(1)
     titles=[]
@@ -68,7 +67,7 @@ def StackOverflow (url):
   QTitle = HtmlText.find_all('a', class_="question-hyperlink")[0].get_text()
   QStatus = HtmlText.find("div", attrs={"itemprop": "upvoteCount"}).get_text() # Vote count
   QStatus += " Votes | Asked " + HtmlText.find("time", attrs={"itemprop": "dateCreated"}).get_text() # Date created
-  QDescription = StylizeCode(HtmlText.find_all("div", class_="s-prose js-post-body")[0]) # TODO: Handle duplicates
+  QDescription = StylizeCode(HtmlText.find_all("div", class_="s-prose js-post-body")[0])
 
   answers = [StylizeCode(answer) for answer in HtmlText.find_all("div", class_="s-prose js-post-body")][1:]
   if len(answers) == 0:
@@ -86,11 +85,9 @@ def ParseUrl(url):
         if Response.status_code is not 200:
           sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
                                             +Response.reason+"\n Try again Later.", bcolors.end))
-          #Connection=False
           input('\nPress Enter to Continue. ')                                  
           sys.exit(1) 
     except requests.exceptions.RequestException:
-        #Connection=False
         sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
                                             "Please make sure you are connected to the internet.\n", bcolors.end))
         input('\nPress Enter to Continue. ')                                    

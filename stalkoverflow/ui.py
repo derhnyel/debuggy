@@ -9,8 +9,13 @@ from stalkoverflow.color import *
 links=None
 titles=None
 cache = {}
-"""Function to stylize texts and codes for printing"""
+
+
+
+
+
 def stylize_print(mypad,new_text,width):
+    """Function to stylize texts and codes for printing"""
     mypad.addstr("\n\n")
     for text in new_text:
         if type(text)==tuple:
@@ -172,8 +177,9 @@ def print_menu(stdscr,rw_idx,menu):
                 stdscr.addstr(y1,x1,row.upper())
     stdscr.refresh()
 
-'''Creating textpad with rectangle to print menu on '''
+
 def text_pad(stdscr):
+    '''Creating textpad with rectangle to print menu on '''
     h,w = stdscr.getmaxyx()
     box = [[0,2],[h-2,w-2]]
     textpad.rectangle(stdscr,box[0][0],box[0][1],box[1][0],box[1][1])
@@ -182,8 +188,9 @@ def text_pad(stdscr):
 
 #Stalk overflow
 
-'''Print Buttom Menu'''
+
 def buttom_menu(stdscr):
+    '''Print Buttom Menu'''
     h,w = stdscr.getmaxyx()
     bottom_menu = "(↓)Next(↑)Prev Line|(→)Next(←)Prev Page|(q)Quit|(esc)Back|(b)Browser|(d)Description|(a)Answers".encode('utf-8').center(w - 5)
     try:

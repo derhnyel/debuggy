@@ -7,7 +7,6 @@ import re
 from subprocess import PIPE, Popen
 from threading import Thread
 from queue import Queue
-import os
 
 def CheckErrorMessage(ErrorMessage):
     """Filters the ErrorMessage and returns valid."""
@@ -18,9 +17,10 @@ def CheckErrorMessage(ErrorMessage):
             return False
         else:
             return True  
+
 def MonitorProcess(ProcessId):
   try:
-      print(bcolors.green+bcolors.bold+"Checking Running Script for Errors..."+bcolors.end,file=sys.stdout)      
+      print(bcolors.green+bcolors.bold+"Checking Running Script for Errors...",file=sys.stdout)      
       while True:
           RunningProcess = Process(ProcessId)
   except NoSuchProcess as e:
@@ -31,6 +31,8 @@ def CleanError(ErrorMessage):
   ErrorLineno = int(ErrorMessage[1].split(',')[1].strip(' line'))
   error = error
   return (ErrorLineno,error)
+
+
 def script_language(_path):
     """Returns the language a file is written in."""
     if _path.endswith(".py"):
@@ -108,6 +110,8 @@ def listen4errors(command):
     #else:
     return (output, errors)
 
+
+
 def get_error_message(error, language):
     """Filters the stack trace from stderr and returns only the error message."""
     if error == '':
@@ -139,6 +143,8 @@ def get_error_message(error, language):
                 return m.group(1)
 
         return None
+
+
 def UserConfirm(question):
       ValidInputs = {"yes": True, "y": True, "ye": True, "no": False, "n": False}
       prompt = "[Y/N] "
@@ -148,6 +154,8 @@ def UserConfirm(question):
         if UserChoice in ValidInputs:
           return ValidInputs[UserChoice]
         print(bcolors.reverse+bcolors.blue+"Please respond with 'yes' or 'no' (or 'y' or 'n').\n",bcolors.end,file=sys.stdout)           
+
+
 def ProcessScript(script):
    language = script_language(script)
    if language=='unknown':
@@ -173,7 +181,6 @@ def ProcessScript(script):
 
 
 def execute(LogPath,ProcessId):
-  #global ProcessState,ErrorMessage,ValidError
   ProcessState = MonitorProcess(ProcessId)
   #clear terminal  
   with open(LogPath,'r') as log:
@@ -190,7 +197,11 @@ def execute(LogPath,ProcessId):
         #return error,lineno,ProcessState,ValidError
         Error='%s %s %s' %('python',Error,' site:stackoverflow.com')
         titles,_,links,_=parsers.GSearch(Error)
-        ui.start_app(links,titles)
+        if titles!=[]:
+            ui.start_app(links,titles)
+        else:
+            print(bcolors.red+"No search Result Found"+bcolors.end)
+            input("Press Enter To Continue")
         #return ErrorMessage 
     else:
       sys.exit(1)    
