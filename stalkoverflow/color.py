@@ -1,7 +1,8 @@
 import curses
-
+from colorama import init
 
 class bcolors:
+      init()
       bold='\033[1m'
       underline='\033[4m'
       reverse='\033[7m'

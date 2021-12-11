@@ -20,7 +20,7 @@ def CheckErrorMessage(ErrorMessage):
             return True  
 def MonitorProcess(ProcessId):
   try:
-      print(bcolors.green+bcolors.bold+"Checking Running Script for Errors...",file=sys.stdout)      
+      print(bcolors.green+bcolors.bold+"Checking Running Script for Errors..."+bcolors.end,file=sys.stdout)      
       while True:
           RunningProcess = Process(ProcessId)
   except NoSuchProcess as e:
@@ -69,6 +69,7 @@ def write(get):
 def listen4errors(command):
     """Executes a given command and clones stdout/err to both variables and the
     terminal (in real-time)."""
+    print(bcolors.red)
     process = Popen(
         command,
         cwd=None,
@@ -159,7 +160,7 @@ def ProcessScript(script):
   #    language = 'java' 
    output, error = listen4errors(language +' '+ script)
    if (output, error) == (None, None): # Invalid file
-            print('Invalid File')
+            print(bcolors.red+bcolors.bold+'Invalid File'+bcolors.end)
             sys.exit(1)      
    error_msg = get_error_message(error, language) # Prepares error message for search         
    if error_msg==None :
