@@ -14,7 +14,7 @@ By importing debuggy as the first (1st) line of your python script, it keeps tra
     >>> import debuggy
 ```
 
-You can also use debuggy comments to add comments to your code and make debugging earsier. Comments can be made before functions, classes and declaration of variables stating the function of the preceeding code block, if an error occurs withing the code block the comment is used to track proceedures to execute the function properly.
+You can also use debuggy comments to add comments to your code and make debugging earsier. Comments can be made before functions, classes and declaration of variables stating the function of the preceeding code block, if an error occurs within the code block , the comment is used to track proceedures to execute the function properly.
 
 ```python
     >>> from debuggy import comment 
