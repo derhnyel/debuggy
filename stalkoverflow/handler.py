@@ -196,7 +196,7 @@ def execute(LogPath,ProcessId):
         _,Error = CleanError(ErrorMessage)
         #return error,lineno,ProcessState,ValidError
         Error='%s %s %s' %('python',Error,' site:stackoverflow.com')
-        titles,_,links,_=parsers.GSearch(Error)
+        titles,_,links,_= parsers.GSearch(Error)
         if titles!=[]:
             ui.start_app(links,titles)
         else:
