@@ -42,7 +42,7 @@ def GSearch(Error):
     try:
       print(bcolors.green+"Fetching Results...Please wait..."+bcolors.end)
       gs = GoogleSearch()
-      SearchArgs=(Error,1)
+      SearchArgs=(Error,2)
       gs.clear_cache()
       SearchDict=gs.search(*SearchArgs)
     except Exception as e:
