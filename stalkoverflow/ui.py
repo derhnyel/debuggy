@@ -66,22 +66,26 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
     top_menu =(menu[idx]).encode('utf-8').center(columns - 4)
     ResultWindow.addstr(0, 2, top_menu, curses.A_REVERSE)
     stdscr.addstr(rows//2,columns//2-len('Loading')//2, "LOADING...")
-    
+    stdscr.refresh()
+
     if idx in cache.keys():
-        QTitle,QDescription,QStatus,answers,export_codes=cache[idx]
+        QTitle,QDescription,QStatus,answers,codes_to_export=cache[idx]
     else:
-        QTitle,QDescription,QStatus,answers,export_codes = parsers.StackOverflow(links[idx],columns-4)
-        cache[idx]=(QTitle,QDescription,QStatus,answers,export_codes)
+        QTitle,QDescription,QStatus,answers,codes_to_export = parsers.StackOverflow(links[idx],columns-4)
+        cache[idx]=(QTitle,QDescription,QStatus,answers,codes_to_export)
     answer_text = [list(filter(lambda f : False if f=='\n' else f, x)) for x in answers]
     description_text = list(filter(lambda x : False if x=='\n' else x, QDescription))    
     mypad = curses.newpad(10000,columns-3)
     mypad_pos =  0
     mypad_shift = 0
     move = 'down'
-    mypad.refresh(mypad_pos, mypad_shift, 3, 6, rows-1, columns-1)      
+    mypad.refresh(mypad_pos, mypad_shift, 3, 6, rows-1, columns-1)
+    ResultWindow.addstr(y-5,x-10,'↓↓↓')
+    ResultWindow.addstr(1,x-10,'↑↑↑')      
     style_answers(mypad, answer_text, QStatus, columns)
     
     while True:
+        stdscr.refresh() 
         y,x = stdscr.getmaxyx()
         rows, columns = ResultWindow.getmaxyx()
         if mypad_pos==0 :
@@ -98,6 +102,8 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
             mypad_pos -= 1
             mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)
         elif cmd in [ord("q"),27,curses.KEY_BACKSPACE,127,8]:
+            mypad.clear()
+            ResultWindow.clear()
             return ('title',idx)
         elif cmd == ord("b"):
             import webbrowser
@@ -121,7 +127,6 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
         elif cmd == ord('e'):
             mode = 'export' 
             return (mode,idx)
-
         elif cmd == curses.KEY_MOUSE:
             _,w,h,_,_ = curses.getmouse()
             if h in range(2,3) and  w in range(x-6,x-3) and mypad_pos!=0:
@@ -230,7 +235,6 @@ def main_window(stdscr):
         print_menu(stdscr,current_row,menu,top_label)
         key = stdscr.getch()
 
-
         if mode=='title':
            stdscr.refresh()   
            if key == curses.KEY_UP and current_row-1 is not -1:
@@ -240,9 +244,9 @@ def main_window(stdscr):
                current_row+=1
                print_menu(stdscr,current_row,menu,top_label)
            elif key in [10,13,curses.KEY_RIGHT,curses.KEY_ENTER]:
-               mode,idx,export_codes = create_window(stdscr,menu,current_row,ans=True)
+               mode,idx= create_window(stdscr,menu,current_row,ans=True)
                if mode == 'export':
-                    menu = export_codes
+                    menu = codes_to_export
                     current_row = 0
                     stdscr.clear()
                     top_label = 'Debuggy >>> Select Code To Export'     
@@ -264,7 +268,7 @@ def main_window(stdscr):
                     current_row=index
                     mode,idx=create_window(stdscr,menu,current_row,ans=True)
                     if mode is 'export':
-                        menu = export_codes
+                        menu = codes_to_export
                         current_row = 0
                         top_label = 'Debuggy >>> Select Code To Export' 
                except:
@@ -272,7 +276,7 @@ def main_window(stdscr):
 
 
         elif mode=='export':
-            if export_codes !=[]:
+            if codes_to_export !=[]:
                 stdscr.refresh()
                 if key == curses.KEY_UP and current_row-1 is not -1:
                     current_row-=1
@@ -280,14 +284,15 @@ def main_window(stdscr):
                 elif key == curses.KEY_DOWN and current_row+1 is not len(menu):
                     current_row+=1
                     print_menu(stdscr,current_row,menu,top_label)
-                elif key in [ord("q"),27,curses.KEY_BACKSPACE,127,8,curses.KEY_LEFT]:  
-                    mode,idx = create_window(stdscr,menu,current_row,ans=True)
+                elif key in [ord("q"),27,curses.KEY_BACKSPACE,127,8,curses.KEY_LEFT]:
+                    stdscr.clear()
+                    menu=titles
+                    print_menu(stdscr,idx,menu,top_label) 
+                    mode,idx = create_window(stdscr,menu,idx,ans=True)
                     if mode == 'title':
                         current_row = idx 
                         menu=titles
-                        top_label = 'Debuggy'          
-                elif key == ord("b"):
-                    webbrowser.open_new(links[current_row])    
+                        top_label = 'Debuggy'            
                 elif key == curses.KEY_MOUSE:
                     _,x,y,_,_ = curses.getmouse()
                     start_y = 2
@@ -311,7 +316,7 @@ def main_window(stdscr):
                 if key in [ord("q"),27,curses.KEY_BACKSPACE,127,8]:
                     current_row = idx 
                     menu=titles
-                    mode,idx = create_window(stdscr,menu,current_row,ans=True)
+                    mode,idx = create_window(stdscr,menu,idx,ans=True)
                        
         
 

@@ -63,7 +63,7 @@ def StylizeCode(Text,verified_identifier=None,scr_width=None,index=None):
                  holder.append(StylizedText[-2][1][:-1])
             StylizedText[-2] = ("code", StylizedText[-2][1][:-1])
     if verified_identifier is not None and verified_identifier in Text:
-        holder.insert(0,'#**DeBuggy (Answer Verified) **\n')              
+        holder.insert(0,'#**Verified Answer**\n')              
     export_code.append("".join(holder)) if holder!=[] and index!=0 else holder       
              
 
@@ -95,6 +95,7 @@ def GSearch(Error):
     return (titles,descriptions,lnks,urls)
 
 def StackOverflow (url,screen_width=None):
+  global export_code  
   HtmlText= ParseUrl(url)
   QTitle = HtmlText.find_all('a', class_="question-hyperlink")[0].get_text()
   QStatus = HtmlText.find("div", attrs={"itemprop": "upvoteCount"}).get_text() # Vote count
@@ -122,8 +123,9 @@ def StackOverflow (url,screen_width=None):
     answers = [StylizeCode(answer,text,screen_width,ind) for ind,answer in enumerate(HtmlText.find_all("div", class_="s-prose js-post-body"))][1:]
     if len(answers) == 0:
         answers.append(("no answers", u"\nNo answers for this question."))
-
-  return QTitle,QDescription,QStatus, answers,export_code
+  exp = export_code.copy()
+  export_code = []
+  return QTitle,QDescription,QStatus, answers,exp
 
 
 def ParseUrl(url):
