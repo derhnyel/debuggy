@@ -176,11 +176,11 @@ def ProcessScript(script):
    if DisplayResult:   
       Error='%s %s %s' %(language,error_msg,' site:stackoverflow.com')
       titles,_,links,_=parsers.GSearch(Error)
-      ui.start_app(links,titles)
+      ui.start_app(links,titles,file = script) if language=='python' else ui.start_app(links,titles)
 
 
 
-def execute(LogPath,ProcessId):
+def execute(LogPath,ProcessId,filename=None):
   ProcessState = MonitorProcess(ProcessId)
   #clear terminal  
   with open(LogPath,'r') as log:
@@ -198,7 +198,7 @@ def execute(LogPath,ProcessId):
         Error='%s %s %s' %('python',Error,' site:stackoverflow.com')
         titles,_,links,_= parsers.GSearch(Error)
         if titles!=[]:
-            ui.start_app(links,titles)
+            ui.start_app(links,titles,file =filename)
         else:
             print(bcolors.red+"No search Result Found"+bcolors.end)
             input("Press Enter To Continue")
