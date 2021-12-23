@@ -68,6 +68,7 @@ class EditorGUI(object):
         self._message = ''
         self._will_exit = False
 
+
     def _draw_gutter(self, num_start, num_rows, last_line_num):
         """Draw the gutter, and return the gutter width."""
         line_nums = range(num_start, num_start + num_rows)
@@ -301,7 +302,7 @@ class EditorGUI(object):
                 self._col -= 1
             curses.mousemask(0)    
             self._mode = "normal"
-        elif char == 127 or char ==8: # backspace
+        elif char == 127 or char ==8 or char == curses.KEY_BACKSPACE: # backspace
             if self._col == 0 and self._row == 0:
                 pass # no effect
             elif self._col == 0:
@@ -387,7 +388,7 @@ def use_curses():
         curses.nocbreak()
         curses.echo()
         curses.endwin()
-        curses.mousemask(0)
+        #curses.mousemask(0)
 
 
 def curses_main():
