@@ -491,35 +491,7 @@ def CreateWindow(stdscr,menu,idx,ans=False,des=False):
             return ('title',idx)
         elif cmd == ord("b"):
             webbrowser.open_new(links[idx])
-        # elif cmd == ord('d'):
-        #     mypad.clear()
-        #     mypad.attron(curses.color_pair(3)|curses.A_BOLD|curses.A_UNDERLINE)
-        #     mypad.addstr('\nDESCRIPTION\n')
-        #     mypad.addstr(QStatus)
-        #     mypad.addstr('\n')
-        #     mypad.attroff(curses.A_BOLD|curses.A_UNDERLINE)
-        #     #mypad.addstr(divider)  
-        #     mypad.attroff(curses.color_pair(3))
-        #     mypad_pos =  0
-        #     mypad_shift = 0
-        #     mypad.refresh(mypad_pos, mypad_shift, 3, 6, rows-1, columns-1)
-        #     new_text = list(filter(lambda x : False if x=='\n' else x, QDescription))
-        #     stylize_print(mypad,new_text,columns-4)
-        # elif cmd == ord('a'):
-        #     mypad.clear()
-        #     mypad.attron(curses.color_pair(3)|curses.A_BOLD|curses.A_UNDERLINE)
-        #     mypad.addstr('\nANSWERS\n')
-        #     mypad.addstr(QStatus)
-        #     mypad.addstr('\n')
-        #     mypad.attroff(curses.A_BOLD|curses.A_UNDERLINE)
-            #mypad.addstr(divider)  
-            # mypad.attroff(curses.color_pair(3))
-            # mypad_pos =  0
-            # mypad_shift = 0
-            # mypad.refresh(mypad_pos, mypad_shift, 3, 6, rows-1, columns-1)
-            # answer_text = [list(filter(lambda f : False if f=='\n' else f, x)) for x in answers]
-            # [stylize_print(mypad,x,columns-4) for x in answer_text]
-            #stylize_print(mypad,new_text,columns-4)
+
         elif cmd==curses.KEY_RIGHT and ans:
             mypad.clear()
             mypad.attron(curses.color_pair(3)|curses.A_BOLD|curses.A_UNDERLINE)
@@ -759,10 +731,11 @@ def App(stdscr):
                     print_menu(stdscr,idx,menu,text)
                     mode,idx = CreateWindow(stdscr,menu,idx,ans=True)
                     if mode == 'title':
-                        stdscr.clear()
                         current_row = idx 
                         menu=titles
                         text = 'Debuggy'
+                    else:
+                        menu =  export_code  
                 elif key == ord("b"):
                     webbrowser.open_new(links[current_row])    
                 elif key == curses.KEY_MOUSE:
@@ -861,7 +834,35 @@ if __name__=='__main__':
     #curses.mousemask(1)
 
 
-
+        # elif cmd == ord('d'):
+        #     mypad.clear()
+        #     mypad.attron(curses.color_pair(3)|curses.A_BOLD|curses.A_UNDERLINE)
+        #     mypad.addstr('\nDESCRIPTION\n')
+        #     mypad.addstr(QStatus)
+        #     mypad.addstr('\n')
+        #     mypad.attroff(curses.A_BOLD|curses.A_UNDERLINE)
+        #     #mypad.addstr(divider)  
+        #     mypad.attroff(curses.color_pair(3))
+        #     mypad_pos =  0
+        #     mypad_shift = 0
+        #     mypad.refresh(mypad_pos, mypad_shift, 3, 6, rows-1, columns-1)
+        #     new_text = list(filter(lambda x : False if x=='\n' else x, QDescription))
+        #     stylize_print(mypad,new_text,columns-4)
+        # elif cmd == ord('a'):
+        #     mypad.clear()
+        #     mypad.attron(curses.color_pair(3)|curses.A_BOLD|curses.A_UNDERLINE)
+        #     mypad.addstr('\nANSWERS\n')
+        #     mypad.addstr(QStatus)
+        #     mypad.addstr('\n')
+        #     mypad.attroff(curses.A_BOLD|curses.A_UNDERLINE)
+            #mypad.addstr(divider)  
+            # mypad.attroff(curses.color_pair(3))
+            # mypad_pos =  0
+            # mypad_shift = 0
+            # mypad.refresh(mypad_pos, mypad_shift, 3, 6, rows-1, columns-1)
+            # answer_text = [list(filter(lambda f : False if f=='\n' else f, x)) for x in answers]
+            # [stylize_print(mypad,x,columns-4) for x in answer_text]
+            #stylize_print(mypad,new_text,columns-4)
 
 # def CreateWindow(stdscr,menu,idx):
 #     global cache

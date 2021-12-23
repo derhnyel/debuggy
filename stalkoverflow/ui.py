@@ -292,7 +292,9 @@ def main_window(stdscr):
                     if mode == 'title':
                         current_row = idx 
                         menu=titles
-                        top_label = 'Debuggy'            
+                        top_label = 'Debuggy'
+                    else:
+                        menu = codes_to_export                  
                 elif key == curses.KEY_MOUSE:
                     _,x,y,_,_ = curses.getmouse()
                     start_y = 2
