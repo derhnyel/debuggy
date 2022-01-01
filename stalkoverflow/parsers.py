@@ -22,14 +22,10 @@ def StylizeCode(Text,verified_identifier=None,scr_width=None,index=None):
             Text.insert(0,text)
         except:
             Text.insert(0,"================ANSWER==============\n")
-
-
-
     StylizedText = []
     CodeBlocks = [block.get_text() for block in Text.find_all("code")]
     BlockQuotes = [block.get_text() for block in Text.find_all("blockquote")]
     newline = False
-
     for child in Text.recursiveChildGenerator():
         name = getattr(child, "name", None)
         if name is None: # Leaf (terminal) node
@@ -66,7 +62,6 @@ def StylizeCode(Text,verified_identifier=None,scr_width=None,index=None):
         holder.insert(0,'#**Verified Answer**\n')              
     export_code.append("".join(holder)) if holder!=[] and index!=0 else holder       
              
-
     return StylizedText
 
 def GSearch(Error):
@@ -80,7 +75,6 @@ def GSearch(Error):
     except Exception as e:
        sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold, "DeBuggy was unable to fetch results. "
                                             +str(e)+"\n Try again Later.",bcolors.end))
-
        input('\nPress Enter to Continue. ')
        sys.exit(1)
     titles=[]
@@ -97,6 +91,8 @@ def GSearch(Error):
 def StackOverflow (url,screen_width=None):
   global export_code  
   HtmlText= ParseUrl(url)
+  if HtmlText in [None,False]:
+    return 'Found captcha' if HtmlText==None else 'No internet connection'
   QTitle = HtmlText.find_all('a', class_="question-hyperlink")[0].get_text()
   QStatus = HtmlText.find("div", attrs={"itemprop": "upvoteCount"}).get_text() # Vote count
   QStatus += " Votes | Asked " + HtmlText.find("time", attrs={"itemprop": "dateCreated"}).get_text() # Date created
@@ -139,11 +135,13 @@ def ParseUrl(url):
                                             +Response.reason+"\n Try again Later.", bcolors.end))
           input('\nPress Enter to Continue. ')                                  
           sys.exit(1) 
-    except requests.exceptions.RequestException:
+    except requests.exceptions.RequestException:#ConnectionError
         sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
                                             "Please make sure you are connected to the internet.\n", bcolors.end))
-        input('\nPress Enter to Continue. ')                                    
+        input('\nPress Enter to Continue. ')
         sys.exit(1)
+    except requests.exceptions.ConnectionTimeout:                                        
+        return False
     if "\.com/nocaptcha" in Response.url: # URL is a captcha page
         return None
     else:
