@@ -1,15 +1,15 @@
 import curses
-from curses import wrapper
-from curses import textpad
 from stalkoverflow import parsers   
 from stalkoverflow.color import *
-
+import linecache
 
 links=None
 titles=None
 filename = None
+eln = None
 codes_to_export =[]
 cache = {}
+
 
 
 
@@ -67,83 +67,94 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
     ResultWindow.addstr(0, 2, top_menu, curses.A_REVERSE)
     stdscr.addstr(rows//2,columns//2-len('Loading')//2, "LOADING...")
     stdscr.refresh()
-
+    
     if idx in cache.keys():
         QTitle,QDescription,QStatus,answers,codes_to_export=cache[idx]
     else:
-        QTitle,QDescription,QStatus,answers,codes_to_export = parsers.StackOverflow(links[idx],columns-4)
-        cache[idx]=(QTitle,QDescription,QStatus,answers,codes_to_export)
-    answer_text = [list(filter(lambda f : False if f=='\n' else f, x)) for x in answers]
-    description_text = list(filter(lambda x : False if x=='\n' else x, QDescription))    
-    mypad = curses.newpad(10000,columns-3)
-    mypad_pos =  0
-    mypad_shift = 0
-    move = 'down'
-    mypad.refresh(mypad_pos, mypad_shift, 3, 6, rows-1, columns-1)
-    ResultWindow.addstr(y-5,x-10,'↓↓↓')
-    ResultWindow.addstr(1,x-10,'↑↑↑')      
-    style_answers(mypad, answer_text, QStatus, columns)
-    
-    while True:
-        stdscr.refresh() 
-        y,x = stdscr.getmaxyx()
-        rows, columns = ResultWindow.getmaxyx()
-        if mypad_pos==0 :
-           mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1) 
-        top_menu = ("Line %d to %d of 10000 of %s" % (mypad_pos + 1, mypad_pos + rows,QTitle)).encode('utf-8').center(columns - 4)
-        ResultWindow.addstr(0, 2, top_menu, curses.A_REVERSE)
-        cmd = ResultWindow.getch()
-        if  cmd == curses.KEY_DOWN and mypad_pos!=10000:
-            move='down'
-            mypad_pos += 1
-            mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)
-        elif cmd == curses.KEY_UP and mypad_pos!=0:
-            move='up'
-            mypad_pos -= 1
-            mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)
-        elif cmd in [ord("q"),27,curses.KEY_BACKSPACE,127,8]:
-            mypad.clear()
-            ResultWindow.clear()
-            return ('title',idx)
-        elif cmd == ord("b"):
-            import webbrowser
-            webbrowser.open_new(links[idx])
+        result = parsers.StackOverflow(links[idx],columns-4)
+        try:
+           QTitle,QDescription,QStatus,answers,codes_to_export = result
+           cache[idx]=(QTitle,QDescription,QStatus,answers,codes_to_export)
+        except:
+            stdscr.addstr(rows//2,columns//2-len(result)//2, result)
+            while True:
+                stdscr.refresh()
+                cmd = stdscr.getch()
+                if cmd in [ord("q"),27,curses.KEY_BACKSPACE,127,8]:
+                    return ('title',idx)
 
-        elif cmd in[curses.KEY_RIGHT, curses.KEY_LEFT] and ans:
-            mypad.clear()
-            ans=False
-            desc=True
+        else:
+            answer_text = [list(filter(lambda f : False if f=='\n' else f, x)) for x in answers]
+            description_text = list(filter(lambda x : False if x=='\n' else x, QDescription))    
+            mypad = curses.newpad(10000,columns-3)
             mypad_pos =  0
             mypad_shift = 0
-            style_description(mypad, description_text, QStatus, columns) 
-        
-        elif cmd in[curses.KEY_RIGHT, curses.KEY_LEFT] and desc:
-            mypad.clear()
-            mypad_pos =  0
-            mypad_shift = 0
-            ans=True
-            desc=False
+            move = 'down'
+            mypad.refresh(mypad_pos, mypad_shift, 3, 6, rows-1, columns-1)
+            ResultWindow.addstr(y-5,x-10,'↓↓↓')
+            ResultWindow.addstr(1,x-10,'↑↑↑')      
             style_answers(mypad, answer_text, QStatus, columns)
-        elif cmd == ord('e'):
-            mode = 'export' 
-            return (mode,idx)
-        elif cmd == curses.KEY_MOUSE:
-            _,w,h,_,_ = curses.getmouse()
-            if h in range(2,3) and  w in range(x-6,x-3) and mypad_pos!=0:
-               mypad_pos -= 1
-               move='up'
-               mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)
-            if h in range(y-4,y-3) and  w in range(x-6,x-3):
-               move = 'down' 
-               mypad_pos += 1
-               mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)   
-            elif h==-1 and w==-1:
-               if move =='down':   
-                mypad_pos += 1
-                mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)
-               elif move =='up' and mypad_pos!=0:
-                  mypad_pos -= 1
-                  mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)                         
+                 
+            while True:
+                stdscr.refresh() 
+                y,x = stdscr.getmaxyx()
+                rows, columns = ResultWindow.getmaxyx()
+                if mypad_pos==0 :
+                    mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1) 
+                top_menu = ("Line %d to %d of 10000 of %s" % (mypad_pos + 1, mypad_pos + rows,QTitle)).encode('utf-8').center(columns - 4)
+                ResultWindow.addstr(0, 2, top_menu, curses.A_REVERSE)
+                cmd = ResultWindow.getch()
+                if  cmd == curses.KEY_DOWN and mypad_pos!=10000:
+                    move='down'
+                    mypad_pos += 1
+                    mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)
+                elif cmd == curses.KEY_UP and mypad_pos!=0:
+                    move='up'
+                    mypad_pos -= 1
+                    mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)
+                elif cmd in [ord("q"),27,curses.KEY_BACKSPACE,127,8]:
+                    mypad.clear()
+                    ResultWindow.clear()
+                    return ('title',idx)
+                elif cmd == ord("b"):
+                    import webbrowser
+                    webbrowser.open_new(links[idx])
+
+                elif cmd in[curses.KEY_RIGHT, curses.KEY_LEFT] and ans:
+                    mypad.clear()
+                    ans=False
+                    desc=True
+                    mypad_pos =  0
+                    mypad_shift = 0
+                    style_description(mypad, description_text, QStatus, columns) 
+                
+                elif cmd in[curses.KEY_RIGHT, curses.KEY_LEFT] and desc:
+                    mypad.clear()
+                    mypad_pos =  0
+                    mypad_shift = 0
+                    ans=True
+                    desc=False
+                    style_answers(mypad, answer_text, QStatus, columns)
+                elif cmd == ord('e'):
+                    mode = 'export' 
+                    return (mode,idx)
+                elif cmd == curses.KEY_MOUSE:
+                    _,w,h,_,_ = curses.getmouse()
+                    if h in range(2,3) and  w in range(x-6,x-3) and mypad_pos!=0:
+                        mypad_pos -= 1
+                        move='up'
+                        mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)
+                    if h in range(y-4,y-3) and  w in range(x-6,x-3):
+                        move = 'down' 
+                        mypad_pos += 1
+                        mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)   
+                    elif h==-1 and w==-1:
+                       if move =='down':   
+                           mypad_pos += 1
+                           mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)
+                       elif move =='up' and mypad_pos!=0:
+                           mypad_pos -= 1
+                           mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)                         
 
 
 
@@ -177,7 +188,7 @@ def print_menu(stdscr,rw_idx,menu,text):
     for idx,row in enumerate(menu):
         row = row.replace('\n',' ') 
         row = row.strip()  
-        idf=idx
+        idf = idx
         idx = idx+diff
         if len(men2[idx])>max_x:
             new_text= men2[idx][:max_x-3]+'...'
@@ -203,7 +214,7 @@ def text_pad(stdscr,text):
     '''Creating textpad with rectangle to print menu on '''
     h,w = stdscr.getmaxyx()
     box = [[0,2],[h-2,w-2]]
-    textpad.rectangle(stdscr,box[0][0],box[0][1],box[1][0],box[1][1])
+    curses.textpad.rectangle(stdscr,box[0][0],box[0][1],box[1][0],box[1][1])
     top_menu = (text).encode('utf-8').center(w - 5)
     stdscr.addstr(0, 3, top_menu, curses.A_REVERSE)
 
@@ -213,7 +224,7 @@ def text_pad(stdscr,text):
 def buttom_menu(stdscr):
     '''Print Buttom Menu'''
     h,w = stdscr.getmaxyx()
-    bottom_menu = "(↓)Next(↑)Prev Line|(→)Next(←)Prev Page|(q)Quit|(esc,backspace)Back|(b)Open Browser|(e) Export Ans Code".encode('utf-8').center(w - 5)
+    bottom_menu = "(↓)Next(↑)Prev Line|(→)Next(←)Prev Page|(q)Quit|(esc,backspace)Back|(b)Open Browser|(e)ExportCode|(c)CopyCode".encode('utf-8').center(w - 5)
     try:
         stdscr.addstr(h - 1, 3, bottom_menu, curses.A_REVERSE)
     except:
@@ -274,7 +285,6 @@ def main_window(stdscr):
                except:
                    pass
 
-
         elif mode=='export':
             if codes_to_export !=[]:
                 stdscr.refresh()
@@ -291,10 +301,31 @@ def main_window(stdscr):
                     mode,idx = create_window(stdscr,menu,idx,ans=True)
                     if mode == 'title':
                         current_row = idx 
-                        menu=titles
                         top_label = 'Debuggy'
                     else:
-                        menu = codes_to_export                  
+                        menu = codes_to_export
+                elif key in [10,13,curses.KEY_ENTER]:
+                    export_value = menu[current_row]
+                    #insert export value to line where error occured on script
+                    if filename:
+                        script = replace_text(export_value)
+                        with open(filename, "w") as myfile:
+                            myfile.write(script)
+                        #use subprocess or use an editor on main screen
+                        #editor(filename)       
+                        #save and overwrite script with the filename
+                        #open editor on script
+                    else:
+                        export_value = menu[current_row]
+                        import pyperclip
+                        pyperclip.copy(export_value)
+                        top_label = "Debbugy >>> Code Copied to Clipboard"
+
+                elif key == ord('c'):
+                    export_value = menu[current_row]
+                    import pyperclip
+                    pyperclip.copy(export_value)
+                    top_label = "Debuggy >>> Code Copied to Clipboard"
                 elif key == curses.KEY_MOUSE:
                     _,x,y,_,_ = curses.getmouse()
                     start_y = 2
@@ -313,18 +344,36 @@ def main_window(stdscr):
                     except:
                         pass
             else:
-                stdscr.addstr(y//2,x//2-len("No Codes To Export From Awnsers")//2, "No Codes To Export From Awnsers")
+              while True:
+                stdscr.addstr(h//2,w//2-len("No Codes To Export From Awnsers")//2, "No Codes To Export From Awnsers")
+                stdscr.refresh()
                 key = stdscr.getch() 
                 if key in [ord("q"),27,curses.KEY_BACKSPACE,127,8]:
-                    current_row = idx 
+                    stdscr.clear()
                     menu=titles
+                    print_menu(stdscr,idx,menu,top_label) 
                     mode,idx = create_window(stdscr,menu,idx,ans=True)
+                    if mode == 'title':
+                        current_row = idx 
+                        top_label = 'Debuggy'
+                    else:
+                        menu = codes_to_export
+                    break     
                        
-        
+def replace_text(replacement_text):
+    script = linecache.getlines(filename)
+    errorlineno = eln-1
+    error_code = "#Debuggy Comment {}".format(script[errorlineno] )
+    script.pop(errorlineno)
+    script.insert(errorlineno,replacement_text)
+    script.insert(errorlineno,error_code)
+    return ''.join(script)
+          
 
-def start_app(lnks,ttls,file=None):
-    global links,titles,filename
+def start_app(lnks,ttls,file=None,errorlineno=None):
+    global links,titles,filename,eln
     links,titles = lnks,ttls
     filename = file if file is not None else False
-    wrapper(main_window)
+    eln = errorlineno
+    curses.wrapper(main_window)
 
