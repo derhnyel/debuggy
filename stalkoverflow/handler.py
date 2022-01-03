@@ -166,6 +166,7 @@ def ProcessScript(script):
   #  if language=='javac':
   #    language = 'java' 
    output, error = listen4errors("%s %s"%(language,script))
+   eln,_=CleanError(error)
    if (output, error) == (None, None): # Invalid file
             print(bcolors.red+bcolors.bold+'Invalid File'+bcolors.end)
             sys.exit(1)      
@@ -176,11 +177,11 @@ def ProcessScript(script):
    if DisplayResult:   
       Error='%s %s %s' %(language,error_msg,' site:stackoverflow.com')
       titles,_,links,_=parsers.GSearch(Error)
-      ui.start_app(links,titles)
+      ui.start_app(links,titles,file = script,errorlineno=eln) if language=='python' else ui.start_app(links,titles)
 
 
 
-def execute(LogPath,ProcessId):
+def execute(LogPath,ProcessId,filename=None):
   ProcessState = MonitorProcess(ProcessId)
   #clear terminal  
   with open(LogPath,'r') as log:
@@ -193,12 +194,12 @@ def execute(LogPath,ProcessId):
     DisplayResult = UserConfirm('DeBuggy Wants to Search And Display Results?: ')
     if DisplayResult:
         ErrorMessage = ErrMessage.split('\n')
-        _,Error = CleanError(ErrorMessage)
+        error_line_no,Error = CleanError(ErrorMessage)
         #return error,lineno,ProcessState,ValidError
         Error='%s %s %s' %('python',Error,' site:stackoverflow.com')
         titles,_,links,_= parsers.GSearch(Error)
         if titles!=[]:
-            ui.start_app(links,titles)
+            ui.start_app(links,titles,file=filename,errorlineno=error_line_no)
         else:
             print(bcolors.red+"No search Result Found"+bcolors.end)
             input("Press Enter To Continue")

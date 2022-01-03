@@ -6,6 +6,5 @@
 *.travis.yml
 /dist/
 /build/
+/test/
 **/debuggy.egg-info
-/tests/
-

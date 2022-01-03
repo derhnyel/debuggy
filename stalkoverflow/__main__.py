@@ -15,13 +15,14 @@ def main():
     call = subparser.add_parser('call')
     call.add_argument("-id",'--pid',required=True)
     call.add_argument('-e','--err',required=True)
+    call.add_argument('-f','--file',required=True)
     args = parser.parse_args()
 
 
     if args.command=='call':
         if os.path.isfile(args.err):
             ProcessId= int(args.pid)
-            handler.execute(args.err,ProcessId)
+            handler.execute(args.err,ProcessId,filename =args.file)
         else:
             raise Exception("-e takes path to Error logfile Only")    
     elif args.query is not None:
