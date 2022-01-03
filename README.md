@@ -1,5 +1,5 @@
-[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=shield)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=svg)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![PyPI version](https://badge.fury.io/py/debuggy.svg)](https://badge.fury.io/py/debuggy) [![Coverage Status](https://coveralls.io/repos/github/derhnyel/deBuggy/badge.svg)](https://coveralls.io/github/derhnyel/deBuggy) ![GitHub all releases](https://img.shields.io/github/downloads/derhnyel/deBuggy/total?style=social) ![Pypi Downloads](https://img.shields.io/pypi/dm/debuggy)
-
+[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=shield)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=svg)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![PyPI version](https://badge.fury.io/py/debuggy.svg)](https://badge.fury.io/py/debuggy) 
+[![Pypi Downloads](https://pepy.tech/badge/debuggy)](https://pepy.tech/project/debuggy)
 
 > "Stalk Overflow with `debuggy`"
 #### Error Parser
