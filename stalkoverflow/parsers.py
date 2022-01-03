@@ -133,16 +133,18 @@ def ParseUrl(url):
         if Response.status_code is not 200:
           sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
                                             +Response.reason+"\n Try again Later.", bcolors.end))
-          input('\nPress Enter to Continue. ')                                  
-          sys.exit(1) 
+          return False
+          #input('\nPress Enter to Continue. ')                                  
+          #sys.exit(1) 
     except requests.exceptions.RequestException:#ConnectionError
         sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
                                             "Please make sure you are connected to the internet.\n", bcolors.end))
-        input('\nPress Enter to Continue. ')
-        sys.exit(1)
-    except requests.exceptions.ConnectionTimeout:                                        
         return False
-    if "\.com/nocaptcha" in Response.url: # URL is a captcha page
+        #input('\nPress Enter to Continue. ')
+        #sys.exit(1)
+    except (requests.ConnectTimeout, requests.HTTPError, requests.ReadTimeout, requests.Timeout, requests.ConnectionError):                                       
+        return False
+    if "\.com/nocaptcha" in Response.url: # UrL is a captcha page
         return None
     else:
         return bs4(Response.text, "html.parser")  

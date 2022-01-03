@@ -158,7 +158,6 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
 
 
 
-
 def print_menu(stdscr,rw_idx,menu,text):
     def select_spaces(text):
         stdscr.attron(curses.color_pair(2)|curses.A_BOLD)
