@@ -166,13 +166,13 @@ def ProcessScript(script):
   #  if language=='javac':
   #    language = 'java' 
    output, error = listen4errors("%s %s"%(language,script))
-   eln,_=CleanError(error)
-   if (output, error) == (None, None): # Invalid file
+   if (output, error) == (None, None) or ("can't open file" in error and "No such file or directory" in error): # Invalid file
             print(bcolors.red+bcolors.bold+'Invalid File'+bcolors.end)
             sys.exit(1)      
-   error_msg = get_error_message(error, language) # Prepares error message for search         
+   error_msg = get_error_message(error, language) # Prepares error message for search
+   eln,_=CleanError(error)         
    if error_msg==None :
-     sys.exit(1)
+     sys.exit(1) 
    DisplayResult = UserConfirm('DeBuggy Wants to Search And Display Results?: ')
    if DisplayResult:   
       Error='%s %s %s' %(language,error_msg,' site:stackoverflow.com')

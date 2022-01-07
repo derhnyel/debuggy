@@ -55,11 +55,15 @@ class EditorGUI(object):
 
         # if filename already exists, try to load from it
         text = ''
-        if filename != None and os.path.isfile(filename):
-            with open(filename) as f:
-                text = f.read()
-
         self._filename = filename
+        if type(filename) is not tuple:
+           if filename != None and os.path.isfile(filename):
+                with open(filename) as f:
+                     text = f.read()
+        elif filename != None and type(filename) is tuple:
+            text = filename[0]
+            self._filename = filename[1]     
+
         self._buf = Buffer(text)
         self._row = 0
         self._col = 0
@@ -67,6 +71,7 @@ class EditorGUI(object):
         self._mode = 'normal'
         self._message = ''
         self._will_exit = False
+        self.format = format 
 
 
     def _draw_gutter(self, num_start, num_rows, last_line_num):
@@ -380,24 +385,26 @@ def use_curses():
     stdscr = curses.initscr()
     curses.noecho() # do not echo keys
     curses.cbreak() # don't wait for enter
+    curses.curs_set(True)
+    curses.mousemask(0)
     #receive mouse inputs
     try:
         yield stdscr
     finally:
         # clean up and exit
-        curses.nocbreak()
+        #curses.nocbreak()
         curses.echo()
         curses.endwin()
+        curses.curs_set(False)
+        stdscr.keypad(True)
+        curses.mousemask(2)
         #curses.mousemask(0)
 
 
-def curses_main():
+def curses_main(file=None):
     """Start the curses GUI."""
-    filename = argv[1] if len(argv) > 1 else None
+    #filename = argv[1] if len(argv) > 1 else None
     with use_curses() as stdscr:
-        gui = EditorGUI(stdscr, filename)
+        gui = EditorGUI(stdscr, filename=file)
         gui.main()
 
-
-if __name__ == '__main__':
-    curses_main()

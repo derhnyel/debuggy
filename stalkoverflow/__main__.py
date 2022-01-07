@@ -4,19 +4,48 @@ from stalkoverflow import parsers
 from stalkoverflow import handler
 from stalkoverflow import ui
 from stalkoverflow.color import bcolors
+from stalkoverflow import editor_tui
 import sys
 
+
 def main():
+    if sys.argv[1]=='editor':
+        file = None if len(sys.argv)<3 else sys.argv[2]
+        editor_tui.curses_main(file=file)
+        return True  
+    elif sys.argv[1]=='q':
+        query = ' '.join(sys.argv[2:len(sys.argv)])
+        if not os.path.isfile(query):
+            query = query+' site:stackoverflow.com'
+            titles,_,links,_=parsers.GSearch(query)
+            if titles != []:
+                ui.start_app(links,titles) # Opens interface       
+            else:
+                print("\n%s%s%s" % (bcolors.red, "No Google results found.\n", bcolors.end))  
+        else:
+             raise Exception("-q takes str and not paths")
+        return True       
+    elif sys.argv[1]=='s':
+        script = None if len(sys.argv)<3 else sys.argv[2]
+        if script is not None:
+            handler.ProcessScript(script)
+        else:
+             raise Exception("Enter a Valid file path")    
+        return True            
+
     parser = argparse.ArgumentParser (prog='DeBuggy',description='Command-line tool that automatically searches Google and displays results in your terminal when you get a compiler error.\n Made by @Derhnyel')
     parser.add_argument('-v','--version', action='version', version='%(prog)s 1.0')
     parser.add_argument("-s","--script",help="Run Script from Terminal")
-    parser.add_argument('-q','--query',help='Query stackoverflow with Error message ')
+    parser.add_argument('-q','--query',help='Query stackoverflow with Error message with -q or q ')
     subparser = parser.add_subparsers(dest='command')
     call = subparser.add_parser('call')
+   # editor = subparser.add_parser('editor')
+    query = subparser.add_parser('q')
     call.add_argument("-id",'--pid',required=True)
     call.add_argument('-e','--err',required=True)
     call.add_argument('-f','--file',required=True)
     args = parser.parse_args()
+    
 
 
     if args.command=='call':
@@ -24,9 +53,12 @@ def main():
             ProcessId= int(args.pid)
             handler.execute(args.err,ProcessId,filename =args.file)
         else:
-            raise Exception("-e takes path to Error logfile Only")    
+            raise Exception("-e takes path to Error logfile Only") 
+           
     elif args.query is not None:
         if not os.path.isfile(args.query):
+            print(sys.argv[2:len(sys.argv)])
+            print(sys.argv[1])
             query = args.query+' site:stackoverflow.com'
             titles,_,links,_=parsers.GSearch(query)
             if titles != []:
