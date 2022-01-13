@@ -9,29 +9,31 @@ import sys
 
 
 def main():
-    if sys.argv[1]=='editor':
-        file = None if len(sys.argv)<3 else sys.argv[2]
-        editor_tui.curses_main(file=file)
-        return True  
-    elif sys.argv[1]=='q':
-        query = ' '.join(sys.argv[2:len(sys.argv)])
-        if not os.path.isfile(query):
-            query = query+' site:stackoverflow.com'
-            titles,_,links,_=parsers.GSearch(query)
-            if titles != []:
-                ui.start_app(links,titles) # Opens interface       
+
+    if len(sys.argv)>=2:
+        if sys.argv[1]=='editor':
+            file = None if len(sys.argv)<3 else sys.argv[2]
+            editor_tui.curses_main(file=file)
+            return True  
+        elif sys.argv[1]=='q':
+            query = ' '.join(sys.argv[2:len(sys.argv)])
+            if not os.path.isfile(query):
+                query = query+' site:stackoverflow.com'
+                titles,_,links,_=parsers.GSearch(query)
+                if titles != []:
+                    ui.start_app(links,titles) # Opens interface       
+                else:
+                    print("\n%s%s%s" % (bcolors.red, "No Google results found.\n", bcolors.end))  
             else:
-                print("\n%s%s%s" % (bcolors.red, "No Google results found.\n", bcolors.end))  
-        else:
-             raise Exception("-q takes str and not paths")
-        return True       
-    elif sys.argv[1]=='s':
-        script = None if len(sys.argv)<3 else sys.argv[2]
-        if script is not None:
-            handler.ProcessScript(script)
-        else:
-             raise Exception("Enter a Valid file path")    
-        return True            
+                raise Exception("-q takes str and not paths")
+            return True       
+        elif sys.argv[1]=='s':
+            script = None if len(sys.argv)<3 else sys.argv[2]
+            if script is not None:
+                handler.ProcessScript(script)
+            else:
+                raise Exception("Enter a Valid file path")    
+            return True            
 
     parser = argparse.ArgumentParser (prog='DeBuggy',description='Command-line tool that automatically searches Google and displays results in your terminal when you get a compiler error.\n Made by @Derhnyel')
     parser.add_argument('-v','--version', action='version', version='%(prog)s 1.0')

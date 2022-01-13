@@ -316,7 +316,7 @@ def main_window(stdscr):
                         script = replace_text(export_value) 
                         # with open(filename, "w") as myfile:
                         #     myfile.write(script)
-                        editor_tui.curses_main(file = (script,filename))
+                        editor_tui.curses_main(file = (script,filename),lineno=eln-1)
                         script = None
 
                          
@@ -329,7 +329,7 @@ def main_window(stdscr):
                         import pyperclip
                         pyperclip.copy(export_value)
                         form_top_label=top_label
-                        top_label = "Debbugy >>> Code at {} Copied to Clipboard >>> {}".format(current_row,form_top_label)
+                        top_label = "Debbugy > Code Copied to Clipboard > {}".format(form_top_label)
 
                 elif key == ord('c'):
                     export_value = menu[current_row]
@@ -371,12 +371,19 @@ def main_window(stdscr):
                     break     
                        
 def replace_text(replacement_text):
-    script = linecache.getlines(filename)
+    linecache.clearcache()
+    script = linecache.getlines(filename) 
+    initial=len(script)
     errorlineno = eln-1
-    error_code = "#Debuggy Comment {}".format(script[errorlineno] )
+    error_code = "# Debuggy Commented The error Line: {} ".format(script[errorlineno] )
     script.pop(errorlineno)
     script.insert(errorlineno,replacement_text)
     script.insert(errorlineno,error_code)
+    script = linecache.getlines(filename)
+    present=len(script)
+    diff = present-initial
+    stop = errorlineno +diff
+    print('diff {} initial {} present {} stop {}'.format(diff,initial,present,stop))
     return ''.join(script)
           
 

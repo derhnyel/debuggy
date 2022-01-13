@@ -4,6 +4,7 @@ from contextlib import contextmanager
 from sys import argv
 import curses
 import os
+from stalkoverflow.color import *
 
 
 class Buffer(object):
@@ -27,7 +28,7 @@ class Buffer(object):
         if row < 0 or row > len(self._lines) - 1:
             raise ValueError("Invalid row: '{}'".format(row))
         cur_row = self._lines[row]
-        if col < 0 or col > len(cur_row):
+        if col < 0 :#or col > len(cur_row):
             raise ValueError("Invalid col: '{}'".format(col))
 
     def set_text(self, row1, col1, row2, col2, text):
@@ -49,7 +50,7 @@ class Buffer(object):
 
 class EditorGUI(object):
 
-    def __init__(self, stdscr, filename):
+    def __init__(self, stdscr, filename,lineno=0):
         """Create the GUI with curses screen and optional filename to load."""
         self._stdscr = stdscr
 
@@ -65,7 +66,7 @@ class EditorGUI(object):
             self._filename = filename[1]     
 
         self._buf = Buffer(text)
-        self._row = 0
+        self._row = lineno
         self._col = 0
         self._scroll_top = 0 # the first line number in the window
         self._mode = 'normal'
@@ -259,10 +260,10 @@ class EditorGUI(object):
                                 self._col + 1, '')
         elif char == ord('i'): # enter insert mode
             self._mode = "insert"
-            curses.mousemask(-1)
+            #curses.mousemask(-1)
         elif char == ord('a'): # enter insert mode after cursor
             self._mode = "insert"
-            curses.mousemask(-1)
+            #curses.mousemask(-1)
             self._col += 1
         elif char == ord('o'): # insert line after current
             cur_line_len = len(self._buf.get_lines()[self._row])
@@ -270,12 +271,12 @@ class EditorGUI(object):
                                cur_line_len, '\n')
             self._row += 1
             self._col = 0
-            curses.mousemask(-1)
+            #curses.mousemask(-1)
             self._mode = "insert"
         elif char == ord('O'): # insert line before current
             self._buf.set_text(self._row, 0, self._row, 0, '\n')
             self._col = 0
-            curses.mousemask(-1)
+            #curses.mousemask(-1)
             self._mode = "insert"
         elif char == ord('w'): # write file
             if self._filename == None:
@@ -305,7 +306,7 @@ class EditorGUI(object):
             # leaving insert mode moves cursor left
             if self._mode == 'insert':
                 self._col -= 1
-            curses.mousemask(0)    
+            #curses.mousemask(0)    
             self._mode = "normal"
         elif char == 127 or char ==8 or char == curses.KEY_BACKSPACE: # backspace
             if self._col == 0 and self._row == 0:
@@ -323,19 +324,19 @@ class EditorGUI(object):
                 self._buf.set_text(self._row, self._col - 1, self._row,
                                     self._col, '')
                 self._col -= 1
-        elif char == curses.KEY_MOUSE:
-               _,x,y,_,_ = curses.getmouse()
-               if x==-1 or y==-1:
-                   pass
-               else:
-                self._message= 'You pressed Mouse at position {} {}'.format(y,x)
-                #curses.setsyx(y, x)
-                #self._stdscr.move(y,x)
-                self._row=y
-                self._col= x-4 if x>=4 else 0
-                self._stdscr.refresh()
-                #curs_y, curs_x = curses.getsyx()
-                #curses.doupdate()
+        # elif char == curses.KEY_MOUSE:
+        #        _,x,y,_,_ = curses.getmouse()
+        #        if x==-1 or y==-1:
+        #            pass
+        #        else:
+        #         self._message= 'You pressed Mouse at position {} {}'.format(y,x)
+        #         #curses.setsyx(y, x)
+        #         #self._stdscr.move(y,x)
+        #         self._row=y
+        #         self._col= x-4 if x>=4 else 0
+        #         self._stdscr.refresh()
+        #         #curs_y, curs_x = curses.getsyx()
+        #         #curses.doupdate()        
 
         else:
             self._message = ('inserted {} at row {} col {}'
@@ -387,6 +388,8 @@ def use_curses():
     curses.cbreak() # don't wait for enter
     curses.curs_set(True)
     curses.mousemask(0)
+    curses_default_color(stdscr)
+    stdscr.attron(curses.color_pair(4)|curses.A_BOLD)
     #receive mouse inputs
     try:
         yield stdscr
@@ -398,13 +401,14 @@ def use_curses():
         curses.curs_set(False)
         stdscr.keypad(True)
         curses.mousemask(2)
+        stdscr.attroff(curses.color_pair(4)|curses.A_BOLD)
         #curses.mousemask(0)
 
 
-def curses_main(file=None):
+def curses_main(file=None,lineno=0):
     """Start the curses GUI."""
     #filename = argv[1] if len(argv) > 1 else None
     with use_curses() as stdscr:
-        gui = EditorGUI(stdscr, filename=file)
+        gui = EditorGUI(stdscr, filename=file,lineno=lineno)
         gui.main()
 

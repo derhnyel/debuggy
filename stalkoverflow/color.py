@@ -24,6 +24,7 @@ class bcolors:
       end = '\033[0m'
 
 def curses_default_color(stdscr):
+      curses.start_color()
       curses.init_pair(1,curses.COLOR_CYAN,curses.COLOR_MAGENTA)
       curses.init_pair(2,curses.COLOR_BLUE,curses.COLOR_RED)
       curses.init_pair(4,curses.COLOR_CYAN,curses.COLOR_BLACK)
