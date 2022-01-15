@@ -10,9 +10,9 @@ export_code =[]
 
 
 def StylizeCode(Text,verified_identifier=None,scr_width=None,index=None):
+    """Identifies and stylizes code in a question or answer."""
     global export_code
     holder =[]
-    """Identifies and stylizes code in a question or answer."""
     # TODO: Handle blockquotes and markdown
     if verified_identifier is not None and verified_identifier not in Text:
         try:
@@ -65,7 +65,7 @@ def StylizeCode(Text,verified_identifier=None,scr_width=None,index=None):
     return StylizedText
 
 def GSearch(Error):
-    #global Connection
+    """Fetch Results From Google"""
     try:
       print(bcolors.green+"Fetching Results...Please wait..."+bcolors.end)
       gs = GoogleSearch()
@@ -89,8 +89,9 @@ def GSearch(Error):
     return (titles,descriptions,lnks,urls)
 
 def StackOverflow (url,screen_width=None):
+  """Parse Stackoverflow url to extract answers and descriptions"""  
   global export_code  
-  HtmlText= ParseUrl(url)
+  HtmlText= ParseUrl(url)#get response text
   if HtmlText in [None,False]:
     return 'Found captcha' if HtmlText==None else 'No internet connection'
   QTitle = HtmlText.find_all('a', class_="question-hyperlink")[0].get_text()
@@ -125,9 +126,10 @@ def StackOverflow (url,screen_width=None):
 
 
 def ParseUrl(url):
-    UAgent = UserAgent()
-    #global Connection
     """Turns a given URL into a BeautifulSoup object."""
+    UAgent = UserAgent()#Randomize Fake User Agents
+    #global Connection
+    
     try:
         Response = requests.get(url, headers={"User-Agent": UAgent.random},timeout=10)
         if Response.status_code is not 200:
