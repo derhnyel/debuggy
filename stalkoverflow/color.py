@@ -2,6 +2,7 @@ import curses
 from colorama import init
 
 class bcolors:
+      """Initialize Colors"""
       init()
       bold='\033[1m'
       underline='\033[4m'
