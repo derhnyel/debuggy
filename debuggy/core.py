@@ -3,7 +3,7 @@ import os
 import inspect
 
 
-#Using memcached for faster implementation of distributed memory
+
 """Function to get the filename and path to Python script calling Debuggy Module
     get lines from python source file while attempting to optimize internally.
 """
@@ -29,6 +29,7 @@ def _get_caller_path():
     except:
         raise Exception("Debuggy doesn't support the use of interative Shells like idle,ipython,jupyternotebook etc.")
     return (caller_path)                
+
 
 #print(os.getenv('SHELL'))
 __module_path__ = os.path.dirname(__file__)
