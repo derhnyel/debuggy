@@ -1,5 +1,5 @@
-[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=shield)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=svg)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![PyPI version](https://badge.fury.io/py/debuggy.svg)](https://badge.fury.io/py/debuggy) [![Coverage Status](https://coveralls.io/repos/github/derhnyel/deBuggy/badge.svg)](https://coveralls.io/github/derhnyel/deBuggy) ![GitHub all releases](https://img.shields.io/github/downloads/derhnyel/deBuggy/total?style=social) ![Pypi Downloads](https://img.shields.io/pypi/dm/debuggy)
-
+[![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=shield)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![CircleCI](https://circleci.com/gh/derhnyel/deBuggy/tree/main.svg?style=svg)](https://circleci.com/gh/derhnyel/deBuggy/tree/main) [![PyPI version](https://badge.fury.io/py/debuggy.svg)](https://badge.fury.io/py/debuggy) 
+[![Pypi Downloads](https://pepy.tech/badge/debuggy)](https://pepy.tech/project/debuggy)
 
 > "Stalk Overflow with `debuggy`"
 #### Error Parser
@@ -14,30 +14,11 @@ By importing debuggy as the first (1st) line of your python script, it keeps tra
     >>> import debuggy
 ```
 
-You can also use debuggy comments to add comments to your code and make debugging earsier. Comments can be made before functions, classes and declaration of variables stating the function of the preceeding code block, if an error occurs within the code block , the comment is used to track proceedures to execute the function properly.
-
-```python
-    >>> from debuggy import comment 
-    >>> comment('function to add two numbers')
-    >>> def Add (x,y):
-            return x + y    
-
-```
-The type of preceeding code block can also be specified ,whether it is a function,class or variable using the 'type' argument with either 'func','class','var' as the type parameter.
-```python
-    >>> from debuggy import comment 
-    >>> comment(comment = 'function to add two numbers' ,type='func')
-    >>> def Add (x,y):
-            return x + y    
-
-```
  #### Installation 
 
     $ pip install debuggy
 
-    or apt-get if you're using Linux:
 
-    $ sudo apt-get install debuggy
     
 <hr>
 
