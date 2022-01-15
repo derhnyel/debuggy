@@ -37,6 +37,7 @@ def stylize_print(mypad,new_text,width):
     mypad.attroff(curses.color_pair(3))
 
 def style_answers(mypad,answer_text,QStatus,columns):
+        """Style anwsers code for parsing and export"""
         mypad.attron(curses.color_pair(3)|curses.A_BOLD|curses.A_UNDERLINE)
         mypad.addstr('\nANSWERS\n')
         mypad.addstr(QStatus)
@@ -46,6 +47,7 @@ def style_answers(mypad,answer_text,QStatus,columns):
         [stylize_print(mypad,x,columns-4) for x in answer_text]
 
 def style_description(mypad,description_text,QStatus,columns):
+        """Style descriptions code for parsing and export"""
         mypad.attron(curses.color_pair(3)|curses.A_BOLD|curses.A_UNDERLINE)
         mypad.addstr('\nDESCRIPTION\n')
         mypad.addstr(QStatus)
@@ -55,6 +57,7 @@ def style_description(mypad,description_text,QStatus,columns):
         stylize_print(mypad,description_text,columns-4)        
 
 def create_window(stdscr,menu,idx,ans=False,desc=False):
+    """Create new Window to handle Stackoverflow Results"""
     global cache,codes_to_export
     curses.mousemask(-1)
     y,x = stdscr.getmaxyx()
@@ -64,20 +67,20 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
     ResultWindow.immedok(True)
     ResultWindow.box()
     ResultWindow.border()
-    buttom_menu(stdscr)
+    buttom_menu(stdscr) #Print Bottom menu 
     rows, columns = ResultWindow.getmaxyx()
     top_menu =(menu[idx]).encode('utf-8').center(columns - 4)
     ResultWindow.addstr(0, 2, top_menu, curses.A_REVERSE)
     stdscr.addstr(rows//2,columns//2-len('Loading')//2, "LOADING...")
     stdscr.refresh()
     
-    if idx in cache.keys():
+    if idx in cache.keys():#check if result is cached
         QTitle,QDescription,QStatus,answers,codes_to_export=cache[idx]
         result=(QTitle,QDescription,QStatus,answers,codes_to_export)
     else:
         result = parsers.StackOverflow(links[idx],columns-4)
     
-    try:
+    try:#check if result can be fetched
         QTitle,QDescription,QStatus,answers,codes_to_export = result
         cache[idx]=(QTitle,QDescription,QStatus,answers,codes_to_export)
     except:
@@ -89,23 +92,25 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
                 return ('title',idx)
 
     else:
-        answer_text = [list(filter(lambda f : False if f=='\n' else f, x)) for x in answers]
-        description_text = list(filter(lambda x : False if x=='\n' else x, QDescription))    
-        mypad = curses.newpad(10000,columns-3)
+        answer_text = [list(filter(lambda f : False if f=='\n' else f, x)) for x in answers]# generate Answers and stylize for printing
+        description_text = list(filter(lambda x : False if x=='\n' else x, QDescription)) #generate descriptions and stylize for printing   
+        mypad = curses.newpad(10000,columns-3)# create a scrollable pad
         mypad_pos =  0
         mypad_shift = 0
         move = 'down'
         mypad.refresh(mypad_pos, mypad_shift, 3, 6, rows-1, columns-1)
         ResultWindow.addstr(y-5,x-10,'↓↓↓')
         ResultWindow.addstr(1,x-10,'↑↑↑')      
-        style_answers(mypad, answer_text, QStatus, columns)
+        style_answers(mypad, answer_text, QStatus, columns) # Display answers on pad
                 
         while True:
+            #Handle key press Actions
             stdscr.refresh() 
             y,x = stdscr.getmaxyx()
             rows, columns = ResultWindow.getmaxyx()
             if mypad_pos==0 :
                 mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1) 
+            #Display Top Title    
             top_menu = ("Line %d to %d of 10000 of %s" % (mypad_pos + 1, mypad_pos + rows,QTitle)).encode('utf-8').center(columns - 4)
             ResultWindow.addstr(0, 2, top_menu, curses.A_REVERSE)
             cmd = ResultWindow.getch()
@@ -131,7 +136,7 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
                 desc=True
                 mypad_pos =  0
                 mypad_shift = 0
-                style_description(mypad, description_text, QStatus, columns) 
+                style_description(mypad, description_text, QStatus, columns)#display descriptions on pad 
             
             elif cmd in[curses.KEY_RIGHT, curses.KEY_LEFT] and desc:
                 mypad.clear()
@@ -164,7 +169,9 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
 
 
 def print_menu(stdscr,rw_idx,menu,text):
+    """Display Main Menu"""
     def select_spaces(text):
+        """Add Spaces To END OF TEXT To extend it to the end of the screen"""
         stdscr.attron(curses.color_pair(2)|curses.A_BOLD)
         stdscr.addstr(y1,x1,text.upper())
         oc= w-4
@@ -173,13 +180,13 @@ def print_menu(stdscr,rw_idx,menu,text):
         spaces=' '*(val-1)
         stdscr.addstr(y1,pos,spaces)
         stdscr.attroff(curses.color_pair(2)|curses.A_BOLD)
-    h,w = stdscr.getmaxyx()
+    h,w = stdscr.getmaxyx()#get max height and width
     len_menu = len(menu)
     max_y=h-3
     max_x = w-5
     new_text = False
     stdscr.clear()
-    buttom_menu(stdscr)
+    buttom_menu(stdscr)#display Buttom menu
     text_pad(stdscr,text)
     diff = 0
     men2 = menu.copy()
@@ -236,20 +243,21 @@ def buttom_menu(stdscr):
         stdscr.addstr(h - 1, 2,'...', curses.A_REVERSE)    
 
 def main_window(stdscr):
-      mode = 'title' 
-      menu=titles
+      """Display Main window"""
+      mode = 'title' #set mode to title or export
+      menu=titles #set menu to title or export
       curses.curs_set(False)
       stdscr.keypad(True)
       curses.mousemask(2)
       h,w = stdscr.getmaxyx()
-      curses_default_color(stdscr)
-      current_row = 0   
+      curses_default_color(stdscr)#set colors
+      current_row = 0   #current row to 0
       top_label ='Debuggy'
       while True:
 
         print_menu(stdscr,current_row,menu,top_label)
         key = stdscr.getch()
-
+        """Handle KEy Press Actions when mode is set to title"""
         if mode=='title':
            stdscr.refresh()   
            if key == curses.KEY_UP and current_row-1 is not -1:
@@ -291,6 +299,7 @@ def main_window(stdscr):
                    pass
 
         elif mode=='export':
+            """Handle KEy press Action when mode is set to Export"""
             if codes_to_export !=[]:
                 stdscr.refresh()
                 if key == curses.KEY_UP and current_row-1 is not -1:
@@ -311,19 +320,11 @@ def main_window(stdscr):
                         menu = codes_to_export
                 elif key in [10,13,curses.KEY_ENTER]:
                     export_value = menu[current_row]
-                    #insert export value to line where error occured on script
                     if filename:
-                        script = replace_text(export_value) 
-                        # with open(filename, "w") as myfile:
-                        #     myfile.write(script)
-                        editor_tui.curses_main(file = (script,filename),lineno=eln-1)
+                        script = replace_text(export_value) #replace Error line with code extract
+                        editor_tui.curses_main(file = (script,filename),lineno=eln-1)#Open terminal
                         script = None
 
-                         
-                        #use subprocess or use an editor on main screen
-                        #editor(filename)       
-                        #save and overwrite script with the filename
-                        #open editor on script
                     else:
                         export_value = menu[current_row]
                         import pyperclip
@@ -371,7 +372,8 @@ def main_window(stdscr):
                     break     
                        
 def replace_text(replacement_text):
-    linecache.clearcache()
+    """FEtch Script and AND import answers to it"""
+    linecache.clearcache()# clear line cache
     script = linecache.getlines(filename) 
     initial=len(script)
     errorlineno = eln-1
@@ -383,7 +385,6 @@ def replace_text(replacement_text):
     present=len(script)
     diff = present-initial
     stop = errorlineno +diff
-    print('diff {} initial {} present {} stop {}'.format(diff,initial,present,stop))
     return ''.join(script)
           
 
