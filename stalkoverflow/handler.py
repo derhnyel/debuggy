@@ -19,6 +19,7 @@ def CheckErrorMessage(ErrorMessage):
             return True  
 
 def MonitorProcess(ProcessId):
+  """Checks IF scripts process Id is still Alive"""  
   try:
       print(bcolors.green+bcolors.bold+"Checking Running Script for Errors...",file=sys.stdout)      
       while True:
@@ -27,6 +28,7 @@ def MonitorProcess(ProcessId):
         return False
 
 def CleanError(ErrorMessage):
+  """Clean Errors from Log File when using import statement"""
   error = ErrorMessage[-2]#.split(':')
   ErrorLineno = int(ErrorMessage[1].split(',')[1].strip(' line'))
   error = error
@@ -146,6 +148,7 @@ def get_error_message(error, language):
 
 
 def UserConfirm(question):
+      """Validates User Choice"""
       ValidInputs = {"yes": True, "y": True, "ye": True, "no": False, "n": False}
       prompt = "[Y/N] "
       while True:
@@ -182,10 +185,10 @@ def ProcessScript(script):
 
 
 def execute(LogPath,ProcessId,filename=None):
-  ProcessState = MonitorProcess(ProcessId)
-  #clear terminal  
+  """Executes Error Log File and Spawn UI"""  
+  ProcessState = MonitorProcess(ProcessId)#Monitor Process
   with open(LogPath,'r') as log:
-    ErrMessage = log.read()
+    ErrMessage = log.read()#open error log
     ValidError=print(bcolors.red+bcolors.bold+ErrMessage,file=sys.stdout) if CheckErrorMessage(ErrMessage) is False else True
     #print to terminal and capture input while results are being fetched and cached
     ErrorMessage = ErrMessage.split('\n')
@@ -194,12 +197,12 @@ def execute(LogPath,ProcessId,filename=None):
     DisplayResult = UserConfirm('DeBuggy Wants to Search And Display Results?: ')
     if DisplayResult:
         ErrorMessage = ErrMessage.split('\n')
-        error_line_no,Error = CleanError(ErrorMessage)
+        error_line_no,Error = CleanError(ErrorMessage)# Extract meaningful text from error log
         #return error,lineno,ProcessState,ValidError
-        Error='%s %s %s' %('python',Error,' site:stackoverflow.com')
-        titles,_,links,_= parsers.GSearch(Error)
+        Error='%s %s %s' %('python',Error,' site:stackoverflow.com')#Add tag to search query
+        titles,_,links,_= parsers.GSearch(Error)#Fetch Results
         if titles!=[]:
-            ui.start_app(links,titles,file=filename,errorlineno=error_line_no)
+            ui.start_app(links,titles,file=filename,errorlineno=error_line_no)#Start UI
         else:
             print(bcolors.red+"No search Result Found"+bcolors.end)
             input("Press Enter To Continue")
