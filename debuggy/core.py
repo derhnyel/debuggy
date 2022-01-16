@@ -47,5 +47,5 @@ else:
     #Monitor Terminal Output and Capture Standard Error to Logger
     sys.stderr = __logger
     #Run main.py From Open Terminal(path to modules log_file)
-    os.system('start cmd /K debuggy call -e %s -id %s -f %s'%(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
+    os.system('start cmd /c debuggy call -e %s -id %s -f %s'%(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
     #__main = Popen(["python","main.py",str(process_id)],shell=True,stdin=sys.stdin,stdout=sys.stdout,start_new_session=True)#,executable=USERS_DEFAULT_SHELL)   
