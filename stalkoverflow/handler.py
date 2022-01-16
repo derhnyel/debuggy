@@ -27,10 +27,13 @@ def MonitorProcess(ProcessId):
   except NoSuchProcess as e:
         return False
 
-def CleanError(ErrorMessage):
+def CleanError(ErrorMessage,subproc=False):
   """Clean Errors from Log File when using import statement"""
   error = ErrorMessage[-2]#.split(':')
-  ErrorLineno = int(ErrorMessage[1].split(',')[1].strip(' line'))
+  if subproc:
+      ErrorLineno = int(ErrorMessage.split('\n')[1].split(',')[1].strip(' line'))
+  else:
+     ErrorLineno = int(ErrorMessage[1].split(',')[1].strip(' line'))
   error = error
   return (ErrorLineno,error)
 
@@ -173,13 +176,14 @@ def ProcessScript(script):
             print(bcolors.red+bcolors.bold+'Invalid File'+bcolors.end)
             sys.exit(1)      
    error_msg = get_error_message(error, language) # Prepares error message for search
-   eln,_=CleanError(error)         
+   if language == 'python':
+        eln,_=CleanError(error,subproc=True)         
    if error_msg==None :
      sys.exit(1) 
    DisplayResult = UserConfirm('DeBuggy Wants to Search And Display Results?: ')
    if DisplayResult:   
       Error='%s %s %s' %(language,error_msg,' site:stackoverflow.com')
-      titles,_,links,_=parsers.GSearch(Error)
+      titles,_,links,_= parsers.GSearch(Error)
       ui.start_app(links,titles,file = script,errorlineno=eln) if language=='python' else ui.start_app(links,titles)
 
 

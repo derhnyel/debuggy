@@ -254,9 +254,9 @@ def main_window(stdscr):
       current_row = 0   #current row to 0
       top_label ='Debuggy'
       while True:
-
-        print_menu(stdscr,current_row,menu,top_label)
-        key = stdscr.getch()
+        print_menu(stdscr,current_row,menu,top_label)  
+        if menu!=[]:
+            key = stdscr.getch()
         """Handle KEy Press Actions when mode is set to title"""
         if mode=='title':
            stdscr.refresh()   
@@ -272,7 +272,6 @@ def main_window(stdscr):
                     menu = codes_to_export
                     current_row = 0
                     stdscr.clear()
-                    
                     top_label = 'Debuggy >>> Select Code To Export'     
            elif key == ord("q"):
              break         
