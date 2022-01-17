@@ -85,7 +85,7 @@ WHILE IN CODES TO EXPORT MENU:
 - LOWERCASE c KEY (c)- COPY CODE TO CLIPBOARD
 - ENTER KEY (enter) - SELECT HIGHLIGHTED LINE | OPEN EDITOR IF SCRIPT IS PRESENT ELSE COPIES CODE SNIPPET TO CLIPBOARD
 
-### Debuggy Editor Commands
+#### Debuggy Editor Commands
 The Editor has two modes, Normal and Insert modes. It Opens in normal mode by default. 
 - DOWN ARROW KEY (↓) - MOVE CURSOR TO NEXT LINE
 - UP ARROW KEY (↑) - MOVE CURSOR TO PREVIOUS LINE
