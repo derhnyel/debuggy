@@ -70,7 +70,7 @@ class EditorGUI(object):
         self._col = 0
         self._scroll_top = 0 # the first line number in the window
         self._mode = 'normal'
-        self._message = ''
+        self._message = '(↓) (↑) (→) (←) Next Previous Line | (q) Quit Editor| (i) Insert Mode| (esc) Normal Mode | (w) Write to File'
         self._will_exit = False
         self.format = format 
 
@@ -358,7 +358,7 @@ class EditorGUI(object):
         while not self._will_exit:
             self._stdscr.refresh()
             self._draw()
-            self._message = ''
+            self._message = '(↓) (↑) (→) (←) Next Previous Line | (q) Quit Editor| (i) Insert Mode| (esc) Normal Mode | (w) Write to File'
             if cnt==0:
                 char = 32
             else:
