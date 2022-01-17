@@ -13,12 +13,11 @@ By importing debuggy as the first (1st) line of your python script, it keeps tra
 ```python
     >>> import debuggy
 ```
+![Demo Import](https://github.com/derhnyel/deBuggy/blob/main/assets/import.gif)
 
  #### Installation 
 
     $ pip install debuggy
-
-
     
 <hr>
 
@@ -27,14 +26,16 @@ Debuggy comes with a CLI tool . You can use it as such:
 
 ```bash
 $ debuggy --query "how to use loops"
+$ debuggy q concurency in python
 ```
-![Demo Query](https://github.com/derhnyel/deBuggy/blob/main/assets/debuggy_query.gif)
+![Demo Query](https://github.com/derhnyel/deBuggy/blob/main/assets/query.gif)
 
 __Supported file types:__ Python, Node.js, Ruby, Golang, and Java. These can be parsed into debuggy to track Errors by using the --script command.  
 ```bash
 $ debuggy --script test.py
+$ debuggy s test.py
 ```
-![Demo Script](https://github.com/derhnyel/deBuggy/blob/main/assets/debuggy_script.gif)
+![Demo Script](https://github.com/derhnyel/deBuggy/blob/main/assets/script.gif)
 ```bash
 USAGE: DeBuggy [-h] [-v] [-s SCRIPT] [-q QUERY] {call} ...
 
@@ -52,6 +53,14 @@ optional arguments:
   -q QUERY, --query QUERY
                         Query stackoverflow with Error message
 ```
+Debuggy also comes with a terminal IDE which can be used to write codes for different languages
+Run command
+```bash
+$ debuggy editor
+
+$ debuggy editor test.py
+```
+![Demo Script](https://github.com/derhnyel/deBuggy/blob/main/assets/editor.gif)
 
 ## Manually building from source
 
@@ -71,7 +80,9 @@ __Pending Features:__
 
 
 ## Meta
-Inspired by [Shobrook](https://github.com/shobrook) Repository [Rebound](https://github.com/shobrook/Rebound).
+Supports 
+[Shobrook](https://github.com/shobrook) Repository [Rebound](https://github.com/shobrook/Rebound).
+Inspired by [tdryer](https://github.com/tdryer) Repository [editor](https://github.com/tdryer/editor).
 
 Distributed under the MIT license. See [LICENSE](https://github.com/derhnyel/deBuggy/blob/master/LICENSE) for more information.
 * [Eje Daniel](https://github.com/derhnyel) - author/maintainer
