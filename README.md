@@ -7,7 +7,7 @@ Everything is done in Python so it's extremely easy to install and use. Supports
 <hr>
 
  ## Installation 
- #### Using Pip Install
+ #### Using Pip 
     $ pip install debuggy
     
 <hr>
