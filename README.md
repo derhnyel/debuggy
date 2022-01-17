@@ -103,10 +103,6 @@ KEY PRESS ACTIONS IN INSERT MODE:
 - KEY BACKSPACE (backspace) - REMOVES PREVIOUS CHARACTER
 - KEY ESCAPE (esc) - EXITS INSERT MODE AND RETURNS TO NORMAL MODE
 
-
-
-
-
 ## Contributing
 
 Want to contribute to Debuggy? Awesome! Check out the [contributing guidelines](CONTRIBUTE.md) to get involved.
@@ -115,7 +111,6 @@ __Pending Features:__
 * Add Commenting feature
 * Search result Optimization
 * Add Support for more languages
-
 
 ## Meta
 Supports: 
