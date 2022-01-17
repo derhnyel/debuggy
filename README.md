@@ -6,6 +6,18 @@
 Everything is done in Python so it's extremely easy to install and use. Supports Python 3. Debuggy is used to execute scripts, it creates a wrap around the script with the help of sub processes, and listens for errors, capturing and parsing them through popular discussion forums. This is then styled and displayed on the terminal with the help of python curses.
 <hr>
 
+ ## Installation 
+ #### Using Pip Install
+    $ pip install debuggy
+    
+<hr>
+
+#### Manually building from source
+
+- Install Python tools 3+ - (<https://www.python.org/downloads/>)
+- Clone this repo `git clone git@github.com:derhnyel/deBuggy.git`
+- Run unit tests with `make test`
+- Build and install: `make install`
 ## Usage
 Simple Example:
 By importing debuggy as the first (1st) line of your python script, it keeps track of the scripts run time and parses any error message encountered.
@@ -14,19 +26,6 @@ By importing debuggy as the first (1st) line of your python script, it keeps tra
     >>> import debuggy
 ```
 ![Demo Import](https://github.com/derhnyel/deBuggy/blob/main/assets/import.gif)
-
- #### Installation 
-
-    $ pip install debuggy
-    
-<hr>
-
-## Manually building from source
-
-- Install Python tools 3+ - (<https://www.python.org/downloads/>)
-- Clone this repo `git clone git@github.com:derhnyel/deBuggy.git`
-- Run unit tests with `make test`
-- Build and install: `make install`
 
 #### Command line
 Debuggy comes with a CLI tool . You can use it as such:
@@ -67,7 +66,6 @@ $ debuggy editor
 $ debuggy editor test.py
 ```
 ![Demo Editor](https://github.com/derhnyel/deBuggy/blob/main/assets/editor.gif)
-
 
 #### Debuggy TUI Commands
 - DOWN ARROW KEY (↓) - HIGHLIGHT NEXT LINE
