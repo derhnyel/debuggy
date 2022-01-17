@@ -29,19 +29,6 @@ By importing debuggy as the first (1st) line of your python script, it keeps tra
 
 #### Command line
 Debuggy comes with a CLI tool . You can use it as such:
-
-```bash
-$ debuggy --query "how to use loops"
-$ debuggy q concurency in python
-```
-![Demo Query](https://github.com/derhnyel/deBuggy/blob/main/assets/query.gif)
-
-__Supported file types:__ Python, Node.js, Ruby, Golang, and Java. These can be parsed into debuggy to track Errors by using the --script command.  
-```bash
-$ debuggy --script test.py
-$ debuggy s test.py
-```
-![Demo Script](https://github.com/derhnyel/deBuggy/blob/main/assets/script.gif)
 ```bash
 USAGE: DeBuggy [-h] [-v] [-s SCRIPT] [-q QUERY] {call} ...
 
@@ -54,11 +41,29 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -v, --version         show programs version number and exit
-  -s SCRIPT, --script SCRIPT
+  -s SCRIPT, --script SCRIPT , s SCRIPT
                         Run Script from Terminal
-  -q QUERY, --query QUERY
+  -q QUERY, --query QUERY , q QUERY
                         Query stackoverflow with Error message
+  editor                
+                        Open Terminal Editor                          
 ```
+
+```bash
+$ debuggy --query "concurrency in python"
+$ debuggy -q "concurrency in python"
+$ debuggy q concurency in python
+```
+![Demo Query](https://github.com/derhnyel/deBuggy/blob/main/assets/query.gif)
+
+__Supported file types:__ Python, Node.js, Ruby, Golang, and Java. These can be parsed into debuggy to track Errors by using the --script command.  
+```bash
+$ debuggy --script test.py
+$ debuggy -s test.py
+$ debuggy s test.py
+```
+![Demo Script](https://github.com/derhnyel/deBuggy/blob/main/assets/run_script.gif)
+
 Debuggy also comes with a terminal IDE which can be used to write codes for different languages.This can be accessed by using the command
 ```bash
 $ debuggy editor
@@ -74,22 +79,22 @@ $ debuggy editor test.py
 - LOWERCASE q KEY (q) - QUIT CURRENT VIEW | QUIT TUI 
 - ESCAPE,BACKSPACE KEYS (esc,backspace) - MOVE BACK TO PREVIOUS VIEW
 - LOWERCASE b KEY (b) - OPENS CURRENT HIGHLIGHTED LINK IN BROWSER
-WHILE IN STACKOVERFLOW QUESTION PAGE: 
+###### WHILE IN STACKOVERFLOW QUESTION PAGE: 
 - (→) and (←) MOVES BETWEEN ANSWERS AND DESCRIPTIONS
 - RIGHT ARROW KEY (→) - NEXT PAGE VIEW 
 - LEFT ARROW KEY (←) - PREVIOUS PAGE VIEW
 - LOWERCASE e KEY (e) - EXPORT CODES FROM ANSWERS TO CLIPBOARD OR SCRIPT IF PRESENT | OPENS EXPORT MENU
-WHILE IN CODES TO EXPORT MENU:
+###### WHILE IN CODES TO EXPORT MENU:
 - LOWERCASE c KEY (c)- COPY CODE TO CLIPBOARD
 - ENTER KEY (enter) - SELECT HIGHLIGHTED LINE | OPEN EDITOR IF SCRIPT IS PRESENT ELSE COPIES CODE SNIPPET TO CLIPBOARD
 
-### Debuggy Editor Commands
+#### Debuggy Editor Commands
 The Editor has two modes, Normal and Insert modes. It Opens in normal mode by default. 
 - DOWN ARROW KEY (↓) - MOVE CURSOR TO NEXT LINE
 - UP ARROW KEY (↑) - MOVE CURSOR TO PREVIOUS LINE
 - RIGHT ARROW KEY (→) - MOVE CURSOR RIGHT
 - LEFT ARROW KEY (←) - MOVE CURSOR LEFT
-KEY PRESS ACTIONS IN NORMAL MODE:
+###### KEY PRESS ACTIONS IN NORMAL MODE:
 - LOWERCASE w KEY (w) - WRITE TO FILE (Editor should be initialized with a filename)
 - LOWERCASE a KEY (a) -  Enter Insert mode after cursor position
 - LOWERCASE i KEY (i) -  Enter Insert mode
@@ -99,7 +104,7 @@ KEY PRESS ACTIONS IN NORMAL MODE:
 - UPPERCASE O KEY (O) - Enter and Insert line before current
 - LOWERCASE o KEY (o) - Enter and Insert line after current 
 - LOWERCASE q KEY (q) - Quit Editor
-KEY PRESS ACTIONS IN INSERT MODE:
+###### KEY PRESS ACTIONS IN INSERT MODE:
 - KEY BACKSPACE (backspace) - REMOVES PREVIOUS CHARACTER
 - KEY ESCAPE (esc) - EXITS INSERT MODE AND RETURNS TO NORMAL MODE
 
