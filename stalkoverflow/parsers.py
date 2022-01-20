@@ -94,12 +94,15 @@ def StackOverflow (url,screen_width=None):
   HtmlText= ParseUrl(url)#get response text
   if HtmlText in [None,False]:
     return 'Found captcha' if HtmlText==None else 'No internet connection'
-  QTitle = HtmlText.find_all('a', class_="question-hyperlink")[0].get_text()
-  QStatus = HtmlText.find("div", attrs={"itemprop": "upvoteCount"}).get_text() # Vote count
-  QStatus += " Votes | Asked " + HtmlText.find("time", attrs={"itemprop": "dateCreated"}).get_text() # Date created
-  QDescription = StylizeCode(HtmlText.find_all("div", class_="s-prose js-post-body")[0])
-  answers = [soup.get_text() for soup in HtmlText.find_all("div", class_="js-post-body")][
-              1:]
+  try:
+    QTitle = HtmlText.find_all('a', class_="question-hyperlink")[0].get_text()
+    QStatus = HtmlText.find("div", attrs={"itemprop": "upvoteCount"}).get_text() # Vote count
+    QStatus += " Votes | Asked " + HtmlText.find("time", attrs={"itemprop": "dateCreated"}).get_text() # Date created
+    QDescription = StylizeCode(HtmlText.find_all("div", class_="s-prose js-post-body")[0])
+    answers = [soup.get_text() for soup in HtmlText.find_all("div", class_="js-post-body")][
+                1:]
+  except:
+      return 'Sorry Page cannot be Parsed. Try Another Link'              
   try:
       accepted_answer  = HtmlText.find_all("div",class_="accepted-answer")[0].find_all("div",class_="js-post-body")[0]#.get_text()
   except:
@@ -128,7 +131,7 @@ def StackOverflow (url,screen_width=None):
 def ParseUrl(url):
     """Turns a given URL into a BeautifulSoup object."""
     UAgent = UserAgent()#Randomize Fake User Agents
-    #global Connection
+
     
     try:
         Response = requests.get(url, headers={"User-Agent": UAgent.random},timeout=10)
