@@ -17,7 +17,7 @@ else:
 
 setup(
         name ='debuggy',
-        version ='1.1.1',
+        version ='1.1.2',
         author ='Eje Daniel',
         author_email ='ejedenials@gmail.com',
         url ='https://github.com/derhnyel/deBuggy',
