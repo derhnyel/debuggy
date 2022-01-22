@@ -1,13 +1,18 @@
 from setuptools import setup, find_packages
-
+from sys import platform
 # with open('README.md') as f:
 #      readme = f.read()
 
 with open('LICENSE') as f:
      license = f.read()
 
-with open('requirements.txt') as f:
-    requirements = f.readlines()  
+if platform =="win32":
+   with open('requirements.txt') as f:
+        requirements = f.readlines()
+        requirements.append('windows-curses\n')
+else:
+    with open('requirements.txt') as f:
+        requirements = f.readlines()  
 
 
 setup(

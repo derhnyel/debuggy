@@ -1,6 +1,6 @@
 search_engine_parser
 argparse
-windows-curses
+#windows-curses
 pyfiglet
 psutil
 pyperclip

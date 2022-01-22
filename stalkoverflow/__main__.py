@@ -18,7 +18,7 @@ def main():
             return True  
         elif sys.argv[1]=='q':
             query = ' '.join(sys.argv[2:len(sys.argv)]) #splice to get query
-            if query==[]:
+            if query=='':
                 raise Exception("Enter a search query")
             if not os.path.isfile(query): #Ensure Query is not a File
                 query = query+' site:stackoverflow.com' #Append Stackoverflow tag to Query
