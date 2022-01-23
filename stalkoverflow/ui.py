@@ -5,6 +5,7 @@ from stalkoverflow import parsers
 from stalkoverflow.color import *
 import linecache
 from stalkoverflow import editor_tui
+from sys import platform
 
 links=None
 titles=None
@@ -101,8 +102,7 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
         mypad.refresh(mypad_pos, mypad_shift, 3, 6, rows-1, columns-1)
         ResultWindow.addstr(y-5,x-10,'↓↓↓')
         ResultWindow.addstr(1,x-10,'↑↑↑')      
-        style_answers(mypad, answer_text, QStatus, columns) # Display answers on pad
-                
+        style_answers(mypad, answer_text, QStatus, columns) # Display answers on pad      
         while True:
             #Handle key press Actions
             stdscr.refresh() 
@@ -136,8 +136,7 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
                 desc=True
                 mypad_pos =  0
                 mypad_shift = 0
-                style_description(mypad, description_text, QStatus, columns)#display descriptions on pad 
-            
+                style_description(mypad, description_text, QStatus, columns)#display descriptions on pad  
             elif cmd in[curses.KEY_RIGHT, curses.KEY_LEFT] and desc:
                 mypad.clear()
                 mypad_pos =  0
@@ -147,7 +146,7 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
                 style_answers(mypad, answer_text, QStatus, columns)
             elif cmd == ord('e'):
                 mode = 'export' 
-                return (mode,idx)
+                return (mode,idx)    
             elif cmd == curses.KEY_MOUSE:
                 _,w,h,_,_ = curses.getmouse()
                 if h in range(2,3) and  w in range(x-6,x-3) and mypad_pos!=0:
@@ -158,7 +157,7 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
                     move = 'down' 
                     mypad_pos += 1
                     mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)   
-                elif h==-1 and w==-1:
+                elif h==-1 and w==-1 :
                     if move =='down':   
                         mypad_pos += 1
                         mypad.refresh(mypad_pos, mypad_shift, 3, 6, y-6, x-1)
