@@ -12,12 +12,12 @@ if platform =="win32":
         requirements.append('windows-curses\n')
 else:
     with open('requirements.txt') as f:
-        requirements = f.readlines()  
+        requirements = f.readlines() 
 
 
 setup(
         name ='debuggy',
-        version ='1.1.2',
+        version ='1.1.3',
         author ='Eje Daniel',
         author_email ='ejedenials@gmail.com',
         url ='https://github.com/derhnyel/deBuggy',
