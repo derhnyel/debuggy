@@ -93,7 +93,7 @@ def StackOverflow (url,screen_width=None):
   global export_code  
   HtmlText= ParseUrl(url)#get response text
   if HtmlText in [None,False]:
-    return 'Found captcha' if HtmlText==None else 'No internet connection'
+    return 'Found captcha' if HtmlText==None else 'No Response ... Try Again ...'
   try:
     QTitle = HtmlText.find_all('a', class_="question-hyperlink")[0].get_text()
     QStatus = HtmlText.find("div", attrs={"itemprop": "upvoteCount"}).get_text() # Vote count
