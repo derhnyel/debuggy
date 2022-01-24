@@ -9,7 +9,7 @@ Everything is done in Python so it's extremely easy to install and use. Supports
  ## Installation 
  #### Using Pip 
     For Linux and Mac Os.
-    $ pip install debuggy
+    $ pip install debuggy --user
     
     For Windows Os.
     $ pip install debuggy[win]
@@ -34,13 +34,13 @@ By importing debuggy as the first (1st) line of your python script, it keeps tra
 #### Command line
 Debuggy comes with a CLI tool . You can use it as such:
 ```bash
-USAGE: DeBuggy [-h] [-v] [-s SCRIPT] [-q QUERY] {call} ...
+USAGE: DeBuggy [-h] [-v] [-s SCRIPT] [-q QUERY] {call,editor,s,q} ...
 
 Command-line tool that automatically searches Google and displays results in
 your terminal when you get a compiler error. Made by @Derhnyel
 
 positional arguments:
-  {call}
+  {call,editor,s,q}
 
 optional arguments:
   -h, --help            show this help message and exit
