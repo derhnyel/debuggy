@@ -1,5 +1,6 @@
-search_engine_parser
+search-engine-parser==0.6.6
 argparse
-pyfiglet
-psutil
-pyperclip
+pyfiglet==0.8.post1
+psutil==5.8.0
+pyperclip==1.7.0
+colorama==0.4.4
