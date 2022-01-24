@@ -10,11 +10,11 @@ with open('LICENSE') as f:
 with open('requirements.txt') as f:
     requirements = f.readlines()
 
-windows_req = requirements.append('windows-curses\n')
+# windows_req = requirements.append()
       
 setup(
         name ='debuggy',
-        version ='1.1.3',
+        version ='1.2.1',
         author ='Eje Daniel',
         author_email ='ejedenials@gmail.com',
         url ='https://github.com/derhnyel/deBuggy',
@@ -42,7 +42,7 @@ setup(
         'requirements': ['*.*'],
         },
         include_package_data=True,
-        extras_require={
-        'win': windows_req
+        extras_require = {
+        'win': 'windows-curses\n'
         },
         )
