@@ -8,7 +8,11 @@ Everything is done in Python so it's extremely easy to install and use. Supports
 
  ## Installation 
  #### Using Pip 
+    For Linux and Mac Os.
     $ pip install debuggy
+    
+    For Windows Os.
+    $ pip install debuggy[win]
     
 <hr>
 
@@ -121,6 +125,7 @@ __Pending Features:__
 Supports: 
 * [Shobrook](https://github.com/shobrook) Repository [Rebound](https://github.com/shobrook/Rebound).
 * [tdryer](https://github.com/tdryer) Repository [editor](https://github.com/tdryer/editor).
+
 
 Distributed under the MIT license. See [LICENSE](https://github.com/derhnyel/deBuggy/blob/master/LICENSE) for more information.
 * [Eje Daniel](https://github.com/derhnyel) - author/maintainer
