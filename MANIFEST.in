@@ -1,1 +1,4 @@
-include debuggy/data/log.err
+include /data/log.err
+include *.txt
+include requirements/*.txt
+include README.md
