@@ -8,10 +8,10 @@ Everything is done in Python so it's extremely easy to install and use. Supports
 
  ## Installation 
  #### Using Pip 
-    For Linux and Mac Os.
+    For Linux and Mac OS.
     $ pip install debuggy --user
     
-    For Windows Os.
+    For Windows OS.
     $ pip install debuggy[win]
     
 <hr>
