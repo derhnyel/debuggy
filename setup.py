@@ -1,6 +1,5 @@
 from setuptools import setup, find_packages
 
-
 with open('README.md','r',encoding="utf8") as f:
     readme = f.read()
 
