@@ -10,11 +10,9 @@ with open('LICENSE') as f:
 with open('requirements.txt') as f:
     requirements = f.readlines()
 
-# windows_req = requirements.append()
-      
 setup(
         name ='debuggy',
-        version ='1.2.1',
+        version ='2.0.0',
         author ='Eje Daniel',
         author_email ='ejedenials@gmail.com',
         url ='https://github.com/derhnyel/deBuggy',
