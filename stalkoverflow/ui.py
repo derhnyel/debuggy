@@ -5,7 +5,7 @@ from stalkoverflow import parsers
 from stalkoverflow.color import *
 import linecache
 from stalkoverflow import editor_tui
-from sys import platform
+#from sys import platform
 
 links=None
 titles=None
@@ -13,11 +13,6 @@ filename = None
 eln = None
 codes_to_export =[]
 cache = {}
-
-
-
-
-
 
 def stylize_print(mypad,new_text,width):
     """Function to stylize texts and codes for printing"""
@@ -256,7 +251,7 @@ def main_window(stdscr):
         print_menu(stdscr,current_row,menu,top_label)  
         if menu!=[]:
             key = stdscr.getch()
-        """Handle KEy Press Actions when mode is set to title"""
+        """Handle Key Press Actions when mode is set to title"""
         if mode=='title':
            stdscr.refresh()   
            if key == curses.KEY_UP and current_row-1 is not -1:
@@ -297,7 +292,7 @@ def main_window(stdscr):
                    pass
 
         elif mode=='export':
-            """Handle KEy press Action when mode is set to Export"""
+            """Handle Key press Action when mode is set to Export"""
             if codes_to_export !=[]:
                 stdscr.refresh()
                 if key == curses.KEY_UP and current_row-1 is not -1:
