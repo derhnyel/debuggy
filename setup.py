@@ -1,20 +1,17 @@
 from setuptools import setup, find_packages
-from sys import platform
-# with open('README.md') as f:
-#      readme = f.read()
+
+
+with open('README.md','r',encoding="utf8") as f:
+    readme = f.read()
 
 with open('LICENSE') as f:
-     license = f.read()
+    license = f.read()
 
-if platform =="win32":
-   with open('requirements.txt') as f:
-        requirements = f.readlines()
-        requirements.append('windows-curses\n')
-else:
-    with open('requirements.txt') as f:
-        requirements = f.readlines() 
+with open('requirements.txt') as f:
+    requirements = f.readlines()
 
-
+windows_req = requirements.append('windows-curses\n')
+      
 setup(
         name ='debuggy',
         version ='1.1.3',
@@ -25,8 +22,8 @@ setup(
         license =license,
         py_modules=['debuggy','stalkoverflow'],
         packages=find_packages(exclude=('tests', 'docs','bin','assets','.circleci')),
-        #long_description_content_type ="text/markdown",
-        #long_description = readme,
+        long_description_content_type ="text/markdown",
+        long_description = readme,
         entry_points ={
             'console_scripts': [
                 'debuggy = stalkoverflow.__main__:main'
@@ -39,4 +36,13 @@ setup(
         ],
         keywords ='debuggy python package stalkoverflow',
         install_requires = requirements,
-        zip_safe = False)
+        zip_safe = False,
+        package_data={
+        '': ['*.*'],
+        'requirements': ['*.*'],
+        },
+        include_package_data=True,
+        extras_require={
+        'win': windows_req
+        },
+        )
