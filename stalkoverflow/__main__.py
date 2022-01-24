@@ -44,7 +44,10 @@ def main():
     parser.add_argument('-q','--query',help='Query stackoverflow with Error message with -q or q ')
     subparser = parser.add_subparsers(dest='command')
     call = subparser.add_parser('call')
-    query = subparser.add_parser('q')
+    query_ = subparser.add_parser('q')
+    script_ = subparser.add_parser('s')
+    editor_ = subparser.add_parser('editor')
+
     call.add_argument("-id",'--pid',required=True)
     call.add_argument('-e','--err',required=True)
     call.add_argument('-f','--file',required=True)
