@@ -42,4 +42,5 @@ setup(
         extras_require = {
         'win': 'windows-curses\n'
         },
+        python_requires=">=3",
         )
