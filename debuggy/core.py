@@ -1,7 +1,7 @@
 import sys
 import os
 import inspect
-import platform
+import distro
 
 
 """Function to get the filename and path to Python script calling Debuggy Module
@@ -42,16 +42,16 @@ except PermissionError:
     raise PermissionError('Run script in an administrative terminal')
 
 else:
-    #Get process id of running script
+    # Get process id of running script
     process_id = os.getpid()
-    #Monitor Terminal Output and Capture Standard Error to Logger
+    # Monitor Terminal Output and Capture Standard Error to Logger
     sys.stderr = __logger
     if sys.platform == "win32":
         os.system('start cmd /c debuggy call -e %s -id %s -f %s'%(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
     #elif sys.platform == "linux":
     else:
-        if platform.linux_distribution()[0]=="Ubuntu":
-            os.system('gnome-terminal --command= "debuggy call -e %s -id %s -f %s &"'%(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
+        if distro.linux_distribution()[0]=="Ubuntu":
+            os.system('gnome-terminal --command= "debuggy call -e %s -id %s -f %s &"' %(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
         else:
-            os.system('xterm -e debuggy call -e %s -id %s -f %s &'%(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
+            os.system('xterm -e debuggy call -e %s -id %s -f %s &' %(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
     #__main = Popen(["python","main.py",str(process_id)],shell=True,stdin=sys.stdin,stdout=sys.stdout,start_new_session=True)#,executable=USERS_DEFAULT_SHELL)   
