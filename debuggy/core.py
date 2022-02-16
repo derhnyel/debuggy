@@ -52,6 +52,9 @@ else:
     else:
         if distro.linux_distribution()[0]=="Ubuntu":
             os.system('gnome-terminal --command= "debuggy call -e %s -id %s -f %s &"' %(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
+        elif sys.platform=="darwin":
+            #os.system('open -a Terminal --args "debuggy call -e %s -id %s -f %s &"' %(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
+            os.system('echo "debuggy call -e %s -id %s -f %s &" > /tmp/tmp.sh ; chmod +x /tmp/tmp.sh ; open -a Terminal /tmp/tmp.sh ; sleep 2 ; rm /tmp/tmp.sh> /tmp/tmp.sh ; chmod +x /tmp/tmp.sh ; open -a Terminal /tmp/tmp.sh ; sleep 2 ; rm /tmp/tmp.sh'%(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
         else:
             os.system('xterm -e debuggy call -e %s -id %s -f %s &' %(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
     #__main = Popen(["python","main.py",str(process_id)],shell=True,stdin=sys.stdin,stdout=sys.stdout,start_new_session=True)#,executable=USERS_DEFAULT_SHELL)   
