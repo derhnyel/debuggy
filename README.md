@@ -9,7 +9,7 @@ Everything is done in Python so it's extremely easy to install and use. Supports
  ## Installation 
  #### Using Pip 
     For Linux and Mac OS.
-    $ pip install debuggy --user
+    $ sudo pip3 install debuggy
     
     For Windows OS.
     $ pip install debuggy[win]
