@@ -39,12 +39,12 @@ def main():
             return True            
     """Use Args Parser"""
     parser = argparse.ArgumentParser (prog='DeBuggy',description='Command-line tool that automatically searches Google and displays results in your terminal when you get a compiler error.\n Made by @Derhnyel')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.0.0')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 3.0.0')
     parser.add_argument("-s","--script",help="Run Script from Terminal")
-    parser.add_argument('-q','--query',help='Query stackoverflow with Error message with -q or q ')
+    parser.add_argument('-q','--query',help='Query stackoverflow with Error message ')
     subparser = parser.add_subparsers(dest='command')
     call = subparser.add_parser('call')
-    query_ = subparser.add_parser('q')
+    #query_ = subparser.add_parser('q')
     script_ = subparser.add_parser('s')
     editor_ = subparser.add_parser('editor')
 
@@ -62,8 +62,8 @@ def main():
            
     elif args.query is not None:
         if not os.path.isfile(args.query):
-            print(sys.argv[2:len(sys.argv)])
-            print(sys.argv[1])
+            # print(sys.argv[2:len(sys.argv)])
+            # print(sys.argv[1])
             query = args.query+' site:stackoverflow.com'
             titles,_,links,_=parsers.GSearch(query)
             if titles != []:
