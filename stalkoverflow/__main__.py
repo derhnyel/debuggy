@@ -45,7 +45,7 @@ def main():
     subparser = parser.add_subparsers(dest='command')
     call = subparser.add_parser('call')
     #query_ = subparser.add_parser('q')
-    script_ = subparser.add_parser('s')
+    #script_ = subparser.add_parser('s')
     editor_ = subparser.add_parser('editor')
 
     call.add_argument("-id",'--pid',required=True)
