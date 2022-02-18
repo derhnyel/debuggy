@@ -51,7 +51,7 @@ else:
     #elif sys.platform == "linux":
     else:
         if distro.linux_distribution()[0]=="Ubuntu":
-            os.system('gnome-terminal --command= "debuggy call -e %s -id %s -f %s &"' %(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
+            os.system('gnome-terminal --command="debuggy call -e %s -id %s -f %s &"' %(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
         elif sys.platform ==  "darwin":
             #os.system('open -a Terminal --args "debuggy call -e %s -id %s -f %s &"' %(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
             os.system('echo "debuggy call -e %s -id %s -f %s &" > /tmp/tmp.sh ; chmod +x /tmp/tmp.sh ; open -a Terminal /tmp/tmp.sh ; sleep 2 ; rm /tmp/tmp.sh> /tmp/tmp.sh ; chmod +x /tmp/tmp.sh ; open -a Terminal /tmp/tmp.sh ; sleep 2 ; rm /tmp/tmp.sh'%(os.path.join(_caller_path,_get_caller_stack().filename.replace('.py','.err')),process_id,os.path.join(_caller_path,_get_caller_stack().filename)))
