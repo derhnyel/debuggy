@@ -31,7 +31,10 @@ def CleanError(ErrorMessage,subproc=False):
   """Clean Errors from Log File when using import statement"""
   error = ErrorMessage[-2]#.split(':')
   if subproc:
-      ErrorLineno = int(ErrorMessage.split('\n')[1].split(',')[1].strip(' line'))
+      try:
+          ErrorLineno = int(ErrorMessage.split('\n')[1].split(',')[1].strip(' line'))
+      except:
+          sys.exit(1)  
   else:
      ErrorLineno = int(ErrorMessage[1].split(',')[1].strip(' line'))
   error = error
@@ -182,7 +185,7 @@ def ProcessScript(script):
      sys.exit(1) 
    DisplayResult = UserConfirm('DeBuggy Wants to Search And Display Results?: ')
    if DisplayResult:   
-      Error='%s %s %s' %(language,error_msg,' site:stackoverflow.com')
+      Error='%s %s' %(language,error_msg)
       titles,_,links,_= parsers.GSearch(Error)
       ui.start_app(links,titles,file = script,errorlineno=eln) if language=='python' else ui.start_app(links,titles)
 
@@ -203,7 +206,7 @@ def execute(LogPath,ProcessId,filename=None):
         ErrorMessage = ErrMessage.split('\n')
         error_line_no,Error = CleanError(ErrorMessage)# Extract meaningful text from error log
         #return error,lineno,ProcessState,ValidError
-        Error='%s %s %s' %('python',Error,' site:stackoverflow.com')#Add tag to search query
+        Error='%s %s' %('python',Error)#Add tag to search query
         titles,_,links,_= parsers.GSearch(Error)#Fetch Results
         if titles!=[]:
             ui.start_app(links,titles,file=filename,errorlineno=error_line_no)#Start UI
