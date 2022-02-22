@@ -21,7 +21,6 @@ def main():
             if query=='':
                 raise Exception("Enter a search query")
             if not os.path.isfile(query): #Ensure Query is not a File
-                query = query+' site:stackoverflow.com' #Append Stackoverflow tag to Query
                 titles,_,links,_=parsers.GSearch(query) #Parse Query
                 if titles != []: #Check to Ensure Result is not Empty 
                     ui.start_app(links,titles) # Opens interface       
@@ -64,12 +63,11 @@ def main():
         if not os.path.isfile(args.query):
             # print(sys.argv[2:len(sys.argv)])
             # print(sys.argv[1])
-            query = args.query+' site:stackoverflow.com'
-            titles,_,links,_=parsers.GSearch(query)
+            titles,_,links,_=parsers.GSearch(args.query)
             if titles != []:
                 ui.start_app(links,titles) # Opens interface        
             else:
-                print("\n%s%s%s" % (bcolors.red, "No Google results found.\n", bcolors.end))
+                print("\n%s%s%s" % (bcolors.red, "No Google results found or Flagged for Too many requests \n", bcolors.end))
         else:
              raise Exception("-q takes str and not paths") #handle paths as query
     elif args.script is not None:
