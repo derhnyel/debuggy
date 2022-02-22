@@ -1,4 +1,4 @@
-search-engine-parser==0.6.6
+bs4==0.0.1
 argparse==1.4.0
 pyfiglet==0.8.post1
 psutil==5.8.0
