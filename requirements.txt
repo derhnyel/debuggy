@@ -6,3 +6,4 @@ pyperclip==1.7.0
 colorama==0.4.4
 requests==2.27.1
 distro==1.6.0
+fake-useragent==0.1.11
