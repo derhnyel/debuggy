@@ -10,10 +10,10 @@ Everything is done in Python so it's extremely easy to install and use. Supports
  #### Using Pip 
     For Linux and Mac OS.
     $ sudo pip3 install debuggy
-    
     For Windows OS.
-    $ pip install debuggy[win]
-    
+    pip install debuggy[win]
+#### Apt Install
+    $ sudo apt-get install python3-debuggy    
 <hr>
 
 #### Manually building from source
@@ -122,7 +122,7 @@ __Pending Features:__
 * Add Support for more languages
 
 ## Meta
-Supports: 
+Credits: 
 * [Shobrook](https://github.com/shobrook) Repository [Rebound](https://github.com/shobrook/Rebound).
 * [tdryer](https://github.com/tdryer) Repository [editor](https://github.com/tdryer/editor).
 
