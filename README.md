@@ -11,7 +11,7 @@ Everything is done in Python so it's extremely easy to install and use. Supports
     For Linux and Mac OS.
     $ sudo pip3 install debuggy
     For Windows OS.
-    pip install debuggy[win]
+    $ pip install debuggy[win]
 #### Apt Install
     $ sudo apt-get install python3-debuggy    
 <hr>
