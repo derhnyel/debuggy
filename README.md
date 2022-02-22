@@ -13,7 +13,7 @@ Everything is done in Python so it's extremely easy to install and use. Supports
     For Windows OS.
     $ pip install debuggy[win]
 #### Apt Install
-    $ sudo apt-get install python3-debuggy    
+    $ sudo apt install python3-debuggy    
 <hr>
 
 #### Manually building from source
