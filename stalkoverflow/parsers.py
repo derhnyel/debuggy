@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup as bs4
 from fake_useragent import UserAgent
 from  stalkoverflow.color import bcolors
 import re
+from urllib.parse import urlencode, urlparse
+from urllib.parse import urljoin
 #from search_engine_parser.core.engines.google import Search as GoogleSearch 
 
 export_code =[]
@@ -142,6 +144,7 @@ def ParseUrl(url):
     except requests.exceptions.RequestException:#ConnectionError
         sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
                                             "Please make sure you are connected to the internet.\n", bcolors.end))
+        
         return False
         #input('\nPress Enter to Continue. ')
         #sys.exit(1)
@@ -152,25 +155,57 @@ def ParseUrl(url):
     else:
         return bs4(Response.text, "html.parser")  
 
-def GSearch(query,page=0):
+def GSearch(query,page=1):
     """GOOGLE SEARCH PARSER WITHOUT DEPENDECY PACKAGE"""
-    ran = 1 if page is 0 else page
+    ran = 1 if page <= 0 else page
+    # if page <= 0:
+    #     page = 1
     titles=[]
     descriptions=[]
     urls=[]
     lnks=[]
+    query=query+" site:stackoverflow.com"
     for i in range(0,ran):
-        gquery =query.replace(" ","+")
-        gquery_url = "https://www.google.com/search?q="
-        softag_specifier = "+site%3Astackoverflow.com&page={}".format(i*10)
-        gurl = gquery_url+gquery+softag_specifier
+        titles.append("______ PAGE : "+ str(i+1) +" __________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________")
+        lnks.append(None)
+        #gquery =query.replace(" ","+")
+        #gquery_url = "https://www.google.com/search?q="
+        #softag_specifier = "+site%3Astackoverflow.com&page={}".format(i*10)
+        #gurl = gquery_url+gquery+softag_specifier
+        gurl=get_search_url(query,i)
         gsoup = ParseUrl(gurl)
+        if not gsoup:
+            sys.exit(1)
         header_link_elem = gsoup.select('div[class="egMi0 kCrYT"] a')
         #description_elem = gsoup.select('div[class="BNeawe s3v9rd AP7Wnd"]')
         re_pattern='http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
         for index in range(len(header_link_elem)):
-            hl_element = header_link_elem[index]
-            void = titles.append("**Parsable** "+hl_element.h3.text) if 'https://stackoverflow.com' in hl_element['href']  else titles.append(hl_element.h3.text)
-            lnks.append(re.findall(re_pattern,hl_element['href'])[-1])#use regex
-            #descriptions.append(description_elem[index].text)      
-    return (titles,descriptions,lnks,urls)              
+                hl_element = header_link_elem[index]
+                titles.append("**Parsable** "+hl_element.h3.text) if 'https://stackoverflow.com' in hl_element['href']  else titles.append(hl_element.h3.text)
+                lnks.append(re.findall(re_pattern,hl_element['href'])[-1])#use regex
+                #descriptions.append(description_elem[index].text)      
+    return (titles,descriptions,lnks,urls)   
+
+
+base_url = "https://www.google.com/"
+search_url = urljoin(base_url, "search")
+
+def get_search_url(query=None, page=None):
+        """
+        Return a formatted search url
+        """
+        # Some URLs use offsets
+        offset = (page * 10) - 9
+        params = get_params(
+            query=query, page=page, offset=offset)
+        url = urlparse(search_url)
+        parsed_url = url._replace(query=urlencode(params))
+        return parsed_url.geturl()
+
+
+def get_params(query=None, offset=None, page=None):
+        params = {}
+        params["start"] = (page) * 10
+        params["q"] = query
+        params["gbv"] = 1
+        return params               
