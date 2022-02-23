@@ -208,7 +208,7 @@ def execute(LogPath,ProcessId,filename=None):
         #return error,lineno,ProcessState,ValidError
         Error='%s %s' %('python',Error)#Add tag to search query
         titles,_,links,_= parsers.GSearch(Error)#Fetch Results
-        if titles!=[]:
+        if len(titles)!=1:
             ui.start_app(links,titles,file=filename,errorlineno=error_line_no)#Start UI
         else:
             print(bcolors.red+"No search Result Found"+bcolors.end)
