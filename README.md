@@ -10,6 +10,7 @@ Everything is done in Python so it's extremely easy to install and use. Supports
  #### Using Pip 
     For Linux and Mac OS.
     $ sudo pip3 install debuggy
+    
     For Windows OS.
     $ pip install debuggy[win]
 #### Apt Install
@@ -54,16 +55,14 @@ optional arguments:
 ```
 
 ```bash
-$ debuggy --query "concurrency in python"
-$ debuggy -q "concurrency in python"
+
 $ debuggy q concurency in python
 ```
 ![Demo Query](https://github.com/derhnyel/deBuggy/blob/main/assets/query.gif)
 
 __Supported file types:__ Python, Node.js, Ruby, Golang, and Java. These can be parsed into debuggy to track Errors by using the --script command.  
 ```bash
-$ debuggy --script test.py
-$ debuggy -s test.py
+
 $ debuggy s test.py
 ```
 ![Demo Script](https://github.com/derhnyel/deBuggy/blob/main/assets/run_script.gif)
