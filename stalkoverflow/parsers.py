@@ -184,6 +184,8 @@ def GSearch(query,page=1):
                 titles.append("**Parsable** "+hl_element.h3.text) if 'https://stackoverflow.com' in hl_element['href']  else titles.append(hl_element.h3.text)
                 lnks.append(re.findall(re_pattern,hl_element['href'])[-1])#use regex
                 #descriptions.append(description_elem[index].text)      
+        if len(titles)==1:
+            break
     return (titles,descriptions,lnks,urls)   
 
 
