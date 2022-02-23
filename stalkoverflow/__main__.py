@@ -22,7 +22,7 @@ def main():
                 raise Exception("Enter a search query")
             if not os.path.isfile(query): #Ensure Query is not a File
                 titles,_,links,_=parsers.GSearch(query) #Parse Query
-                if titles != []: #Check to Ensure Result is not Empty 
+                if len(titles) != 1: #Check to Ensure Result is not Empty 
                     ui.start_app(links,titles) # Opens interface       
                 else:
                     print("\n%s%s%s" % (bcolors.red, "No Google results found.\n", bcolors.end))  
@@ -64,7 +64,7 @@ def main():
             # print(sys.argv[2:len(sys.argv)])
             # print(sys.argv[1])
             titles,_,links,_=parsers.GSearch(args.query)
-            if titles != []:
+            if len(titles) !=1:
                 ui.start_app(links,titles) # Opens interface        
             else:
                 print("\n%s%s%s" % (bcolors.red, "No Google results found or Flagged for Too many requests \n", bcolors.end))
