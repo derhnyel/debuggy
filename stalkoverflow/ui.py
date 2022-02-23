@@ -74,7 +74,11 @@ def create_window(stdscr,menu,idx,ans=False,desc=False):
         QTitle,QDescription,QStatus,answers,codes_to_export=cache[idx]
         result=(QTitle,QDescription,QStatus,answers,codes_to_export)
     else:
-        result = parsers.StackOverflow(links[idx],columns-4)
+        if links[idx]!=None:
+            result = parsers.StackOverflow(links[idx],columns-4)
+        else:
+            return ('title',idx)
+
     
     try:#check if result can be fetched
         QTitle,QDescription,QStatus,answers,codes_to_export = result
@@ -229,7 +233,7 @@ def text_pad(stdscr,text):
 def buttom_menu(stdscr):
     '''Print Buttom Menu'''
     h,w = stdscr.getmaxyx()
-    bottom_menu = "(↓)Next(↑)Prev Line|(→)Next(←)Prev Page|(q)Quit|(esc,backspace)Back|(b)Open Browser|(e)ExportCode|(c)CopyCode".encode('utf-8').center(w - 5)
+    bottom_menu = "(↓)Nxt(↑)PrvLn|(→)Nxt(←)PrvPge|q-Quit|esc,bckspc-Bck|b-OpnBrwsr|e-ExprtCode|c-CpyCode".encode('utf-8').center(w - 5)
     try:
         stdscr.addstr(h - 1, 3, bottom_menu, curses.A_REVERSE)
     except:
