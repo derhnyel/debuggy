@@ -29,7 +29,11 @@ def MonitorProcess(ProcessId):
 
 def CleanError(ErrorMessage,subproc=False):
   """Clean Errors from Log File when using import statement"""
-  error = ErrorMessage[-2]#.split(':')
+  try:
+      error = ErrorMessage[-2]#.split(':')
+  except:
+      sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"Something Went Wrong - Seems You might have Imported Debuggy in the Script", bcolors.end))   
+      sys.exit(1)
   if subproc:
       try:
           ErrorLineno = int(ErrorMessage.split('\n')[1].split(',')[1].strip(' line'))
