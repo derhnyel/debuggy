@@ -134,7 +134,7 @@ def ParseUrl(url):
     """Turns a given URL into a BeautifulSoup object."""
     UAgent = UserAgent()#Randomize Fake User Agents
     try:
-        Response = requests.get(url, headers={"User-Agent": UAgent.random},timeout=10)
+        Response = requests.get(url, headers={"User-Agent": UAgent.random},timeout=15)
         if Response.status_code is not 200:
           sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
                                             +Response.reason+"\n Try again Later.", bcolors.end))
@@ -143,7 +143,7 @@ def ParseUrl(url):
           #sys.exit(1) 
     except requests.exceptions.RequestException:#ConnectionError
         sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
-                                            "Please make sure you are connected to the internet.\n", bcolors.end))
+                                            "Could be due to a Flag for Too many requests or Your Internet connection.\n", bcolors.end))
         
         return False
         #input('\nPress Enter to Continue. ')
@@ -165,7 +165,7 @@ def GSearch(query,page=1):
     urls=[]
     lnks=[]
     query=query+" site:stackoverflow.com"
-    print(bcolors.green+"Fetching Results...Please wait..."+bcolors.end)
+    print(bcolors.green+"Debuggy is Fetching Results...Please wait..."+bcolors.end)
     for i in range(0,ran):
         titles.append("______ PAGE : "+ str(i+1) +" __________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________")
         lnks.append(None)
@@ -176,7 +176,9 @@ def GSearch(query,page=1):
         gurl=get_search_url(query,i)
         gsoup = ParseUrl(gurl)
         if not gsoup:
+            input("Hit Enter to Continue: ")
             sys.exit(1)
+
         header_link_elem = gsoup.select('div[class="egMi0 kCrYT"] a')
         #description_elem = gsoup.select('div[class="BNeawe s3v9rd AP7Wnd"]')
         re_pattern='http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
