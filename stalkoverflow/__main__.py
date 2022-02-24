@@ -1,18 +1,14 @@
 import argparse
 import os
-from stalkoverflow import parsers
-from stalkoverflow import handler
-from stalkoverflow import ui
-from stalkoverflow.color import bcolors
-from stalkoverflow import editor_tui
+from stalkoverflow import (parsers,handler,ui,editor_tui,animation)
 import sys
 
 
 def main():
-
     if len(sys.argv)>=2:
         """Use system argv"""
         if sys.argv[1]=='editor':
+            animation.aprint("Debuggy is Launching Editor...Please wait...")
             file = None if len(sys.argv)<3 else sys.argv[2]
             editor_tui.curses_main(file=file)
             return True  
@@ -25,11 +21,12 @@ def main():
                 if len(titles) != 1: #Check to Ensure Result is not Empty 
                     ui.start_app(links,titles) # Opens interface       
                 else:
-                    print("\n%s%s%s" % (bcolors.red, "No Google results found.\n", bcolors.end))  
+                    print("\n%s%s%s" % (animation.bcolors.red, "No Google results found for query.\n", animation.bcolors.end))  
             else:
                 raise Exception("-q takes str and not paths")
             return True       
         elif sys.argv[1]=='s':
+            print(animation.bcolors.green+"Debuggy is Running Script...Please wait..."+animation.bcolors.end)
             script = None if len(sys.argv)<3 else sys.argv[2]
             if script is not None:
                 handler.ProcessScript(script) #Handle Script Process to catch exceptions
@@ -53,12 +50,12 @@ def main():
     args = parser.parse_args()
     
     if args.command=='call':
+        animation.start()
         if os.path.isfile(args.err):
             ProcessId= int(args.pid)
             handler.execute(args.err,ProcessId,filename =args.file)
         else:
-            raise Exception("-e takes path to Error logfile Only") 
-           
+            raise Exception("-e takes path to Error logfile Only")        
     elif args.query is not None:
         if not os.path.isfile(args.query):
             # print(sys.argv[2:len(sys.argv)])
@@ -67,13 +64,14 @@ def main():
             if len(titles) !=1:
                 ui.start_app(links,titles) # Opens interface        
             else:
-                print("\n%s%s%s" % (bcolors.red, "No Google results found or Flagged for Too many requests \n", bcolors.end))
+                print("\n%s%s%s" % (animation.bcolors.red, "No Google results found or Flagged for Too many requests \n", animation.bcolors.end))
         else:
              raise Exception("-q takes str and not paths") #handle paths as query
     elif args.script is not None:
+        print(animation.bcolors.green+"Debuggy is Running Script...Please wait..."+animation.bcolors.end)
         handler.ProcessScript(args.script)
-
     else:
+        animation.start()
         parser.print_help(sys.stderr)  
 
 if __name__ == '__main__':
