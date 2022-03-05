@@ -21,10 +21,10 @@ def StylizeCode(Text,verified_identifier=None,scr_width=None,index=None):
             width = (scr_width-6)//2
             #format = "="*width
             #text = "\n"+format +'ANSWER'+format+"\n"
-            text = "\n@(^_^)@ ANSWER @(^_^)@\n"
+            text = "\n(^__^) ANSWER (^__^)\n"
             Text.insert(0,text)
         except:
-            Text.insert(0,"@(^_^)@ ANSWER @(^_^)@\n")
+            Text.insert(0,"(^__^) ANSWER (^__^)\n")
     StylizedText = []
     CodeBlocks = [block.get_text() for block in Text.find_all("code")]
     BlockQuotes = [block.get_text() for block in Text.find_all("blockquote")]
@@ -96,7 +96,7 @@ def StackOverflow (url,screen_width=None):
   global export_code  
   HtmlText= ParseUrl(url)#get response text
   if HtmlText in [None,False]:
-    return 'Found captcha' if HtmlText==None else 'No Response ... Try Again ...'
+    return 'Found captcha' if HtmlText==None else 'No Response ... Try Again ... (o_o)'
   try:
     QTitle = HtmlText.find_all('a', class_="question-hyperlink")[0].get_text()
     QStatus = HtmlText.find("div", attrs={"itemprop": "upvoteCount"}).get_text() # Vote count
@@ -139,7 +139,7 @@ def ParseUrl(url):
         Response = requests.get(url, headers={"User-Agent": UAgent.random},timeout=15)
         if Response.status_code is not 200:
           sys.stdout.write("\n%s%s%s%s%s" % (bcolors.red,bcolors.underline,bcolors.bold,"DeBuggy was unable to fetch results. "
-                                            +Response.reason+"\n Try again Later.", bcolors.end))
+                                            +Response.reason+"\n Try again Later. (o_o)", bcolors.end))
           return False
           #input('\nPress Enter to Continue. ')                                  
           #sys.exit(1) 
