@@ -14,16 +14,17 @@ export_code =[]
 def StylizeCode(Text,verified_identifier=None,scr_width=None,index=None):
     """Identifies and stylizes code in a question or answer."""
     global export_code
-    holder =[]
+    holder = []
     # TODO: Handle blockquotes and markdown
     if verified_identifier is not None and verified_identifier not in Text:
         try:
             width = (scr_width-6)//2
-            format = "="*width
-            text = "\n"+format +'ANSWER'+format+"\n"
+            #format = "="*width
+            #text = "\n"+format +'ANSWER'+format+"\n"
+            text = "\n@(^_^)@ ANSWER @(^_^)@\n"
             Text.insert(0,text)
         except:
-            Text.insert(0,"================ANSWER==============\n")
+            Text.insert(0,"@(^_^)@ ANSWER @(^_^)@\n")
     StylizedText = []
     CodeBlocks = [block.get_text() for block in Text.find_all("code")]
     BlockQuotes = [block.get_text() for block in Text.find_all("blockquote")]
@@ -115,10 +116,11 @@ def StackOverflow (url,screen_width=None):
         answers.remove(accepted_answer)
     try:
         width = (screen_width-15)//2
-        format = "="*width
-        text = "\n"+format +'ACCEPTED ANSWER'+format+"\n"
+        #format = "="*width
+        #text = "\n"+format +'ACCEPTED ANSWER'+format+"\n"
+        text = "\n( ͡° ͜ʖ ͡°) ACCEPTED ANSWER ( ͡° ͜ʖ ͡°)\n"
     except:
-        text = "\n===============ACCEPTED ANSWER============"    
+        text = "\n( ͡° ͜ʖ ͡°) ACCEPTED ANSWER ( ͡° ͜ʖ ͡°)"    
     accepted_answer.insert(0,text)
     answers.insert(0,accepted_answer)
   finally:
@@ -165,7 +167,7 @@ def GSearch(query,page=1):
     urls=[]
     lnks=[]
     query=query+" site:stackoverflow.com"
-    print(bcolors.green+"Debuggy is Fetching Results...Please wait..."+bcolors.end)
+    print(bcolors.green+"Debuggy is Fetching Results ... Please wait ... (>'-')> "+bcolors.end)
     for i in range(0,ran):
         titles.append("______ PAGE : "+ str(i+1) +" __________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________")
         lnks.append(None)
