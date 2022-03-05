@@ -11,7 +11,7 @@ with open('requirements.txt') as f:
 
 setup(
         name ='debuggy',
-        version ='3.0.0',
+        version ='3.0.1',
         author ='Eje Daniel',
         author_email ='ejedenials@gmail.com',
         url ='https://github.com/derhnyel/deBuggy',
