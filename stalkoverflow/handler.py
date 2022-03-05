@@ -21,7 +21,7 @@ def CheckErrorMessage(ErrorMessage):
 def MonitorProcess(ProcessId):
   """Checks IF scripts process Id is still Alive"""  
   try:
-      print(bcolors.green+bcolors.bold+"Checking Running Script for Errors...",file=sys.stdout)      
+      print(bcolors.green+bcolors.bold+"Checking Running Script for Errors ... (>'-')>",file=sys.stdout)      
       while True:
           RunningProcess = Process(ProcessId)
   except NoSuchProcess as e:
@@ -166,13 +166,13 @@ def UserConfirm(question):
         UserChoice= input().lower()
         if UserChoice in ValidInputs:
           return ValidInputs[UserChoice]
-        print(bcolors.reverse+bcolors.blue+"Please respond with 'yes' or 'no' (or 'y' or 'n').\n",bcolors.end,file=sys.stdout)           
+        print(bcolors.reverse+bcolors.blue+"Please respond with 'yes' or 'no' (or 'y' or 'n') ... (o_o)\n",bcolors.end,file=sys.stdout)           
 
 
 def ProcessScript(script):
    language = script_language(script)
    if language=='unknown':
-      print("\n%s%s%s" % (bcolors.red, "Sorry, Debuggy doesn't support this file type.\n", bcolors.end))
+      print("\n%s%s%s" % (bcolors.red, "Sorry, Debuggy doesn't support this file type. ^__^\n", bcolors.end))
       sys.exit(1)
    if language == 'java':
           script = [f.replace('.class', '') for f in script]
@@ -180,14 +180,14 @@ def ProcessScript(script):
   #    language = 'java' 
    output, error = listen4errors("%s %s"%(language,script))
    if (output, error) == (None, None) or ("can't open file" in error and "No such file or directory" in error): # Invalid file
-            print(bcolors.red+bcolors.bold+'Invalid File'+bcolors.end)
+            print(bcolors.red+bcolors.bold+'Invalid File X_X '+bcolors.end)
             sys.exit(1)      
    error_msg = get_error_message(error, language) # Prepares error message for search
    if language == 'python':
         eln,_=CleanError(error,subproc=True)         
    if error_msg==None :
      sys.exit(1) 
-   DisplayResult = UserConfirm('DeBuggy Wants to Search And Display Results?: ')
+   DisplayResult = UserConfirm('DeBuggy Wants to Search And Display Results (•‿•) ?: ')
    if DisplayResult:   
       Error='%s %s' %(language,error_msg)
       titles,_,links,_= parsers.GSearch(Error)
@@ -205,7 +205,7 @@ def execute(LogPath,ProcessId,filename=None):
     ErrorMessage = ErrMessage.split('\n')
   if ValidError:
     print(bcolors.red+bcolors.bold+ErrMessage,bcolors.end,file=sys.stdout)
-    DisplayResult = UserConfirm('DeBuggy Wants to Search And Display Results?: ')
+    DisplayResult = UserConfirm('DeBuggy Wants to Search And Display Results (•‿•) ?: ')
     if DisplayResult:
         ErrorMessage = ErrMessage.split('\n')
         error_line_no,Error = CleanError(ErrorMessage)# Extract meaningful text from error log
@@ -215,8 +215,8 @@ def execute(LogPath,ProcessId,filename=None):
         if len(titles)!=1:
             ui.start_app(links,titles,file=filename,errorlineno=error_line_no)#Start UI
         else:
-            print(bcolors.red+"No search Result Found"+bcolors.end)
-            input("Press Enter To Continue")
+            print(bcolors.red+"No search Result Found ¯\_(ツ)_/¯"+bcolors.end)
+            input("Press Enter To Continue : )")
         #return ErrorMessage 
     else:
       sys.exit(1)    
