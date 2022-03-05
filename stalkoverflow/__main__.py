@@ -8,7 +8,7 @@ def main():
     if len(sys.argv)>=2:
         """Use system argv"""
         if sys.argv[1]=='editor':
-            animation.aprint("Debuggy is Launching Editor...Please wait...")
+            animation.aprint("Debuggy is Launching Editor ... Please wait ... (^_^)")
             file = None if len(sys.argv)<3 else sys.argv[2]
             editor_tui.curses_main(file=file)
             return True  
@@ -21,12 +21,12 @@ def main():
                 if len(titles) != 1: #Check to Ensure Result is not Empty 
                     ui.start_app(links,titles) # Opens interface       
                 else:
-                    print("\n%s%s%s" % (animation.bcolors.red, "No Google results found for query.\n", animation.bcolors.end))  
+                    print("\n%s%s%s" % (animation.bcolors.red, "No Google results found for query ... ¯\_(ツ)_/¯\n", animation.bcolors.end))  
             else:
                 raise Exception("-q takes str and not paths")
             return True       
         elif sys.argv[1]=='s':
-            print(animation.bcolors.green+"Debuggy is Running Script...Please wait..."+animation.bcolors.end)
+            print(animation.bcolors.green+"Debuggy is Running Script ... Please wait ... (╯°□°)╯"+animation.bcolors.end)
             script = None if len(sys.argv)<3 else sys.argv[2]
             if script is not None:
                 handler.ProcessScript(script) #Handle Script Process to catch exceptions
@@ -64,11 +64,11 @@ def main():
             if len(titles) !=1:
                 ui.start_app(links,titles) # Opens interface        
             else:
-                print("\n%s%s%s" % (animation.bcolors.red, "No Google results found or Flagged for Too many requests \n", animation.bcolors.end))
+                print("\n%s%s%s" % (animation.bcolors.red, "No Google results found or Flagged for Too many requests ... (ಠ_ಠ)\n", animation.bcolors.end))
         else:
              raise Exception("-q takes str and not paths") #handle paths as query
     elif args.script is not None:
-        print(animation.bcolors.green+"Debuggy is Running Script...Please wait..."+animation.bcolors.end)
+        print(animation.bcolors.green+"Debuggy is Running Script ... Please wait ... (>'-')>"+animation.bcolors.end)
         handler.ProcessScript(args.script)
     else:
         animation.start()
