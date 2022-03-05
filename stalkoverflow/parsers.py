@@ -46,11 +46,10 @@ USER_AGENTS = [
 ]
 
 def gen_user_agent() :
-    user_agent = random.choice(USER_AGENTS)
     try:
         user_agent = UserAgent().random
     except Exception:
-       pass
+       user_agent = random.choice(USER_AGENTS)
     return user_agent
 
 def StylizeCode(Text,verified_identifier=None,scr_width=None,index=None):
